@@ -1,0 +1,6 @@
+CompileFlags:
+  Add: ["-Isrc/public", "-Isrc/game/public"]
+  Remove: ["-f*"]
+
+Diagnostics:
+  Suppress: ['pp_including_mainfile_in_preamble', 'unused-includes']

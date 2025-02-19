@@ -13,6 +13,10 @@ game/mod_tf/videoconfig_linux.cfg
 game/mod_tf/ServerConfig.vdf
 src/.ninja*
 src/compile_commands.json
+src/lib/public/linux64/mathlib.a
+src/lib/public/linux64/raytrace.a
+src/lib/public/linux64/tier1.a
+src/lib/public/linux64/vgui_controls.a
 
 # Visual Studio 
 *.suo
