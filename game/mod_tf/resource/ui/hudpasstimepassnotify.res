@@ -19,7 +19,7 @@ Resource/UI/HudPasstimePassNotify.res
 		ControlName 				EditablePanel
 		fieldName 					HudPasstimePassNotify
 		xpos 						0
-		ypos 						26
+		ypos 						0
 		zpos 						0
 		wide 						f0
 		tall 						480
@@ -33,10 +33,10 @@ Resource/UI/HudPasstimePassNotify.res
 		ControlName 				EditablePanel
 		fieldName 					TextBox
 		xpos 						c-85
-		ypos 						c-188
+		ypos 						43
 		zpos 						1
 		wide 						173
-		tall 						46
+		tall 						26
 		visible 					1
 		enabled 					1
 		border						TFFatLineBorder
@@ -51,7 +51,7 @@ Resource/UI/HudPasstimePassNotify.res
 			ypos 					0
 			zpos 					3
 			wide 					300
-			tall 					32
+			tall 					26
 			visible 				1
 			enabled 				1
 			centerwrap				1
@@ -69,7 +69,7 @@ Resource/UI/HudPasstimePassNotify.res
 			ypos 					0
 			zpos 					3
 			wide 					300
-			tall 					32
+			tall 					26
 			visible 				1
 			enabled 				1
 			centerwrap				1
@@ -87,7 +87,7 @@ Resource/UI/HudPasstimePassNotify.res
 			ypos 					0
 			zpos 					3
 			wide 					300
-			tall 					32
+			tall 					26
 			visible 				1
 			enabled 				1
 			centerwrap				1
@@ -106,8 +106,8 @@ Resource/UI/HudPasstimePassNotify.res
 			zpos 					3
 			wide 					300
 			tall 					16
-			visible 				1
-			enabled 				1
+			visible 				0
+			enabled 				0
 			textAlignment 			center
 			labelText 				"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
 			fgcolor_override 		"224 217 197 180"
