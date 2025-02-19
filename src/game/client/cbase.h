@@ -11,6 +11,8 @@
 #pragma once
 #endif
 
+#define STAGING_ONLY
+
 struct studiohdr_t;
 
 #include <stdio.h>

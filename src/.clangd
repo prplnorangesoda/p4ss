@@ -13,4 +13,9 @@ Diagnostics:
       "bad_cxx_cast_unrelated_class",
       "member_function_call_bad_type",
       "init_conversion_failed",
+      "ovl_no_viable_member_function_in_call",
+      ovl_no_viable_function_in_call,
+      "template_arg_list_different_arity",
+      function_marked_override_not_overriding,
+      override_keyword_only_allowed_on_virtual_member_functions
     ]
