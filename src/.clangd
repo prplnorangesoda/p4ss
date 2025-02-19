@@ -3,4 +3,11 @@ CompileFlags:
   Remove: ["-f*"]
 
 Diagnostics:
-  Suppress: ['pp_including_mainfile_in_preamble', 'unused-includes']
+  UnusedIncludes: None
+  MissingIncludes: None
+  Suppress:
+    [
+      "pp_including_mainfile_in_preamble",
+      "unused-includes",
+      "reference_bind_to_bitfield",
+    ]
