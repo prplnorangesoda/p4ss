@@ -19,7 +19,7 @@
 		"ControlName"		"EditablePanel"
 		"fieldName"			"HudPasstimeBallStatus"
 		"xpos"				"0"
-		"ypos"				"0"
+		"ypos"				"24"
 		"zpos"				"100"
 		"wide"				"f0"
 		"tall"				"f0"
@@ -45,30 +45,7 @@
 		"PaintBackgroundType"	"0"
 	}
 	
-	"EventTitleLabel"
-	{
-		"ControlName"	"CExLabel"
-		"fieldName"		"EventTitleLabel"
-		"dropshadow"	"1"
-		"font"			"HudFontMediumSmallBold"
-		"xpos"			"0"
-		"ypos"			"30"
-		"zpos"			"3"
-		"wide"			"f"
-		"tall"			"25"
-		"visible"		"1"
-		"enabled"		"1"
-		"textAlignment"	"center"
-		"labelText"		"A TEAM STOLE THE BALL"
-		"fgcolor_override"	"224 217 197 255"
-		"border"				"TFFatLineBorder"
-		"textinsetx"		"30"
-		"auto_wide_tocontents"	"1"
-		"pin_to_sibling"		"EventTitleAnchor"
-		"pin_corner_to_sibling"	"4"
-		"pin_to_sibling_corner"	"6"
-	}
-
+		//Disabled, Critboost notif
 	"EventBonusLabel"
 	{
 		"ControlName"	"CExLabel"
@@ -93,7 +70,33 @@
 		"pin_corner_to_sibling"	"6"
 		"pin_to_sibling_corner"	"4"
 	}
-
+	
+		//The way this is set up is that EventTitleLabel will control both the event and playernames
+	"EventTitleLabel"
+	{
+		"ControlName"	"CExLabel"
+		"fieldName"		"EventTitleLabel"
+		"dropshadow"	"1"
+		"font"			"HudFontMediumSmallBold"
+		"xpos"			"0"
+		"ypos"			"-15"
+		"zpos"			"3"
+		"wide"			"f"
+		"tall"			"25"
+		"visible"		"1"
+		"enabled"		"1"
+		"textAlignment"	"center"
+		"labelText"		"A TEAM STOLE THE BALL"
+		"fgcolor_override"	"224 217 197 255"
+		"border"				"TFFatLineBorder"
+		"textinsetx"		"30"
+		"auto_wide_tocontents"	"1"
+		"pin_to_sibling"		"EventTitleAnchor"
+		"pin_corner_to_sibling"	"4"
+		"pin_to_sibling_corner"	"6"
+	}
+	
+		//This is the playernames under stole and score.
 	"EventDetailLabel"
 	{
 		"ControlName"	"CExLabel"
@@ -284,8 +287,8 @@
 		"xpos"			"0"
 		"ypos"			"0"
 		"zpos"			"10"
-		"wide"			"42"
-		"tall"			"42"
+		"wide"			"36"
+		"tall"			"36"
 		"autoResize"	"0"
 		"pinCorner"		"0"
 		"visible"		"1"
@@ -303,8 +306,8 @@
 		"xpos"			"0"
 		"ypos"			"0"
 		"zpos"			"-100"
-		"wide"			"42"
-		"tall"			"42"
+		"wide"			"35"
+		"tall"			"35"
 		"autoResize"	"0"
 		"pinCorner"		"0"
 		"visible"		"1"
@@ -323,9 +326,9 @@
 		"enabled"				"1"
 		"zpos"					"-400"
 		"xpos"					"0"
-		"ypos"					"0"
+		"ypos"					"-335"
 		"wide"					"200"
-		"tall"					"20"
+		"tall"					"18"
 		"textAlignment"			"center"
 		"dulltext"				"0"
 		"brighttext"			"1"
@@ -469,263 +472,263 @@
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon0"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon1"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon1"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon2"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon2"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon3"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon3"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon4"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon4"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon5"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon5"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon6"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon6"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon7"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon7"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon8"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon8"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon9"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon9"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon10"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon10"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon11"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon11"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon12"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon12"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon13"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon13"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon14"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon14"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon15"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon15"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon16"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon16"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon17"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon17"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon18"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon18"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon19"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon19"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon20"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon20"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon21"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon21"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon22"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon22"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon23"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon23"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon24"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon24"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon25"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon25"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon26"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon26"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon27"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon27"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon28"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon28"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon29"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon29"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon30"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon30"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon31"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon31"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 
 	"playericon32"
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"playericon32"
-		"wide" 			"12"
-		"tall" 			"12"
+		"wide" 			"16"
+		"tall" 			"16"
 	}
 }
