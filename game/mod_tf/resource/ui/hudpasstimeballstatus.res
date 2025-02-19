@@ -126,12 +126,10 @@
 	{
 		"ControlName"	"ImagePanel"
 		"fieldName"		"ProgressLevelBar"	
-		"xpos"			"c-190"
-		"xpos_minmode"	"c-140"
+		"xpos"			"c-140"
 		"ypos"			"r88"
 		"zpos"			"0"
-		"wide"			"380"
-		"wide_minmode"	"280"
+		"wide"			"280"
 		"tall"			"48"
 		"visible"		"1"
 		"enabled"		"1"
@@ -146,8 +144,7 @@
 		// might be padded for npot reasons.
 		"ControlName" 	"Panel"
 		"fieldName"		"BlueProgressEnd"
-		"xpos"			"c-152"
-		"xpos_minmode"	"c-112"
+		"xpos"			"c-112"
 		"ypos"			"r64"
 		"visible"		"0"
 	}
@@ -158,8 +155,7 @@
 		// might be padded for npot reasons.
 		"ControlName"	"Panel"
 		"fieldName"		"RedProgressEnd"
-		"xpos"			"c152"
-		"xpos_minmode"	"c112"
+		"xpos"			"c112"
 		"ypos"			"r64"
 		"visible"		"0"
 	}	
