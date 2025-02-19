@@ -17,6 +17,7 @@ src/lib/public/linux64/mathlib.a
 src/lib/public/linux64/raytrace.a
 src/lib/public/linux64/tier1.a
 src/lib/public/linux64/vgui_controls.a
+steam_appid.txt
 
 # Visual Studio 
 *.suo

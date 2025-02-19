@@ -10,4 +10,7 @@ Diagnostics:
       "pp_including_mainfile_in_preamble",
       "unused-includes",
       "reference_bind_to_bitfield",
+      "bad_cxx_cast_unrelated_class",
+      "member_function_call_bad_type",
+      "init_conversion_failed",
     ]

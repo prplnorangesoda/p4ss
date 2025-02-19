@@ -1,0 +1,12 @@
+# DisableFormat: True
+UseTab: Always
+IndentWidth: 4
+TabWidth: 4
+BreakBeforeBraces: Allman
+SortIncludes: Never
+SkipMacroDefinitionBody: true
+ContinuationIndentWidth: 0
+SpacesInParens: Custom
+SpacesInParensOptions:
+  InConditionalStatements: true
+  Other: true

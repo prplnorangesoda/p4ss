@@ -1,6 +1,6 @@
 {
   "clangd.arguments": [
-    "--compile-commands-dir=src"
+    "--compile-commands-dir=."
   ],
   "editor.formatOnSave": false,
   "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
