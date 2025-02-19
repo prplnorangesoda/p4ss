@@ -1,5 +1,19 @@
 # Files to ignore when considering what GIT should commit.
 
+# Ignore build artifacts
+game/mod_*_linux64
+game/mod_tf/cfg/*
+game/mod_tf/GameState.txt
+game/mod_tf/tf2_playerstats.dmx
+game/mod_tf/stats.txt
+game/mod_tf/voice_ban.dt
+game/mod_tf/maps/graphs/*
+game/mod_tf/media/*
+game/mod_tf/videoconfig_linux.cfg
+game/mod_tf/ServerConfig.vdf
+src/.ninja*
+src/compile_commands.json
+
 # Visual Studio 
 *.suo
 *.user
