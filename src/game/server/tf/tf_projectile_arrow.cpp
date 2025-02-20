@@ -30,6 +30,8 @@
 #include "soundenvelope.h"
 #include "tf_obj_sentrygun.h"
 
+#include "passtime_convars.h"
+#include <tf_passtime_ball.h>
 
 //=============================================================================
 //
@@ -749,6 +751,40 @@ void CTFProjectile_Arrow::ArrowTouch( CBaseEntity *pOther )
 
 	// test against combat characters, which include players, engineer buildings, and NPCs
 	CBaseCombatCharacter *pOtherCombatCharacter = dynamic_cast< CBaseCombatCharacter * >( pOther );
+
+	// P4SS: neutral and push the jack
+
+	if ( tf_passtime_med_cansplash.GetBool() )
+	{
+	
+		if ( !Q_strcmp( pOther->GetClassname(), "passtime_ball" ) )
+		{
+			const Vector &vecOrigin = GetAbsOrigin();
+			Vector vecVelocity = GetAbsVelocity();
+
+			CBaseEntity *pAttacker = GetScorer();
+
+			float crossbowDamage = GetDamage();
+
+			
+			if ( !pAttacker )
+			{
+				pAttacker = GetOwnerEntity();
+			}
+
+
+			if ( tf_passtime_med_canpushball.GetBool() )
+			{
+				CTakeDamageInfo info( this, pAttacker, m_hLauncher, vecVelocity, vecOrigin, crossbowDamage, DMG_GENERIC );
+				pOther->TakeDamage( info );		
+			}
+			else
+			{
+				((CPasstimeBall *) pOther)->ChangeTeam( 0 );
+			}
+		}
+
+	}
 
 	if ( !pOtherCombatCharacter )
 	{
