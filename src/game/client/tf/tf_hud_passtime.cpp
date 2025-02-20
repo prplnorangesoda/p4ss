@@ -501,7 +501,7 @@ namespace HudPasstimeEventText
 {
 	static const float flInSec = 0.1f;
 	static const float flOutSec = 0.25f;
-	static const float flShowSec = 3.0f;
+	static const float flShowSec = 2.0f;
 	static const float flPauseSec = 0.1f;
 	static const int iQueueDepthPanic = 3;
 	static char const * const pKeyTeam = "team";
@@ -736,12 +736,12 @@ void CTFHudPasstimeEventText::Enqueue( C_TFPlayer *pSource, C_TFPlayer *pSubject
 	SetPlayerName( pSource, HudPasstimeEventText::pKeySource );
 
 	auto *pLocalPlayer = C_TFPlayer::GetLocalTFPlayer();
-	auto bShowBonus = (pSubject == pLocalPlayer)
-		|| (pLocalPlayer->IsObserver() && pLocalPlayer->GetObserverTarget() == pLocalPlayer);
+	auto bShowBonus = false;
+	// auto bShowBonus = (pSubject == pLocalPlayer)
+	// 	|| (pLocalPlayer->IsObserver() && pLocalPlayer->GetObserverTarget() == pLocalPlayer);
 	
 	QueueElement e;
-	Q_wcsncpy(e.title, L"PENIS", e.STRLEN_MAX);
-	// ConstructNewString( pTitle, e.title );
+	ConstructNewString( pTitle, e.title );
 	ConstructNewString( pDetail, e.detail );
 	ConstructNewString( bShowBonus ? pBonus : nullptr, e.bonus );
 	m_queue.Insert( e );
@@ -769,6 +769,11 @@ void CTFHudPasstimeEventText::EnqueuePass( C_TFPlayer *pThrower, C_TFPlayer *pCa
 	Enqueue( pThrower, pCatcher, "#Msg_PasstimeEventPassTitle", "#Msg_PasstimeEventPassDetail", "#Msg_PasstimeEventPassBonus" );
 }
 
+//-----------------------------------------------------------------------------
+void CTFHudPasstimeEventText::EnqueueHandoff( C_TFPlayer *pThrower, C_TFPlayer *pCatcher )
+{
+	Enqueue( pThrower, pCatcher, "#Msg_PasstimeEventHandoffTitle", "#Msg_PasstimeEventHandoffDetail", "#Msg_PasstimeEventPassBonus" );
+}
 //-----------------------------------------------------------------------------
 void CTFHudPasstimeEventText::EnqueueInterception( C_TFPlayer *pThrower, C_TFPlayer *pCatcher )
 {

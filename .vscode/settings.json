@@ -3,5 +3,6 @@
     "--compile-commands-dir=src"
   ],
   "editor.formatOnSave": false,
-  "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+  "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+  "cmake.ignoreCMakeListsMissing": true
 }

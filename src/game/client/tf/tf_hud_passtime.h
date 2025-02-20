@@ -76,6 +76,7 @@ public:
 	void SetControls( vgui::Label *pTitleLabel, vgui::Label *pDetailLabel, vgui::Label *pBonusLabel );
 	void EnqueueSteal( C_TFPlayer *pAttacker, C_TFPlayer *pVictim );
 	void EnqueuePass( C_TFPlayer *pThrower, C_TFPlayer *pCatcher );
+	void EnqueueHandoff( C_TFPlayer *pThrower, C_TFPlayer *pCatcher );
 	void EnqueueInterception( C_TFPlayer *pThrower, C_TFPlayer *pCatcher );
 	void EnqueueScore( C_TFPlayer *pThrower, C_TFPlayer *pAssister );
 	void EnqueueGeneric( const char *pTitle, const char *pDetail, const char *pBonus );
