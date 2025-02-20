@@ -26,10 +26,11 @@
 #include "vgui/ISurface.h"
 #include <algorithm>
 #include <cstdio>
+#include "p4ssutils.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
-#include "p4ssutils.h"
+
 
 //-----------------------------------------------------------------------------
 using namespace vgui;
@@ -742,14 +743,26 @@ void CTFHudPasstimeEventText::Enqueue( C_TFPlayer *pSource, C_TFPlayer *pSubject
 	auto bShowBonus = false;
 	// auto bShowBonus = (pSubject == pLocalPlayer)
 	// 	|| (pLocalPlayer->IsObserver() && pLocalPlayer->GetObserverTarget() == pLocalPlayer);
-	auto team = GetGlobalTFTeam( pSource->GetTeamNumber() );
-
+	C_TFTeam *team;
+	
+	if ( pSource != nullptr )
+	{
+		team = GetGlobalTFTeam( pSource->GetTeamNumber() );
+	}
+	else if ( pSubject != nullptr )
+	{
+		team = GetGlobalTFTeam( pSubject->GetTeamNumber() );
+	}
+	else
+	{
+		team = GetGlobalTFTeam( TEAM_UNASSIGNED );
+	}
 	QueueElement e;
 	ConstructNewString( pTitle, e.title );
 	ConstructNewString( pDetail, e.detail );
 	ConstructNewString( bShowBonus ? pBonus : nullptr, e.bonus );
 
-	e.team = pSource->GetTeamNumber();
+	e.team = team->GetTeamNumber();
 	m_queue.Insert( e );
 }
 

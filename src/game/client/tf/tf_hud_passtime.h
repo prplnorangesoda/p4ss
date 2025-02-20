@@ -87,7 +87,7 @@ private:
 
 	struct QueueElement 
 	{
-		static const size_t STRLEN_MAX = 128;
+		static const unsigned long STRLEN_MAX = 128;
 		QueueElement();
 		wchar_t title[STRLEN_MAX];
 		wchar_t detail[STRLEN_MAX];
