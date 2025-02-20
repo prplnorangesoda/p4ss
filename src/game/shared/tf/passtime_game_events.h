@@ -74,6 +74,7 @@ namespace PasstimeGameEvents
 		PassCaught( IGameEvent *pEvent );
 		PassCaught();
 		PassCaught( int passerIndex, int catcherIndex, float dist, float duration );
+		PassCaught( int passerIndex, int catcherIndex, float dist, float duration, bool isHandoff );
 		void Fire();
 
 		static const char *const s_eventName;
@@ -81,10 +82,12 @@ namespace PasstimeGameEvents
 		static const char *const s_keyCatcherIndex;
 		static const char *const s_keyDist;
 		static const char *const s_keyDuration;
+		static const char *const s_keyIsHandoff;
 		int passerIndex;
 		int catcherIndex;
 		float dist;
 		float duration;
+		bool isHandoff;
 	};
 
 	//-----------------------------------------------------------------------------

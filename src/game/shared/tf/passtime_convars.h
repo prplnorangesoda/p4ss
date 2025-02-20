@@ -74,6 +74,7 @@ extern ConVar
 	tf_passtime_powerball_decay_delay,
 	tf_passtime_pack_range,
 	tf_passtime_pack_speed,
+	tf_passtime_dick_in_ass,
 	tf_passtime_pack_hp_per_sec;
 
 enum class EPasstimeExperiment_Telepass { 

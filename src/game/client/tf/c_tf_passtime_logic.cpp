@@ -26,9 +26,9 @@ void C_TFPasstimeLogic::PostDataUpdate( DataUpdateType_t updateType )
 	if ( updateType == DATA_UPDATE_CREATED )
 	{
 		SetNextClientThink( CLIENT_THINK_ALWAYS );
-		m_pBallReticle = new C_PasstimeBallReticle();
-		m_pPassReticle = new C_PasstimePassReticle();
-		for( auto *pGoal : C_FuncPasstimeGoal::GetAutoList() ) 
+		m_pBallReticle = static_cast<C_PasstimeReticle *>(new C_PasstimeBallReticle());
+		m_pPassReticle = static_cast<C_PasstimeReticle *>(new C_PasstimePassReticle());
+		for( auto *pGoal : (C_FuncPasstimeGoal::GetAutoList()) ) 
 		{
 			m_pGoalReticles.AddToTail( new C_PasstimeGoalReticle( 
 				static_cast<C_FuncPasstimeGoal*>( pGoal ) ) );
@@ -223,7 +223,7 @@ bool C_TFPasstimeLogic::GetBallReticleTarget( C_BaseEntity **ppEnt, bool *bHomin
 		return false;
 	}
 
-	C_BaseEntity *pEnt = pCarrier ? pCarrier : (C_BaseEntity*)pBall;
+	C_BaseEntity *pEnt = pCarrier ? (C_BaseEntity*) pCarrier : (C_BaseEntity*)pBall;
 	if ( !pEnt 
 		|| (pEnt == pLocalPlayer) 
 		|| (pEnt->GetEffects() & EF_NODRAW) 

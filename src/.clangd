@@ -1,10 +1,9 @@
 CompileFlags:
-  Add: ["-Isrc/public", "-Isrc/game/public"]
+  Add: ["-Isrc/public", "-Isrc/game/public", -ferror-limit=999]
   Remove: ["-f*"]
 
 Diagnostics:
   UnusedIncludes: None
-  MissingIncludes: None
   Suppress:
     [
       "pp_including_mainfile_in_preamble",
@@ -17,5 +16,17 @@ Diagnostics:
       ovl_no_viable_function_in_call,
       "template_arg_list_different_arity",
       function_marked_override_not_overriding,
-      override_keyword_only_allowed_on_virtual_member_functions
+      override_keyword_only_allowed_on_virtual_member_functions,
+      typecheck_comparison_of_distinct_pointers,
+      inconsistent-missing-override,
+      undeclared_var_use
     ]
+
+---
+
+If:
+  PathMatch: .*\.h
+
+
+CompileFlags:
+  Add: [-xc++]

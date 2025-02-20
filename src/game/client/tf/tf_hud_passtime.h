@@ -7,6 +7,7 @@
 
 #ifndef TF_HUD_PASSTIME_H
 #define TF_HUD_PASSTIME_H
+#include "c_tf_player.h"
 #ifdef _WIN32
 #pragma once
 #endif

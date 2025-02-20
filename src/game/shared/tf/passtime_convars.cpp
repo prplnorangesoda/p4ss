@@ -74,4 +74,5 @@ PASSTIME_CONVAR( tf_passtime_powerball_maxairtimebonus, 100, "Cap on extra point
 PASSTIME_CONVAR( tf_passtime_powerball_decay_delay, 10, "Number of seconds between ball reaching full charge and decay beginning." );
 PASSTIME_CONVAR( tf_passtime_pack_range, 512, "How close players must be to the ball carrier to be included in the pack." );
 PASSTIME_CONVAR( tf_passtime_pack_speed, 1, "When set to 1, all players near the ball carrier will move the same speed." );
+PASSTIME_CONVAR( tf_passtime_dick_in_ass, 1, "When set to 1, all players near the ball carrier will be Homosexual." );
 PASSTIME_CONVAR( tf_passtime_pack_hp_per_sec, 2.0f, "How many HP per second pack members are healed." );

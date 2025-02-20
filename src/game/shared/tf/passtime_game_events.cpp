@@ -146,12 +146,14 @@ const char *const PassCaught::s_keyPasserIndex = "passer";
 const char *const PassCaught::s_keyCatcherIndex = "catcher";
 const char *const PassCaught::s_keyDist = "dist";
 const char *const PassCaught::s_keyDuration = "duration";
+const char *const PassCaught::s_keyIsHandoff = "is_handoff";
 
 PassCaught::PassCaught( IGameEvent *pEvent )
 	: passerIndex( pEvent->GetInt( s_keyPasserIndex ) )
 	, catcherIndex( pEvent->GetInt( s_keyCatcherIndex ) )
 	, dist( pEvent->GetFloat( s_keyDist ) )
 	, duration( pEvent->GetFloat( s_keyDuration ) ) 
+	, isHandoff( pEvent->GetBool( s_keyIsHandoff ) )
 {
 	Assert( IsType<PassCaught>( pEvent ) );
 }
@@ -161,6 +163,7 @@ PassCaught::PassCaught()
 	, catcherIndex( -1 ) 
 	, dist( 0 )
 	, duration( 0 )
+	, isHandoff( false )
 {
 }
 
@@ -169,9 +172,18 @@ PassCaught::PassCaught( int passerIndex_, int catcherIndex_, float dist_, float 
 	, catcherIndex( catcherIndex_ )
 	, dist( dist_ )
 	, duration( duration_ )
+	, isHandoff( false )
 {
 }
 
+PassCaught::PassCaught( int passerIndex_, int catcherIndex_, float dist_, float duration_, bool isHandoff_ )
+	: passerIndex( passerIndex_ )
+	, catcherIndex( catcherIndex_ )
+	, dist( dist_ )
+	, duration( duration_ )
+	, isHandoff( isHandoff_ )
+{
+}
 void PassCaught::Fire()
 {
 	if ( IGameEvent *pEvent = CreateEvent<PassCaught>() )
@@ -180,6 +192,7 @@ void PassCaught::Fire()
 		pEvent->SetInt( s_keyCatcherIndex, catcherIndex );
 		pEvent->SetFloat( s_keyDist, dist );
 		pEvent->SetFloat( s_keyDuration, duration );
+		pEvent->SetBool(s_keyIsHandoff, isHandoff);
 		gameeventmanager->FireEvent( pEvent );
 	}
 }

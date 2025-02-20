@@ -1473,8 +1473,7 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 		&& (pBall->GetTeamNumber() != TEAM_UNASSIGNED) // and not be neutral...
 		&& (pCatcher != pBall->GetPrevCarrier())) // and not passed to yourself...
 	{
-		PasstimeGameEvents::PassCaught( pThrower->entindex(), pCatcher->entindex(), flFeet, pBall->GetAirtimeSec() ).Fire();
-
+		bool isHandoff = false;
 		bool bAllowCheerSound = true;
 
 		int iDistanceBonus = ( int ) ( pBall->GetAirtimeSec() * tf_passtime_powerball_airtimebonus.GetFloat() );
@@ -1555,7 +1554,28 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 			}
 			else
 			{
+				
+
 				// toss was caught by teammate
+
+				// P4SS: handoff detection
+				Vector catcher_origin = pCatcher->GetAbsOrigin();
+				trace_t result;
+				Ray_t ray;
+				QAngle DirAngles;
+				DirAngles.Init(90.0f, 0.0f, 0.0f);
+				Vector fDirection;
+				AngleVectors(DirAngles, &fDirection);
+				ray.Init(catcher_origin, fDirection);
+				UTIL_TraceRay(ray, MASK_PLAYERSOLID, pCatcher, COLLISION_GROUP_PLAYER_MOVEMENT, &result);
+
+				if ( result.DidHit() ) {
+					float distance = catcher_origin.DistTo(result.endpos);
+
+					if ( distance > 200.0f ) {
+						isHandoff = true;
+					}
+				}
 				++CTF_GameStats.m_passtimeStats.summary.nTotalTossesCompleted;
 			}
 
@@ -1646,6 +1666,7 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 			TFGameRules()->BroadcastSound( 255, "Passtime.BallIntercepted" );
 			CrowdReactionSound( pCatcher->GetTeamNumber() );
 		}
+		PasstimeGameEvents::PassCaught( pThrower->entindex(), pCatcher->entindex(), flFeet, pBall->GetAirtimeSec(), isHandoff ).Fire();
 	}
 	else 
 	{
@@ -1673,6 +1694,11 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 		pBall->SetStateCarried( pCatcher );
 		OnBallGet();
 	}
+}
+
+bool TraceEntityFilterPlayer( int entity, int contentsMask ) { 
+	return (UTIL_PlayerByIndex(entity) == 0) || !entity;
+	return true; 
 }
 
 //-----------------------------------------------------------------------------

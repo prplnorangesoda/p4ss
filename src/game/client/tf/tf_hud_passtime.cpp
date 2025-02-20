@@ -25,6 +25,7 @@
 #include "vgui_controls/ProgressBar.h"
 #include "vgui/ISurface.h"
 #include <algorithm>
+#include <cstdio>
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -739,7 +740,8 @@ void CTFHudPasstimeEventText::Enqueue( C_TFPlayer *pSource, C_TFPlayer *pSubject
 		|| (pLocalPlayer->IsObserver() && pLocalPlayer->GetObserverTarget() == pLocalPlayer);
 	
 	QueueElement e;
-	ConstructNewString( pTitle, e.title );
+	Q_wcsncpy(e.title, L"PENIS", e.STRLEN_MAX);
+	// ConstructNewString( pTitle, e.title );
 	ConstructNewString( pDetail, e.detail );
 	ConstructNewString( bShowBonus ? pBonus : nullptr, e.bonus );
 	m_queue.Insert( e );
@@ -1478,6 +1480,7 @@ void CTFHudPasstimeBallStatus::FireGameEvent( IGameEvent *pEvent )
 		return;
 	}
 
+	// P4SS: Event code for later
 	const char *pszEventName = pEvent->GetName();
 	if ( FStrEq( pszEventName, PasstimeGameEvents::BallFree::s_eventName ) )
 	{
@@ -1512,6 +1515,9 @@ void CTFHudPasstimeBallStatus::FireGameEvent( IGameEvent *pEvent )
 		PasstimeGameEvents::PassCaught passCaughtEvent( pEvent );
 		OnBallGet( passCaughtEvent.catcherIndex );
 		
+		auto isHandoff = passCaughtEvent.isHandoff;
+
+		printf("isHandoff: %s", isHandoff ? "true" : "false");
 		auto *pCatcher = ToTFPlayer( UTIL_PlayerByIndex( passCaughtEvent.catcherIndex ) );
 		auto *pThrower = ToTFPlayer( UTIL_PlayerByIndex( passCaughtEvent.passerIndex ) );
 		if ( pCatcher && pThrower ) 
