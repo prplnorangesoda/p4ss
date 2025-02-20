@@ -36,6 +36,44 @@ DESCRIPTION INFO_OPTIONS
 {
 	"category1"
 	{
+		"#TF_OptionCategory_PASSTime"
+		{ CATEGORY }
+	}
+
+	"hud_combattext_red"
+	{
+		"#Tooltip_PASSCrosshairRed"
+		"#Tooltip_PASSCrosshairColors"
+		{ SLIDER 1 255 }
+		{ "255" }
+	}
+
+	"tf_passtime_crosshair_g"
+	{
+		"#Tooltip_PASSCrosshairGreen"
+		"#Tooltip_PASSCrosshairColors"
+		{ SLIDER 1 255 }
+		{ "255" }
+	}
+
+	"tf_passtime_crosshair_b"
+	{
+		"#Tooltip_PASSCrosshairBlue"
+		"#Tooltip_PASSCrosshairColors"
+		{ SLIDER 1 255 }
+		{ "255" }
+	}
+
+	"tf_passtime_crosshair_a"
+	{
+		"#Tooltip_PASSCrosshairAlpha"
+		"#Tooltip_PASSCrosshairColorsAlpha"
+		{ SLIDER 1 255 }
+		{ "255" }
+	}
+
+	"category2"
+	{
 		"#TF_OptionCategory_Communication"
 		{ CATEGORY }
 	}
@@ -64,7 +102,7 @@ DESCRIPTION INFO_OPTIONS
 		{ "open_chat_filter_settings" }
 	}
 
-	"category2"
+	"category3"
 	{
 		"#TF_OptionCategory_Combat"
 		{ CATEGORY }
@@ -256,7 +294,7 @@ DESCRIPTION INFO_OPTIONS
 		{ "0" }
 	}	
 	 	
-	"category3"
+	"category4"
 	{
 		"#TF_OptionCategory_ClassSpecific"
 		{ CATEGORY }
@@ -318,7 +356,7 @@ DESCRIPTION INFO_OPTIONS
 		{ "75" }
 	}
 		
-	"category4"
+	"category5"
 	{
 		"#TF_OptionCategory_HUD"
 		{ CATEGORY }
@@ -522,7 +560,7 @@ DESCRIPTION INFO_OPTIONS
 		{ "1" }
 	}
 
-	"category5"
+	"category6"
 	{
 		"#TF_OptionCategory_Replay"
 		{ CATEGORY }
@@ -584,7 +622,7 @@ DESCRIPTION INFO_OPTIONS
 		{ "0" }
 	}
 	
-	"category6"
+	"category7"
 	{
 		"#TF_OptionCategory_Performance"
 		{ CATEGORY }
@@ -614,7 +652,7 @@ DESCRIPTION INFO_OPTIONS
 		{ "200" }
 	}
 	
-	"category7"
+	"category8"
 	{
 		"#TF_OptionCategory_Misc"
 		{ CATEGORY }
@@ -747,7 +785,7 @@ DESCRIPTION INFO_OPTIONS
 		{ "1" }
 	}
 
-	"category8"
+	"category9"
 	{
 		"#TF_OptionCategory_DemoSupport"
 		{ CATEGORY }
