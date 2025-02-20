@@ -1529,7 +1529,14 @@ void CTFHudPasstimeBallStatus::FireGameEvent( IGameEvent *pEvent )
 		{
 			if ( pCatcher->GetTeamNumber() == pThrower->GetTeamNumber() )
 			{
-				m_pEventText->EnqueuePass( pThrower, pCatcher );
+				if ( isHandoff ) 
+				{
+					m_pEventText->EnqueueHandoff( pThrower, pCatcher );
+				}
+				else 
+				{
+					m_pEventText->EnqueuePass( pThrower, pCatcher );
+				}
 			}
 			else
 			{
