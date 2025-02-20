@@ -1557,7 +1557,7 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 				
 
 				// toss was caught by teammate
-
+				Msg("P4SS Pass caught by teammates\n");
 				// P4SS: handoff detection
 				Vector catcher_origin = pCatcher->GetAbsOrigin();
 				trace_t result;
@@ -1570,8 +1570,10 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 				UTIL_TraceRay(ray, MASK_PLAYERSOLID, pCatcher, COLLISION_GROUP_PLAYER_MOVEMENT, &result);
 
 				if ( result.DidHit() ) {
+					Msg("P4SS Trace hit\n");
 					float distance = catcher_origin.DistTo(result.endpos);
 
+					Msg("P4SS distance of trace: %.3f\n", distance);
 					if ( distance > 200.0f ) {
 						isHandoff = true;
 					}
