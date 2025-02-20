@@ -30,6 +30,38 @@
 		"tabPosition"	"0"
 	}
 	
+	"ClassSelectDeny1"
+	{
+		"ControlName"		"ImagePanel"
+		"fieldName"		"ClassSelectDeny1"
+		"xpos"			"c-272"
+		"ypos"			"35"
+		"zpos"			"3"
+		"wide"			"90"
+		"tall"			"56"
+		"visible"		"1"
+		"enabled"		"1"
+		"image"			"../hud/class_select_deny"
+		"scaleImage"		"1"	
+		"drawcolor"        "TanDark"    
+	}
+	
+	"ClassSelectDeny2"
+	{
+		"ControlName"		"ImagePanel"
+		"fieldName"		"ClassSelectDeny2"
+		"xpos"			"c102"
+		"ypos"			"35"
+		"zpos"			"3"
+		"wide"			"90"
+		"tall"			"56"
+		"visible"		"1"
+		"enabled"		"1"
+		"image"			"../hud/class_select_deny"
+		"scaleImage"		"1"	
+		"drawcolor"        "TanDark"    
+	}
+	
 	"random"
 	{
 		"ControlName"		"CExImageButton"
@@ -164,7 +196,7 @@
 	{
 		"ControlName"		"CExImageButton"
 		"fieldName"			"soldier"
-		"xpos"				"c-110"
+		"xpos"				"c-115"
 		"ypos"				"-5"
 		"zpos"				"6"
 		"wide"				"50"
@@ -517,7 +549,7 @@
 	{
 		"ControlName"		"CExImageButton"
 		"fieldName"			"medic"
-		"xpos"				"c-15"
+		"xpos"				"c-10"
 		"ypos"				"-5"
 		"zpos"				"6"
 		"wide"				"50"
@@ -1130,27 +1162,15 @@
 	{
 		"ControlName"	"CExLabel"
 		"fieldName"		"numScout"
-		"xpos"			"c-300"
-		"ypos"			"10"
-		"zpos"			"5"
-		"wide"			"50"
-		"tall"			"12"
-		"autoResize"	"1"
-		"pinCorner"		"2"
-		"visible"		"1"
-		"enabled"		"1"
-		"tabPosition"	"0"
-		"labelText"		"%numScout%"
-		"textAlignment"	"center"
-		"font"			"MenuClassBuckets"
-		"fgcolor"		"TanLight"
+		"visible"		"0"
+		"enabled"		"0"
 	}	
 	
 	"numSoldier" [$WIN32]
 	{
 		"ControlName"	"CExLabel"
 		"fieldName"		"numSoldier"
-		"xpos"			"c-110"
+		"xpos"			"c-115"
 		"ypos"			"10"
 		"zpos"			"5"
 		"wide"			"50"
@@ -1170,20 +1190,8 @@
 	{
 		"ControlName"	"CExLabel"
 		"fieldName"		"numPyro"
-		"xpos"			"c-200"
-		"ypos"			"10"
-		"zpos"			"5"
-		"wide"			"50"
-		"tall"			"12"
-		"autoResize"	"1"
-		"pinCorner"		"2"
-		"visible"		"1"
-		"enabled"		"1"
-		"tabPosition"	"0"
-		"labelText"		"%numPyro%"
-		"textAlignment"	"center"
-		"font"			"MenuClassBuckets"
-		"fgcolor"		"TanLight"
+		"visible"		"0"
+		"enabled"		"0"
 	}			
 	
 	"numDemoman" [$WIN32]
@@ -1210,47 +1218,23 @@
 	{
 		"ControlName"	"CExLabel"
 		"fieldName"		"numHeavy"
-		"xpos"			"c-60"
-		"ypos"			"10"
-		"zpos"			"5"
-		"wide"			"50"
-		"tall"			"12"
-		"autoResize"	"1"
-		"pinCorner"		"2"
-		"visible"		"1"
-		"enabled"		"1"
-		"tabPosition"	"0"
-		"labelText"		"%numHeavy%"
-		"textAlignment"	"center"
-		"font"			"MenuClassBuckets"
-		"fgcolor"		"TanLight"
+		"visible"		"0"
+		"enabled"		"0"
 	}					
 	
 	"numEngineer" [$WIN32]
 	{
 		"ControlName"	"CExLabel"
 		"fieldName"		"numEngineer"
-		"xpos"			"c-10"
-		"ypos"			"10"
-		"zpos"			"5"
-		"wide"			"50"
-		"tall"			"12"
-		"autoResize"	"1"
-		"pinCorner"		"2"
-		"visible"		"1"
-		"enabled"		"1"
-		"tabPosition"	"0"
-		"labelText"		"%numEngineer%"
-		"textAlignment"	"center"
-		"font"			"MenuClassBuckets"
-		"fgcolor"		"TanLight"
+		"visible"		"0"
+		"enabled"		"0"
 	}						
 	
 	"numMedic" [$WIN32]
 	{
 		"ControlName"	"CExLabel"
 		"fieldName"		"numMedic"
-		"xpos"			"c-15"
+		"xpos"			"c-10"
 		"ypos"			"10"
 		"zpos"			"5"
 		"wide"			"50"
@@ -1270,40 +1254,16 @@
 	{
 		"ControlName"	"CExLabel"
 		"fieldName"		"numSniper"
-		"xpos"			"c128"
-		"ypos"			"10"
-		"zpos"			"5"
-		"wide"			"50"
-		"tall"			"12"
-		"autoResize"	"1"
-		"pinCorner"		"2"
-		"visible"		"1"
-		"enabled"		"1"
-		"tabPosition"	"0"
-		"labelText"		"%numSniper%"
-		"textAlignment"	"center"
-		"font"			"MenuClassBuckets"
-		"fgcolor"		"TanLight"
+		"visible"		"0"
+		"enabled"		"0"
 	}						
 	
 	"numSpy" [$WIN32]
 	{
 		"ControlName"	"CExLabel"
 		"fieldName"		"numSpy"
-		"xpos"			"c178"
-		"ypos"			"10"
-		"zpos"			"5"
-		"wide"			"50"
-		"tall"			"12"
-		"autoResize"	"1"
-		"pinCorner"		"2"
-		"visible"		"1"
-		"enabled"		"1"
-		"tabPosition"	"0"
-		"labelText"		"%numSpy%"
-		"textAlignment"	"center"
-		"font"			"MenuClassBuckets"
-		"fgcolor"		"TanLight"
+		"visible"		"0"
+		"enabled"		"0"
 	}								
 	
 	"MvMUpgradeImageScout"
