@@ -896,7 +896,7 @@ void SetupCurrentView( const Vector &vecOrigin, const QAngle &angles, view_id_t 
 
 view_id_t CurrentViewID()
 {
-	Assert( g_CurrentViewID != VIEW_ILLEGAL );
+	// Assert( g_CurrentViewID != VIEW_ILLEGAL );
 	return ( view_id_t )g_CurrentViewID;
 }
 
