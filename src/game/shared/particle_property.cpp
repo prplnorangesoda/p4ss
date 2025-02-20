@@ -361,6 +361,10 @@ void CParticleProperty::StopParticlesNamed( const char *pszEffectName, bool bFor
 	if ( !pszEffectName || !pszEffectName[0] )
 		return;
 
+	// FIX: this crashes on spy cloak!
+	if ( Q_strcmp(pszEffectName, "balloontoss_drip") ) {
+		return;
+	}
 	CParticleSystemDefinition *pDef = g_pParticleSystemMgr->FindParticleSystem( pszEffectName );
 	AssertMsg1(pDef, "Could not find particle definition %s", pszEffectName );
 	if (!pDef)

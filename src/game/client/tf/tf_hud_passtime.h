@@ -92,6 +92,7 @@ private:
 		wchar_t title[STRLEN_MAX];
 		wchar_t detail[STRLEN_MAX];
 		wchar_t bonus[STRLEN_MAX];
+		int team = TF_TEAM_RED;
 	};
 
 	void SetPlayerName( C_TFPlayer *pPlayer, const char *pKey );

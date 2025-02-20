@@ -17,7 +17,7 @@
 
 namespace P4ss 
 {
-	void ColorTextP4ss(vgui::Label * label, const wchar_t * text);
+	void ColorTextP4ss(vgui::Label * label, const wchar_t * text, const int team = TF_TEAM_RED);
 
 }
 
