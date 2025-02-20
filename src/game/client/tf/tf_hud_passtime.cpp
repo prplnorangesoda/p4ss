@@ -1517,7 +1517,7 @@ void CTFHudPasstimeBallStatus::FireGameEvent( IGameEvent *pEvent )
 		
 		auto isHandoff = passCaughtEvent.isHandoff;
 
-		printf("isHandoff: %s", isHandoff ? "true" : "false");
+		Msg("isHandoff: %s", isHandoff ? "true" : "false");
 		auto *pCatcher = ToTFPlayer( UTIL_PlayerByIndex( passCaughtEvent.catcherIndex ) );
 		auto *pThrower = ToTFPlayer( UTIL_PlayerByIndex( passCaughtEvent.passerIndex ) );
 		if ( pCatcher && pThrower ) 
