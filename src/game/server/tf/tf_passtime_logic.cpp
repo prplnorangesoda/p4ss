@@ -1574,7 +1574,7 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 					float distance = catcher_origin.DistTo(result.endpos);
 
 					Msg("P4SS distance of trace: %.3f\n", distance);
-					if ( distance > 200.0f ) {
+					if ( distance > 200 ) {
 						isHandoff = true;
 					}
 				}
