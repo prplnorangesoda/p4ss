@@ -40,7 +40,7 @@ DESCRIPTION INFO_OPTIONS
 		{ CATEGORY }
 	}
 
-	"hud_combattext_red"
+	"tf_passtime_crosshair_r"
 	{
 		"#Tooltip_PASSCrosshairRed"
 		"#Tooltip_PASSCrosshairColors"
