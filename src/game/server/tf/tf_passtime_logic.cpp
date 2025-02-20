@@ -29,6 +29,8 @@
 #include "eventqueue.h"
 #include "hl2orange.spa.h" // achievement defines from tf_shareddefs depend on this
 #include "tier0/memdbgon.h"
+#include <worldsize.h>
+#include <dbg.h>
 
 CTFPasstimeLogic *g_pPasstimeLogic;
 
@@ -1452,6 +1454,10 @@ void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, int iTeam, int iPoints, bool b
 	}
 }
 
+bool TraceEntityFilterPlayer( IHandleEntity *entity, int contentsMask ) { 
+	return (ToTFPlayer(dynamic_cast<CBaseEntity*>(entity)) == 0) || !entity;
+}
+
 //-----------------------------------------------------------------------------
 void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pBall )
 {
@@ -1474,7 +1480,7 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 		&& (pCatcher != pBall->GetPrevCarrier())) // and not passed to yourself...
 	{
 		bool isHandoff = false;
-		bool bAllowCheerSound = true;
+		bool bAllowCheerSound = false;
 
 		int iDistanceBonus = ( int ) ( pBall->GetAirtimeSec() * tf_passtime_powerball_airtimebonus.GetFloat() );
 		iDistanceBonus = clamp( iDistanceBonus, 0, tf_passtime_powerball_maxairtimebonus.GetInt() );
@@ -1554,28 +1560,32 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 			}
 			else
 			{
-				
-
 				// toss was caught by teammate
 				Msg("P4SS Pass caught by teammates\n");
 				// P4SS: handoff detection
 				Vector catcher_origin = pCatcher->GetAbsOrigin();
 				trace_t result;
 				Ray_t ray;
-				QAngle DirAngles;
+				QAngle DirAngles {};
 				DirAngles.Init(90.0f, 0.0f, 0.0f);
 				Vector fDirection;
 				AngleVectors(DirAngles, &fDirection);
+				fDirection.NormalizeInPlace();
+				fDirection = catcher_origin + fDirection * MAX_TRACE_LENGTH;
 				ray.Init(catcher_origin, fDirection);
-				UTIL_TraceRay(ray, MASK_PLAYERSOLID, pCatcher, COLLISION_GROUP_PLAYER_MOVEMENT, &result);
+				UTIL_TraceRay(ray, MASK_PLAYERSOLID, pCatcher, COLLISION_GROUP_PLAYER_MOVEMENT, &result, &TraceEntityFilterPlayer);
 
 				if ( result.DidHit() ) {
 					Msg("P4SS Trace hit\n");
 					float distance = catcher_origin.DistTo(result.endpos);
+					Msg("P4SS Catcher origin: x %f y %f z %f\n", catcher_origin.x, catcher_origin.y, catcher_origin.z);
+					Msg("P4SS Trace hit origin: x %f y %f z %f\n", result.endpos.x, result.endpos.y, result.endpos.z);
 
 					Msg("P4SS distance of trace: %.3f\n", distance);
-					if ( distance > 200 ) {
+					if ( distance > 200.0f ) {
+						Msg("P4SS isHandoff = true\n");
 						isHandoff = true;
+						TFGameRules()->BroadcastSound( 255, "TFPlayer.StunImpactRange" );
 					}
 				}
 				++CTF_GameStats.m_passtimeStats.summary.nTotalTossesCompleted;
@@ -1599,11 +1609,10 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 				{
 					CTF_GameStats.Event_PlayerAwardBonusPoints( pThrower, pThrower, 15 ); // FIXME literal balance value
 				}
-
-				if ( bAllowCheerSound && ( pBall->GetAirtimeSec() > 2.0f ) ) // FIXME literal balance value
-				{
-					TFGameRules()->BroadcastSound( 255, "TFPlayer.StunImpactRange" );
-				}
+				// if ( bAllowCheerSound && ( pBall->GetAirtimeSec() > 2.0f ) ) // FIXME literal balance value
+				// {
+				// 	TFGameRules()->BroadcastSound( 255, "TFPlayer.StunImpactRange" );
+				// }
 			}
 			else// flFeet <= 30
 			{
@@ -1668,6 +1677,7 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 			TFGameRules()->BroadcastSound( 255, "Passtime.BallIntercepted" );
 			CrowdReactionSound( pCatcher->GetTeamNumber() );
 		}
+		Msg("Reached end of OnPlayerTouchBall, firing event PassCaught with isHandoff (%s)\n", isHandoff ? "true" : "false");
 		PasstimeGameEvents::PassCaught( pThrower->entindex(), pCatcher->entindex(), flFeet, pBall->GetAirtimeSec(), isHandoff ).Fire();
 	}
 	else 
@@ -1696,11 +1706,6 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 		pBall->SetStateCarried( pCatcher );
 		OnBallGet();
 	}
-}
-
-bool TraceEntityFilterPlayer( int entity, int contentsMask ) { 
-	return (UTIL_PlayerByIndex(entity) == 0) || !entity;
-	return true; 
 }
 
 //-----------------------------------------------------------------------------

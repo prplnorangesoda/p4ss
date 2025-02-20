@@ -1506,8 +1506,8 @@ void CTFHudPasstimeBallStatus::FireGameEvent( IGameEvent *pEvent )
 		PasstimeGameEvents::BallStolen ballStolenEvent( pEvent );
 		OnBallGet( ballStolenEvent.attackerIndex );
 
-		auto *pAttacker = ToTFPlayer( UTIL_PlayerByIndex(ballStolenEvent.attackerIndex) );
-		auto *pVictim = ToTFPlayer( UTIL_PlayerByIndex(ballStolenEvent.victimIndex) );
+		auto *pAttacker = ToTFPlayer( dynamic_cast<CBaseEntity *>(UTIL_PlayerByIndex(ballStolenEvent.attackerIndex)) );
+		auto *pVictim = ToTFPlayer( dynamic_cast<CBaseEntity *>(UTIL_PlayerByIndex(ballStolenEvent.victimIndex)) );
 		m_pEventText->EnqueueSteal( pVictim, pAttacker );
 	}
 	else if ( FStrEq( pszEventName, PasstimeGameEvents::PassCaught::s_eventName ) )
@@ -1515,9 +1515,9 @@ void CTFHudPasstimeBallStatus::FireGameEvent( IGameEvent *pEvent )
 		PasstimeGameEvents::PassCaught passCaughtEvent( pEvent );
 		OnBallGet( passCaughtEvent.catcherIndex );
 		
-		auto isHandoff = passCaughtEvent.isHandoff;
+		bool isHandoff = passCaughtEvent.isHandoff;
 
-		Msg("isHandoff: %s\n", isHandoff ? "true" : "false");
+		Msg("P4SS CLIENT: isHandoff: %s\n", isHandoff ? "true" : "false");
 		auto *pCatcher = ToTFPlayer( UTIL_PlayerByIndex( passCaughtEvent.catcherIndex ) );
 		auto *pThrower = ToTFPlayer( UTIL_PlayerByIndex( passCaughtEvent.passerIndex ) );
 		if ( pCatcher && pThrower ) 

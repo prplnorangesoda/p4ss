@@ -9,6 +9,7 @@
 #include "passtime_game_events.h"
 #include "igameevents.h"
 #include "tier0/memdbgon.h"
+#include <GameEventListener.h>
 
 //-----------------------------------------------------------------------------
 using namespace PasstimeGameEvents;
@@ -165,6 +166,7 @@ PassCaught::PassCaught()
 	, duration( 0 )
 	, isHandoff( false )
 {
+	Msg("P4SS Overload without isHandoff called.\n");
 }
 
 PassCaught::PassCaught( int passerIndex_, int catcherIndex_, float dist_, float duration_ )
@@ -174,6 +176,7 @@ PassCaught::PassCaught( int passerIndex_, int catcherIndex_, float dist_, float 
 	, duration( duration_ )
 	, isHandoff( false )
 {
+	Msg("P4SS Overload without isHandoff called.\n");
 }
 
 PassCaught::PassCaught( int passerIndex_, int catcherIndex_, float dist_, float duration_, bool isHandoff_ )
@@ -183,6 +186,7 @@ PassCaught::PassCaught( int passerIndex_, int catcherIndex_, float dist_, float 
 	, duration( duration_ )
 	, isHandoff( isHandoff_ )
 {
+	Msg("P4SS Overload with isHandoff called. isHandoff_: %s\n", isHandoff_ ? "true" : "false");
 }
 void PassCaught::Fire()
 {
@@ -192,7 +196,7 @@ void PassCaught::Fire()
 		pEvent->SetInt( s_keyCatcherIndex, catcherIndex );
 		pEvent->SetFloat( s_keyDist, dist );
 		pEvent->SetFloat( s_keyDuration, duration );
-		pEvent->SetBool(s_keyIsHandoff, isHandoff);
+		pEvent->SetBool( s_keyIsHandoff, isHandoff );
 		gameeventmanager->FireEvent( pEvent );
 	}
 }
