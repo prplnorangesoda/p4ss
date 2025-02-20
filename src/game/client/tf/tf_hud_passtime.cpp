@@ -29,6 +29,7 @@
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
+#include "p4ssutils.h"
 
 //-----------------------------------------------------------------------------
 using namespace vgui;
@@ -601,10 +602,12 @@ void CTFHudPasstimeEventText::Tick()
 			if ( m_pTitleLabel )
 			{
 				SetLabelText( m_pTitleLabel, msg.title );
+				P4ss::ColorTextP4ss( m_pTitleLabel, msg.title );
 			}
 			if ( m_pDetailLabel )
 			{
 				SetLabelText( m_pDetailLabel, msg.detail );
+				P4ss::ColorTextP4ss( m_pDetailLabel, msg.detail );
 			}
 			if ( m_pBonusLabel )
 			{
