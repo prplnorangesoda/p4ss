@@ -743,7 +743,6 @@ void CTFHudPasstimeEventText::Enqueue( C_TFPlayer *pSource, C_TFPlayer *pSubject
 	// auto bShowBonus = (pSubject == pLocalPlayer)
 	// 	|| (pLocalPlayer->IsObserver() && pLocalPlayer->GetObserverTarget() == pLocalPlayer);
 	auto team = GetGlobalTFTeam( pSource->GetTeamNumber() );
-	team->Get
 
 	QueueElement e;
 	ConstructNewString( pTitle, e.title );
