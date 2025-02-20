@@ -5666,14 +5666,17 @@ void CTFPlayerShared::OnAddPasstimeInterception( void )
 		m_pOuter->m_pPhaseStandingEffect = m_pOuter->ParticleProp()->Create( "warp_version", PATTACH_ABSORIGIN_FOLLOW );
 	}
 
-	if ( m_pOuter->IsLocalPlayer() )
-	{
-		IMaterial *pMaterial = materials->FindMaterial( TF_SCREEN_OVERLAY_MATERIAL_PHASE, TEXTURE_GROUP_CLIENT_EFFECTS, false );
-		if ( !IsErrorMaterial( pMaterial ) )
-		{
-			view->SetScreenOverlayMaterial( pMaterial );
-		}
-	}
+		
+	// P4SS disable obnoxious warp effect
+
+	//if ( m_pOuter->IsLocalPlayer() )
+	//{
+	//	IMaterial *pMaterial = materials->FindMaterial( TF_SCREEN_OVERLAY_MATERIAL_PHASE, TEXTURE_GROUP_CLIENT_EFFECTS, false );
+	//	if ( !IsErrorMaterial( pMaterial ) )
+	//	{
+	//		view->SetScreenOverlayMaterial( pMaterial );
+	//	}
+	//}
 #else
 	if ( !m_bPhaseFXOn )
 	{
