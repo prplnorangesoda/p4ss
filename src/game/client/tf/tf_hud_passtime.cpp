@@ -603,12 +603,12 @@ void CTFHudPasstimeEventText::Tick()
 			if ( m_pTitleLabel )
 			{
 				SetLabelText( m_pTitleLabel, msg.title );
-				P4ss::ColorTextP4ss( m_pTitleLabel, msg.title );
+				P4ss::ColorTextP4ss( m_pTitleLabel, msg.title, msg.team);
 			}
 			if ( m_pDetailLabel )
 			{
 				SetLabelText( m_pDetailLabel, msg.detail );
-				P4ss::ColorTextP4ss( m_pDetailLabel, msg.detail );
+				P4ss::ColorTextP4ss( m_pDetailLabel, msg.detail, msg.team );
 			}
 			if ( m_pBonusLabel )
 			{
@@ -734,7 +734,7 @@ void CTFHudPasstimeEventText::Enqueue( C_TFPlayer *pSource, C_TFPlayer *pSubject
 {
 	if ( !m_bValid || !pSubject )
 		return;
-
+	Msg( "pSubject playername: %s\n", pSubject->GetPlayerName());
 	SetTeam( pSubject );
 	SetPlayerName( pSubject, HudPasstimeEventText::pKeySubject );
 	SetPlayerName( pSource, HudPasstimeEventText::pKeySource );
@@ -747,6 +747,7 @@ void CTFHudPasstimeEventText::Enqueue( C_TFPlayer *pSource, C_TFPlayer *pSubject
 	
 	if ( pSource != nullptr )
 	{
+		Msg( "pSource playername: %s\n", pSource->GetPlayerName());
 		team = GetGlobalTFTeam( pSource->GetTeamNumber() );
 	}
 	else if ( pSubject != nullptr )

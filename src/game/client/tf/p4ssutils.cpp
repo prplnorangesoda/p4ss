@@ -14,23 +14,23 @@ namespace P4ss
 {
 	void ColorTextP4ss(vgui::Label *label, const wchar_t *text,  const int team)
 	{
-		Msg("ColorTextP4ss: Fired");
+		Msg("ColorTextP4ss: Fired\n");
 		label->GetTextImage()->ClearColorChangeStream();
 		Color color;
 		Color secondaryColor;
 		if ( team == TF_TEAM_BLUE )
 		{
-			color = COLOR_TF_BLUE;
-			secondaryColor = COLOR_TF_RED;
+			color = P4SS_BLUE;
+			secondaryColor = P4SS_RED;
 		}
 		else if ( team == TF_TEAM_RED ) 
 		{
-			color = COLOR_TF_RED;
-			secondaryColor = COLOR_TF_BLUE;
+			color = P4SS_RED;
+			secondaryColor = P4SS_BLUE;
 		}
 		else {
 			color = COLOR_TF_SPECTATOR;
-			secondaryColor = COLOR_TF_RED;
+			secondaryColor = P4SS_RED;
 		}
 		// We change the title's text color to match the colors of the matching
 		// model panel backgrounds
@@ -63,6 +63,9 @@ namespace P4ss
 				break;
 			case 0x12: // Goals
 				label->GetTextImage()->AddColorChange( Color( 59, 196, 59, 255 ), iWChars );
+				break;
+			case 0x01:
+				label->GetTextImage()->AddColorChange( Color( 255, 255, 255, 255), iWChars );
 				break;
 			default:
 				break;

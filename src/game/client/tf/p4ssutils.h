@@ -15,6 +15,9 @@
 #include "tf_controls.h"
 #include "GameEventListener.h"
 
+
+#define P4SS_BLUE Color(137, 184, 214, 255)
+#define P4SS_RED Color(240, 89, 89, 255);
 namespace P4ss 
 {
 	void ColorTextP4ss(vgui::Label * label, const wchar_t * text, const int team = TF_TEAM_RED);
