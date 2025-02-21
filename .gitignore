@@ -524,3 +524,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+!/game/mod_tf/bin/x64/
