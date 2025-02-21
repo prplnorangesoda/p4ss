@@ -1,16 +1,16 @@
 # Files to ignore when considering what GIT should commit.
 
 # Ignore build artifacts
-game/mod_*_linux64
-game/mod_tf/cfg/*
-game/mod_tf/GameState.txt
-game/mod_tf/tf2_playerstats.dmx
-game/mod_tf/stats.txt
-game/mod_tf/voice_ban.dt
-game/mod_tf/maps/graphs/*
-game/mod_tf/media/*
-game/mod_tf/videoconfig_linux.cfg
-game/mod_tf/ServerConfig.vdf
+game/p4ss_linux64
+game/p4ss/cfg/*
+game/p4ss/GameState.txt
+game/p4ss/tf2_playerstats.dmx
+game/p4ss/stats.txt
+game/p4ss/voice_ban.dt
+game/p4ss/maps/graphs/*
+game/p4ss/media/*
+game/p4ss/videoconfig_linux.cfg
+game/p4ss/ServerConfig.vdf
 src/.ninja*
 src/compile_commands.json
 src/lib/public/linux64/mathlib.a
@@ -18,7 +18,7 @@ src/lib/public/linux64/raytrace.a
 src/lib/public/linux64/tier1.a
 src/lib/public/linux64/vgui_controls.a
 steam_appid.txt
-game/mod_tf/trainingprogress.txt
+game/p4ss/trainingprogress.txt
 
 # Visual Studio 
 *.suo
@@ -155,7 +155,7 @@ x86/
 [Aa][Rr][Mm]64/
 bld/
 [Bb]in/
-!game/mod_tf/bin/
+!game/p4ss/bin/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
@@ -525,4 +525,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-!/game/mod_tf/bin/x64/
+!/game/p4ss/bin/x64/

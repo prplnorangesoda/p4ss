@@ -1,0 +1,14 @@
+"chapters"
+{
+	1	"background_upward"     // Bobbyjoe1
+	//2	"background_gravelpit"  // Blue
+	//3	"background_mvm"        // Light Blue
+	//4	"background_2fort"      // VG
+}
+"BackgroundMaps"
+{
+	1	"background_upward"     // Bobbyjoe1
+	//2	"background_gravelpit"  // Blue
+	//3	"background_mvm"        // Light Blue
+	//4	"background_2fort"      // VG
+}

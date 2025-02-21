@@ -1561,8 +1561,11 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 			else
 			{
 				// toss was caught by teammate
-				Msg("P4SS Pass caught by teammates\n");
+				DevMsg("P4SS Tossed ball caught by teammates\n");
 				// P4SS: handoff detection
+
+				// Code from Sourcemod: 
+				// https://github.com/p4sstime/p4sstime-server-resources/blob/f661e2e0f3e02c2d0ca2fc052df1c399454161b6/scripting/p4sstime.sp#L542
 				Vector catcher_origin = pCatcher->GetAbsOrigin();
 				trace_t result;
 				Ray_t ray;
@@ -1576,14 +1579,14 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 				UTIL_TraceRay(ray, MASK_PLAYERSOLID, pCatcher, COLLISION_GROUP_PLAYER_MOVEMENT, &result, &TraceEntityFilterPlayer);
 
 				if ( result.DidHit() ) {
-					Msg("P4SS Trace hit\n");
+					DevMsg("P4SS Trace hit\n");
 					float distance = catcher_origin.DistTo(result.endpos);
-					Msg("P4SS Catcher origin: x %f y %f z %f\n", catcher_origin.x, catcher_origin.y, catcher_origin.z);
-					Msg("P4SS Trace hit origin: x %f y %f z %f\n", result.endpos.x, result.endpos.y, result.endpos.z);
+					DevMsg("P4SS Catcher origin: x %f y %f z %f\n", catcher_origin.x, catcher_origin.y, catcher_origin.z);
+					DevMsg("P4SS Trace hit origin: x %f y %f z %f\n", result.endpos.x, result.endpos.y, result.endpos.z);
 
-					Msg("P4SS distance of trace: %.3f\n", distance);
+					DevMsg("P4SS distance of trace: %.3f\n", distance);
 					if ( distance > 200.0f ) {
-						Msg("P4SS isHandoff = true\n");
+						DevMsg("P4SS isHandoff = true\n");
 						isHandoff = true;
 						TFGameRules()->BroadcastSound( 255, "TFPlayer.StunImpactRange" );
 					}
