@@ -1,67 +1,43 @@
-# Source SDK 2013
+# 4v4 PASS Time mod
 
-Source code for Source SDK 2013.
+Hello! Welcome to the source code for the (soon to be) standalone 4v4 PASS Time Team Fortress 2 mod.
 
-Contains the game code for Half-Life 2, HL2: DM and TF2.
+Legal disclaimer: Team Fortress 2, Half Life 2, and all associated IPs are owned by Valve Corporation. We are not affiliated with them in any way, shape or form. They have graciously allowed us to use the new Source SDK to distribute our mod non-commercially. [Here's their page on it.](https://partner.steamgames.com/doc/sdk/uploading/distributing_source_engine)
 
-**Now including Team Fortress 2! ✨**
+The original README.md distributed with Source SDK Base 2013 can be located at [SDK_README.md](./SDK_README.md). The original LICENSE can be found at [SOURCE1SDK_LICENSE](./SOURCE1SDK_LICENSE).
 
-## Build instructions
 
-Clone the repository using the following command:
-
-`git clone https://github.com/ValveSoftware/source-sdk-2013`
-
-### Windows
-
-Requirements:
- - Source SDK 2013 Multiplayer installed via Steam
- - Visual Studio 2022
-
-Inside the cloned directory, navigate to `src`, run:
-```bat
-createallprojects.bat
-```
-This will generate the Visual Studio project `everything.sln` which will be used to build your mod.
-
-Then, on the menu bar, go to `Build > Build Solution`, and wait for everything to build.
-
-You can then select the `Client (Mod Name)` project you wish to run, right click and select `Set as Startup Project` and hit the big green `> Local Windows Debugger` button on the tool bar in order to launch your mod.
-
-The default launch options should be already filled in for the `Release` configuration.
+## Building
 
 ### Linux
+Prerequisites:
+- Steam
+- podman (latest is fine, restart after installing)
+- Team Fortress 2
+- Source SDK Base 2013 Multiplayer
 
-Requirements:
- - Source SDK 2013 Multiplayer installed via Steam
- - podman
 
-Inside the cloned directory, navigate to `src`, run:
+Clone this repository, then run:
 ```bash
-./buildallprojects
+./src/buildallprojects debug clean
+# note: `clean` will re-generate the project files. use it whenever you make a change in src/vpc_scripts, to ensure your project files are created correctly.
 ```
+This will build all the code and bundle it into a nice little executable.
 
-This will build all the projects related to the SDK and your mods automatically against the Steam Runtime.
-
-You can then, in the root of the cloned directory, you can navigate to `game` and run your mod by launching the build launcher for your mod project, eg:
+Then:
 ```bash
-./p4ss
+./game/p4ss_linux64
 ```
+and you're up and running!
 
-*Mods that are distributed on Steam MUST be built against the Steam Runtime, which the above steps will automatically do for you.*
+### Windows
+Ask @Av3r4ge for help. Sorry!
 
-## Distributing your Mod
+## How can I help?
 
-There is guidance on distributing your mod both on and off Steam available at the following link:
+Thanks for your interest!
 
-https://partner.steamgames.com/doc/sdk/uploading/distributing_source_engine
-
-## Additional Resources
-
-- [Valve Developer Wiki](https://developer.valvesoftware.com/wiki/Source_SDK_2013)
-
-## License
-
-The SDK is licensed to users on a non-commercial basis under the [SOURCE 1 SDK LICENSE](LICENSE), which is contained in the [LICENSE](LICENSE) file in the root of the repository.
-
-For more information, see [Distributing your Mod](#markdown-header-distributing-your-mod).
+We are currently in need of people to fill these positions:
+- C++ programmers (preferably those with experience modding Source 1 games)
+- Concept artists (for our HUD and UI)
+- 
