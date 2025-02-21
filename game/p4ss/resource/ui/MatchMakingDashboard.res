@@ -93,7 +93,7 @@
 			"tall"			"f6"
 			"autoResize"	"0"
 			"pinCorner"		"3"
-			"visible"		"1"
+			"visible"		"0"
 			"enabled"		"1"
 			"tabPosition"	"0"
 			"font"			"HudFontSmallestBold"
@@ -131,6 +131,8 @@
 			}
 		}
 
+
+			//Party slots, Disabled.
 		"PartySlot0"
 		{
 			"ControlName"	"CDashboardPartyMember"
@@ -142,7 +144,7 @@
 			"tall"			"24"
 			"autoResize"	"0"
 			"pinCorner"		"3"
-			"visible"		"1"
+			"visible"		"0"
 			"enabled"		"1"
 			"tabPosition"	"0"
 			"proportionaltoparent"	"1"
@@ -163,7 +165,7 @@
 			"tall"			"24"
 			"autoResize"	"0"
 			"pinCorner"		"3"
-			"visible"		"1"
+			"visible"		"0"
 			"enabled"		"1"
 			"tabPosition"	"0"
 			"proportionaltoparent"	"1"
@@ -184,7 +186,7 @@
 			"tall"			"24"
 			"autoResize"	"0"
 			"pinCorner"		"3"
-			"visible"		"1"
+			"visible"		"0"
 			"enabled"		"1"
 			"tabPosition"	"0"
 			"proportionaltoparent"	"1"
@@ -205,7 +207,7 @@
 			"tall"			"24"
 			"autoResize"	"0"
 			"pinCorner"		"3"
-			"visible"		"1"
+			"visible"		"0"
 			"enabled"		"1"
 			"tabPosition"	"0"
 			"proportionaltoparent"	"1"
@@ -226,7 +228,7 @@
 			"tall"			"24"
 			"autoResize"	"0"
 			"pinCorner"		"3"
-			"visible"		"1"
+			"visible"		"0"
 			"enabled"		"1"
 			"tabPosition"	"0"
 			"proportionaltoparent"	"1"
@@ -247,8 +249,8 @@
 			"tall"			"24"
 			"autoResize"	"0"
 			"pinCorner"		"3"
-			"visible"		"1"
-			"enabled"		"1"
+			"visible"		"0"
+			"enabled"		"0"
 			"tabPosition"	"0"
 			"proportionaltoparent"	"1"
 			"mouseinputenabled"	"1"
@@ -491,7 +493,7 @@
 			"zpos"			"110"
 			"wide"			"220"
 			"tall"			"f0"
-			"visible"		"1"
+			"visible"		"0"
 			"proportionaltoparent"	"1"
 
 			"OuterShadow"
