@@ -51,4 +51,9 @@ $Project
 	{
 		$File	"$ROOTSCRIPT"
 	}
+
+	$Folder	"Link Libraries"
+	{
+		$Lib "$LIBPUBLIC\libdiscord-rpc"
+	}
 }
