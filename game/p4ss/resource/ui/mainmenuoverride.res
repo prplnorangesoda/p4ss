@@ -222,9 +222,26 @@
 		}
 		if_christmas
 		{
-			"image"		"../console/background_xmas2020_widescreen"
+			"image"		"../console/snowy_arena_widescreen"
 		}		
 	}
+	
+	"PassTimeLogo"
+	{
+		"ControlName"	"ImagePanel"
+		"fieldName"		"PassTimeLogo"
+		"xpos"			"c-130"
+		"ypos"			"22"
+		"zpos"			"1"
+		"wide"			"256"
+		"tall"			"128"
+		"visible"		"1"
+		"enabled"		"1"
+		"image"			"../hud/pass_time_logo"
+		"scaleImage"	"1"
+		"mouseinputenabled"	"0"
+	}	
+	
 					
 	"TFLogoImage"
 	{
@@ -313,6 +330,7 @@
 	}	
 	
 	
+			//PLAY button
 		"ServerBrowserButton"
 	{
 		"ControlName"	"EditablePanel"
@@ -340,7 +358,7 @@
 			"tabPosition"	"0"
 			"textinsetx"	"17"
 			"use_proportional_insets" "1"
-			"font"			"HudFontSmallBold"
+			"font"			"ScoreboardMedium"
 			"textAlignment"	"west"
 			"dulltext"		"0"
 			"brighttext"	"0"
@@ -358,6 +376,285 @@
 			"depressedFgColor_override" "White"
 		}
 	}
+	
+	"LearnButton"
+	{
+		"ControlName"	"EditablePanel"
+		"fieldname"		"LearnButton"
+		"xpos"			"300"
+		"ypos"			"164"
+		"zpos"			"15"
+		"wide"			"265"
+		"tall"			"48"
+		"visible"		"1"
+		"PaintBackgroundType"	"0"
+
+		"SubButton"
+		{
+			"ControlName"	"CExImageButton"
+			"fieldName"		"SubButton"
+			"xpos"			"0"
+			"ypos"			"0"
+			"wide"			"265"
+			"tall"			"48"
+			"autoResize"	"0"
+			"pinCorner"		"3"
+			"visible"		"1"
+			"enabled"		"1"
+			"tabPosition"	"0"
+			"textinsetx"	"17"
+			"use_proportional_insets" "1"
+			"font"			"ScoreboardMedium"
+			"textAlignment"	"west"
+			"dulltext"		"0"
+			"brighttext"	"0"
+			"default"		"1"
+			
+			"sound_depressed"	"UI/buttonclick.wav"
+			"sound_released"	"UI/buttonclickrelease.wav"
+			
+			"paintbackground"	"0"
+			"paintborder"		"0"
+			
+			"FgColor" 					"White"
+			"defaultFgColor_override" 	"White"
+			"armedFgColor_override" 	"Flavor"
+			"depressedFgColor_override" "White"
+		}
+	}
+	
+	
+		"LoadoutButton"
+	{
+		"ControlName"	"EditablePanel"
+		"fieldname"		"LoadoutButton"
+		"xpos"			"300"
+		"ypos"			"204"
+		"zpos"			"15"
+		"wide"			"265"
+		"tall"			"48"
+		"visible"		"1"
+		"PaintBackgroundType"	"0"
+
+		"SubButton"
+		{
+			"ControlName"	"CExImageButton"
+			"fieldName"		"SubButton"
+			"xpos"			"0"
+			"ypos"			"0"
+			"wide"			"265"
+			"tall"			"48"
+			"autoResize"	"0"
+			"pinCorner"		"3"
+			"visible"		"1"
+			"enabled"		"1"
+			"tabPosition"	"0"
+			"textinsetx"	"17"
+			"use_proportional_insets" "1"
+			"font"			"ScoreboardMedium"
+			"textAlignment"	"west"
+			"dulltext"		"0"
+			"brighttext"	"0"
+			"default"		"1"
+			
+			"sound_depressed"	"UI/buttonclick.wav"
+			"sound_released"	"UI/buttonclickrelease.wav"
+			
+			"paintbackground"	"0"
+			"paintborder"		"0"
+			
+			"FgColor" 					"White"
+			"defaultFgColor_override" 	"White"
+			"armedFgColor_override" 	"Flavor"
+			"depressedFgColor_override" "White"
+		}
+	}
+	
+	
+	"SettingsButton"
+	{
+		"ControlName"	"EditablePanel"
+		"fieldname"		"SettingsButton"
+		"xpos"			"300"
+		"ypos"			"242"
+		"zpos"			"15"
+		"wide"			"200"
+		"tall"			"48"
+		"visible"		"1"
+		"PaintBackgroundType"	"2"
+
+		"SubButton"
+		{
+			"ControlName"	"CExImageButton"
+			"fieldName"		"SubButton"
+			"xpos"			"0"
+			"ypos"			"0"
+			"wide"			"300"
+			"tall"			"48"
+			"autoResize"	"0"
+			"pinCorner"		"3"
+			"visible"		"1"
+			"enabled"		"1"
+			"tabPosition"	"0"
+			"textinsetx"	"17"
+			"labelText"		"OPTIONS"
+			"use_proportional_insets" "1"
+			"font"			"ScoreboardMedium"
+			"textAlignment"	"west"
+			"dulltext"		"0"
+			"brighttext"	"0"
+			"default"		"1"
+			"sound_depressed"	"UI/buttonclick.wav"
+			"sound_released"	"UI/buttonclickrelease.wav"
+			
+			"paintbackground"	"0"
+			"paintborder"		"0"
+			
+			"FgColor" 					"White"
+			"defaultFgColor_override" 	"White"
+			"armedFgColor_override" 	"Flavor"
+			"depressedFgColor_override" "White"
+		}
+	}
+	
+	"SettingsAdvancedButton"
+	{
+		"ControlName"	"EditablePanel"
+		"fieldname"		"SettingsAdvancedButton"
+		"xpos"			"300"
+		"ypos"			"272"
+		"zpos"			"15"
+		"wide"			"200"
+		"tall"			"48"
+		"visible"		"1"
+		"PaintBackgroundType"	"2"
+
+		"SubButton"
+		{
+			"ControlName"	"CExImageButton"
+			"fieldName"		"SubButton"
+			"xpos"			"0"
+			"ypos"			"0"
+			"wide"			"300"
+			"tall"			"48"
+			"autoResize"	"0"
+			"pinCorner"		"3"
+			"visible"		"1"
+			"enabled"		"1"
+			"tabPosition"	"0"
+			"textinsetx"	"17"
+			"labelText"		"ADVANCED OPTIONS"
+			"use_proportional_insets" "1"
+			"font"			"ScoreboardMedium"
+			"textAlignment"	"west"
+			"dulltext"		"0"
+			"brighttext"	"0"
+			"default"		"1"
+			"sound_depressed"	"UI/buttonclick.wav"
+			"sound_released"	"UI/buttonclickrelease.wav"
+			
+			"paintbackground"	"0"
+			"paintborder"		"0"
+			
+			"FgColor" 					"White"
+			"defaultFgColor_override" 	"White"
+			"armedFgColor_override" 	"Flavor"
+			"depressedFgColor_override" "White"
+		}
+	}
+	
+	"DisconnectButton"
+	{
+		"ControlName"	"EditablePanel"
+		"fieldname"		"DisconnectButton"
+		"xpos"			"300"
+		"ypos"			"302"
+		"zpos"			"15"
+		"wide"			"300"
+		"tall"			"48"
+		"visible"		"1"
+		"PaintBackgroundType"	"0"
+
+
+		"SubButton"
+		{
+			"ControlName"	"CExImageButton"
+			"fieldName"		"SubButton"
+			"xpos"			"0"
+			"ypos"			"0"
+			"wide"			"300"
+			"tall"			"48"
+			"autoResize"	"0"
+			"pinCorner"		"3"
+			"visible"		"1"
+			"enabled"		"1"
+			"tabPosition"	"0"
+			"textinsetx"	"17"
+			"use_proportional_insets" "1"
+			"font"			"ScoreboardMedium"
+			"textAlignment"	"west"
+			"dulltext"		"0"
+			"brighttext"	"0"
+			"default"		"1"
+			"sound_depressed"	"UI/buttonclick.wav"
+			"sound_released"	"UI/buttonclickrelease.wav"
+			
+			"paintbackground"	"0"
+			"paintborder"		"0"
+			
+			"FgColor" 					"White"
+			"defaultFgColor_override" 	"White"
+			"armedFgColor_override" 	"Flavor"
+			"depressedFgColor_override" "White"
+		}
+	}
+
+	"QuitButton"
+	{
+		"ControlName"	"EditablePanel"
+		"fieldname"		"QuitButton"
+		"xpos"			"300"
+		"ypos"			"302"
+		"zpos"			"15"
+		"wide"			"150"
+		"tall"			"48"
+		"visible"		"1"
+		"PaintBackgroundType"	"0"
+
+
+		"SubButton"
+		{
+			"ControlName"	"CExImageButton"
+			"fieldName"		"SubButton"
+			"xpos"			"0"
+			"ypos"			"0"
+			"wide"			"300"
+			"tall"			"48"
+			"autoResize"	"0"
+			"pinCorner"		"3"
+			"visible"		"1"
+			"enabled"		"1"
+			"tabPosition"	"0"
+			"textinsetx"	"17"
+			"use_proportional_insets" "1"
+			"font"			"ScoreboardMedium"
+			"textAlignment"	"west"
+			"dulltext"		"0"
+			"brighttext"	"0"
+			"default"		"1"
+			"sound_depressed"	"UI/buttonclick.wav"
+			"sound_released"	"UI/buttonclickrelease.wav"
+			
+			"paintbackground"	"0"
+			"paintborder"		"0"
+			
+			"FgColor" 					"White"
+			"defaultFgColor_override" 	"White"
+			"armedFgColor_override" 	"Flavor"
+			"depressedFgColor_override" "White"
+		}
+	}
+
 
 	"Notifications_ShowButtonPanel"
 	{
@@ -1594,6 +1891,8 @@
 		}
 	}
 
+
+		//Disabled
 	"RequestCoachButton"
 	{
 		"ControlName"	"EditablePanel"
@@ -1620,8 +1919,8 @@
 			"tall"			"25"
 			"autoResize"	"0"
 			"pinCorner"		"3"
-			"visible"		"1"
-			"enabled"		"1"
+			"visible"		"0"
+			"enabled"		"0"
 			"tabPosition"	"0"
 			"textinsetx"	"100"
 			"use_proportional_insets" "1"
@@ -1745,10 +2044,10 @@
 		"enabled"		"1"
 	}
 
-	"SettingsButton"
+	"ConsoleButton"
 	{
 		"ControlName"	"CExImageButton"
-		"fieldName"		"SettingsButton"
+		"fieldName"		"ConsoleButton"
 		"xpos"			"c-208+273"
 		"ypos"			"437"
 		"zpos"			"1"
@@ -1767,7 +2066,7 @@
 		"dulltext"		"0"
 		"brighttext"	"0"
 		"default"		"1"
-		"Command"		"OpenOptionsDialog"
+		"Command"		"engine con_enable 1;toggleconsole"
 
 		"navUp"			"Notifications_Panel"
 		"navLeft"		"ReportBugButton"
@@ -1813,7 +2112,7 @@
 		"dulltext"		"0"
 		"brighttext"	"0"
 		"default"		"1"
-		"Command"		"opentf2options"
+		"Command"		"engine con_enable 1;toggleconsole"
 		"use_proportional_insets"	"1"
 
 		"navUp"			"Notifications_Panel"
