@@ -148,12 +148,14 @@ mono_crash.*
 [Rr]elease/
 [Rr]eleases/
 x64/
+!linux64/
 x86/
 [Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
 [Bb]in/
+!game/mod_tf/bin/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
