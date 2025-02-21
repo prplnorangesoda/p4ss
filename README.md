@@ -40,4 +40,6 @@ Thanks for your interest!
 We are currently in need of people to fill these positions:
 - C++ programmers (preferably those with experience modding Source 1 games)
 - Concept artists (for our HUD and UI)
-- 
+- VGUI HUD developers (if you've made a tf2 hud in the past, you're a perfect fit)
+
+If you think you'd fit in any of the above categories, join [our discord](https://discord.passtime.tf/), tab into #passtime-mod-discussion and say you read the README!
