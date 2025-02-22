@@ -1363,6 +1363,8 @@ void CTFHudDeathNotice::OnGameEvent( IGameEvent *event, int iDeathNoticeMsg )
 	}
 	else if ( FStrEq( PasstimeGameEvents::BallGet::s_eventName, pszEventName ) ) // passtime ball get
 	{
+		// P4SS: add killfeed notifications here
+
 		PasstimeGameEvents::BallGet ev( event );
 		DeathNoticeItem &msg = m_DeathNotices[ iDeathNoticeMsg ];
 
