@@ -27,6 +27,10 @@
 #include "replay/ienginereplay.h"
 #include "replay/shared_defs.h"
 #endif
+#include <cdll_util.h>
+#include <cdll_int.h>
+#include <c_baseplayer.h>
+#include <dbg.h>
 
 extern IGameUIFuncs *gameuifuncs; // for key binding details
 
@@ -600,7 +604,7 @@ void CTFClassMenu::PerformLayout()
 //-----------------------------------------------------------------------------
 int CTFClassMenu::GetCurrentPlayerClass()
 {
-	int iClass = TF_CLASS_HEAVYWEAPONS;
+	int iClass = TF_CLASS_SOLDIER;
 	C_TFPlayer *pLocalPlayer = C_TFPlayer::GetLocalTFPlayer();
 
 	if ( pLocalPlayer && pLocalPlayer->m_Shared.GetDesiredPlayerClassIndex() != TF_CLASS_UNDEFINED )
@@ -740,6 +744,13 @@ void CTFClassMenu::SelectClass( int iClass )
 
 	if ( !m_pEditLoadoutButton )
 		return;
+
+
+	if ( !(iClass == 3 || iClass == 4 || iClass == 5) )
+		return;
+
+	DevMsg("iClass: %d\n", iClass);
+
 
 	// Update select hint icon for Steam Controller
 	for ( int i = 0; i < TF_CLASS_MENU_BUTTONS; i++ )
