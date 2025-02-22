@@ -268,3 +268,13 @@ void BallBlocked::Fire()
 		gameeventmanager->FireEvent( pEvent );
 	}
 }
+// -------------------------------------------------------------------
+BallArrowed::BallArrowed(IGameEvent* PEvent)
+{
+
+}
+
+void BallArrowed::Fire()
+{
+
+}

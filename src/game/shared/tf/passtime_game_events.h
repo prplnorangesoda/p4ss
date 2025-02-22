@@ -119,6 +119,13 @@ namespace PasstimeGameEvents
 		int ownerIndex;
 		int blockerIndex;
 	};
+
+	struct BallArrowed
+	{
+		BallArrowed( IGameEvent *pEvent );
+		void Fire();
+		int attackerIndex;
+	};
 }
 
 #endif // PASSTIME_GAME_EVENTS_H  
