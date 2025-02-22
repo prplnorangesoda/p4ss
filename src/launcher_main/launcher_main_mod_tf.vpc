@@ -17,6 +17,6 @@ $Project "Launcher Main (Mod TF)"
     $Folder "Resource Files" [$WINDOWS]
     {
         $File   "launcher_main_mod_tf.rc"
-        $File   "res\game.ico"
+        $File   "res\p4ss.ico"
     }
 }
