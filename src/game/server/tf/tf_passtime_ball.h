@@ -48,6 +48,10 @@ public:
 	void ResetTrail();
 	void HideTrail();
 
+	void CreateMagnetSound();
+	bool GetActiveMagnetSound();
+	void KillMagnetSound();
+
 	void MoveTo( const Vector &pos, const Vector &vel );
 	void MoveToSpawner( const Vector &pos );
 
@@ -99,6 +103,7 @@ private:
 	bool m_bLeftOwner;
 	CSoundPatch	*m_pHumLoop;
 	CSoundPatch	*m_pBeepLoop;
+	CSoundPatch *m_pCloseToTarget;
 	CBaseEntity *m_pPlayerToucher;
 	CPasstimeBallControllerPlayerSeek m_playerSeek;
 	bool m_bTouchedSinceSpawn;

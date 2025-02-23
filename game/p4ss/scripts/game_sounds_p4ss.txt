@@ -1,0 +1,9 @@
+"Passtime.BallMagnet"
+{
+	"channel"		"CHAN_AUTO"
+	"volume"		"1"
+	"pitch"			"PITCH_NORM"
+	"soundlevel"	"SNDLVL_GUNFIRE"
+	"attenuation"	"0.5"
+	"wave"			"p4ss/jack/magnetting.wav"
+}

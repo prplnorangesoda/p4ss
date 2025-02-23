@@ -124,6 +124,7 @@ CPasstimeBall::CPasstimeBall()
 	m_flBeginCarryTime = 0;
 	m_flIdleRespawnTime = 0;
 	m_bTrailActive = false;
+	m_pCloseToTarget = 0;
 }
 
 //-----------------------------------------------------------------------------
@@ -144,6 +145,7 @@ void CPasstimeBall::Precache()
 	PrecacheScriptSound( "Passtime.BallGet" );
 	PrecacheScriptSound( "Passtime.BallIdle" );
 	PrecacheScriptSound( "Passtime.BallHoming" );
+	PrecacheScriptSound( "Passtime.BallMagnet" );
 	BaseClass::Precache();
 }
 
@@ -726,6 +728,8 @@ void CPasstimeBall::SetStateCarried( CTFPlayer *pCarrier )
 		CSoundEnvelopeController::GetController().SoundDestroy( m_pBeepLoop );
 		m_pBeepLoop = 0;
 	}
+
+	KillMagnetSound();
 
 	//
 	// Stats
@@ -1414,8 +1418,12 @@ void CPasstimeBall::SetHomingTarget( CTFPlayer *pPlayer )
 			CSoundEnvelopeController::GetController().SoundDestroy( m_pBeepLoop );
 			m_pBeepLoop = 0;
 		}
+		KillMagnetSound();
 	}
 }
+
+
+
 
 //-----------------------------------------------------------------------------
 CTFPlayer *CPasstimeBall::GetHomingTarget() const
@@ -1435,3 +1443,32 @@ float CPasstimeBall::GetAirtimeDistance() const
 	return m_flAirtimeDistance;
 }
 
+
+void CPasstimeBall::CreateMagnetSound()
+{
+	if ( !m_pCloseToTarget )
+	{
+		CReliableBroadcastRecipientFilter filter;
+		m_pCloseToTarget =CSoundEnvelopeController::GetController().SoundCreate( filter, entindex(), "Player.FallDamageIndicator" );
+		CSoundEnvelopeController::GetController().Play( m_pCloseToTarget, 1, PITCH_NORM );
+	}
+}
+
+bool CPasstimeBall::GetActiveMagnetSound()
+{
+	if ( m_pCloseToTarget )
+	{
+		return true; 
+	}
+
+	return false;
+}
+
+void CPasstimeBall::KillMagnetSound()
+{
+	if ( m_pCloseToTarget )
+	{
+		CSoundEnvelopeController::GetController().SoundDestroy( 0 );
+		m_pCloseToTarget = 0;
+	}
+}
