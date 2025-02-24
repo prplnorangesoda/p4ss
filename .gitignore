@@ -3,6 +3,7 @@
 # Ignore SteamPipe build details
 steam/*
 steam/
+steam_appid.txt
 
 # Ignore build artifacts
 game/p4ss_linux64
@@ -530,5 +531,6 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+!src/lib/public/x64/
 !src/lib/public/x64/discord-rpc.lib
 game/p4ss_win64.exe
