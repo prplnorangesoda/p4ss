@@ -1,5 +1,9 @@
 # Files to ignore when considering what GIT should commit.
 
+# Ignore SteamPipe build details
+steam/*
+steam/
+
 # Ignore build artifacts
 game/p4ss_linux64
 game/p4ss/cfg/*
