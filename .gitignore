@@ -48,6 +48,7 @@ obj*/
 !devtools/*.mak
 !utils/smdlexp/smdlexp.mak
 
+
 # Specific Source build products
 client.pdb
 client.dll
@@ -525,6 +526,5 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-!/game/p4ss/bin/x64/
+!src/lib/public/x64/discord-rpc.lib
 game/p4ss_win64.exe
-game/p4ss/bin/x64/game_shader_generic_example.dll
