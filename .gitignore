@@ -526,3 +526,5 @@ FodyWeavers.xsd
 *.sln.iml
 
 !/game/p4ss/bin/x64/
+game/p4ss_win64.exe
+game/p4ss/bin/x64/game_shader_generic_example.dll
