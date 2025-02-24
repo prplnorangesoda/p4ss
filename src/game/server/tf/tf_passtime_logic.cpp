@@ -711,6 +711,7 @@ void CTFPasstimeLogic::Precache()
 	PrecacheScriptSound( "Passtime.BallStolen" );
 	PrecacheScriptSound( "Passtime.BallDropped" );
 	PrecacheScriptSound( "Passtime.BallCatch" );
+	PrecacheScriptSound( "Passtime.BallMagnetImpact" );
 	PrecacheScriptSound( "Passtime.BallSpawn" );
 
 	PrecacheScriptSound( "Passtime.Crowd.Boo" );

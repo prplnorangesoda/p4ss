@@ -145,7 +145,7 @@ void CPasstimeBall::Precache()
 	PrecacheScriptSound( "Passtime.BallGet" );
 	PrecacheScriptSound( "Passtime.BallIdle" );
 	PrecacheScriptSound( "Passtime.BallHoming" );
-	PrecacheScriptSound( "Passtime.BallMagnet" );
+	PrecacheScriptSound( "Passtime.BallMagnetLock" );
 	BaseClass::Precache();
 }
 
@@ -717,6 +717,8 @@ void CPasstimeBall::SetStateCarried( CTFPlayer *pCarrier )
 	// Sounds
 	//
 	EmitSound( "Passtime.BallGet" );
+	EmitSound( "Passtime.BallMagnetImpact" );
+
 	if ( m_pHumLoop )
 	{
 		CSoundEnvelopeController::GetController().SoundDestroy( m_pHumLoop );
@@ -1449,8 +1451,8 @@ void CPasstimeBall::CreateMagnetSound()
 	if ( !m_pCloseToTarget )
 	{
 		CReliableBroadcastRecipientFilter filter;
-		m_pCloseToTarget =CSoundEnvelopeController::GetController().SoundCreate( filter, entindex(), "Player.FallDamageIndicator" );
-		CSoundEnvelopeController::GetController().Play( m_pCloseToTarget, 1, PITCH_NORM );
+		m_pCloseToTarget =CSoundEnvelopeController::GetController().SoundCreate( filter, entindex(), "Passtime.BallMagnetLock" );
+		CSoundEnvelopeController::GetController().Play( m_pCloseToTarget, 2.5, PITCH_NORM );
 	}
 }
 
