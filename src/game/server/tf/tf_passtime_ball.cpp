@@ -1468,6 +1468,7 @@ void CPasstimeBall::KillMagnetSound()
 {
 	if ( m_pCloseToTarget )
 	{
+		CSoundEnvelopeController::GetController().Shutdown( m_pCloseToTarget );
 		CSoundEnvelopeController::GetController().SoundDestroy( 0 );
 		m_pCloseToTarget = 0;
 	}
