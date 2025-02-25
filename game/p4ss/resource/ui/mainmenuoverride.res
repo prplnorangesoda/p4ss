@@ -81,7 +81,7 @@
 		}
 		
 		
-		
+				//This button needs to be set invisible once we release.
 		    "ReloadMenuButton"
     {
         "ControlName"    "CExImageButton"
@@ -243,7 +243,7 @@
 		"tall"			"84"
 		"visible"		"1"
 		"enabled"		"1"
-		"image"			"../hud/pass_time_logo"
+		"image"			"../hud/pass_time_logo_eu"
 		"scaleImage"	"1"
 		"mouseinputenabled"	"0"
 	}	
@@ -2332,8 +2332,8 @@
 			"xpos"			"5"
 			"ypos"			"5"
 			"zpos"			"1"
-			"wide"			"14"
-			"tall"			"14"
+			"wide"			"15"
+			"tall"			"15"
 			"visible"		"1"
 			"enabled"		"1"
 			"scaleImage"	"1"
