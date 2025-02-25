@@ -43,7 +43,8 @@ END_NETWORK_TABLE()
 
 //-----------------------------------------------------------------------------
 BEGIN_PREDICTION_DATA( CPasstimeGun )
-END_PREDICTION_DATA() // this has to be here because the client's precache code uses it to get the classname of this entity...
+	DEFINE_PRED_FIELD( m_eThrowState, FIELD_INTEGER, FTYPEDESC_INSENDTABLE ),
+END_PREDICTION_DATA()
 
 //-----------------------------------------------------------------------------
 LINK_ENTITY_TO_CLASS( tf_weapon_passtime_gun, CPasstimeGun );
