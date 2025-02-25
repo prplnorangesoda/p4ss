@@ -43,7 +43,9 @@ END_NETWORK_TABLE()
 
 //-----------------------------------------------------------------------------
 BEGIN_PREDICTION_DATA( CPasstimeGun )
+#ifdef CLIENT_DLL
 	DEFINE_PRED_FIELD( m_eThrowState, FIELD_INTEGER, FTYPEDESC_INSENDTABLE ),
+#endif
 END_PREDICTION_DATA()
 
 //-----------------------------------------------------------------------------
