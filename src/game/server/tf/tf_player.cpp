@@ -14786,7 +14786,7 @@ void CTFPlayer::CheatImpulseCommands( int iImpulse )
 
 					pWeapon->GiveDefaultAmmo();
 
-					if ( pWeapon->IsEnergyWeapon() )
+					if ( pWeapon->IsEnergyWeapon() || pWeapon->IsCaber())
 					{
 						pWeapon->WeaponRegenerate();
 					}
