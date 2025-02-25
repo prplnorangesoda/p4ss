@@ -12,7 +12,7 @@
 #define PASSTIME_CONVAR(NAME, STR, DESC) ConVar NAME(#NAME, #STR, FLAGS_DEFAULT, DESC)
 
 PASSTIME_CONVAR( tf_passtime_scores_per_round, 5, "Number of scores it takes to win a round. Similar to tf_flag_caps_per_round." );
-PASSTIME_CONVAR( tf_passtime_ball_damping_scale, 0.01f, "" );
+PASSTIME_CONVAR( tf_passtime_ball_damping_scale, 0.0f, "Number reflect visual crosshairplacement in relation to throw arc. 0.01f in default tf2" );
 PASSTIME_CONVAR( tf_passtime_ball_drag_coefficient, 0.01f, "" );
 PASSTIME_CONVAR( tf_passtime_ball_inertia_scale, 1.0f, "" );
 PASSTIME_CONVAR( tf_passtime_ball_mass, 1.0f, "" );
@@ -31,14 +31,14 @@ PASSTIME_CONVAR( tf_passtime_mode_homing_speed, 1000.0f, "How fast the ball move
 PASSTIME_CONVAR( tf_passtime_overtime_idle_sec, 5, "How many seconds the ball can be idle in overtime before the round ends.");
 PASSTIME_CONVAR( tf_passtime_player_reticles_enemies, 1, "Controls HUD reticles for enemies. 0 = never, 1 = when carrying ball, 2 = always." );
 PASSTIME_CONVAR( tf_passtime_player_reticles_friends, 2, "Controls HUD reticles for teammates. 0 = never, 1 = when carrying ball, 2 = always." );
-PASSTIME_CONVAR( tf_passtime_score_crit_sec, 5.0f, "How long a scoring team's crits last." );
+PASSTIME_CONVAR( tf_passtime_score_crit_sec, 0.0f, "How long a scoring team's crits last, in default tf2 this is 5.0f" ); 
 PASSTIME_CONVAR( tf_passtime_speedboost_on_get_ball_time, 2.0f, "How many seconds of speed boost players get when they get the ball." );
 PASSTIME_CONVAR( tf_passtime_steal_on_melee, 1, "Enables melee stealing." );
 PASSTIME_CONVAR( tf_passtime_teammate_steal_time, 45, "How many seconds a player can hold the ball before teammates can steal it." );
 PASSTIME_CONVAR( tf_passtime_throwarc_scout, 0.1f, "" );
 PASSTIME_CONVAR( tf_passtime_throwarc_soldier, 0.1f, "" );
 PASSTIME_CONVAR( tf_passtime_throwarc_pyro, 0.1f, "" );
-PASSTIME_CONVAR( tf_passtime_throwarc_demoman, 0.15f, "" );
+PASSTIME_CONVAR( tf_passtime_throwarc_demoman, 0.1f, "In default tf2 this is 0.15f" );
 PASSTIME_CONVAR( tf_passtime_throwarc_heavy, 0.175f, "" );
 PASSTIME_CONVAR( tf_passtime_throwarc_engineer, 0.2f, "" );
 PASSTIME_CONVAR( tf_passtime_throwarc_medic, 0.0f, "" );
@@ -47,7 +47,7 @@ PASSTIME_CONVAR( tf_passtime_throwarc_spy, 0.0f, "" );
 PASSTIME_CONVAR( tf_passtime_throwspeed_scout, 700.0f, "" );
 PASSTIME_CONVAR( tf_passtime_throwspeed_soldier, 800.0f, "" );
 PASSTIME_CONVAR( tf_passtime_throwspeed_pyro, 750.0f, "" );
-PASSTIME_CONVAR( tf_passtime_throwspeed_demoman, 850.0f, "" );
+PASSTIME_CONVAR( tf_passtime_throwspeed_demoman, 800.0f, "In default tf2 this is 850.0f" );
 PASSTIME_CONVAR( tf_passtime_throwspeed_heavy, 850.0f, "" );
 PASSTIME_CONVAR( tf_passtime_throwspeed_engineer, 850.0f, "" );
 PASSTIME_CONVAR( tf_passtime_throwspeed_medic, 900.0f, "" );
