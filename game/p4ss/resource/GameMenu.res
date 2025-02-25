@@ -42,25 +42,12 @@
 		"subimage"		"glyph_alert"
 		"tooltip"		"#MMenu_ReportPlayer"
 	}
-	
-	"ServerBrowserButton"
-	{
-		"label" 		"PLAY" 
-		"command" 		"OpenServerBrowser"
-		"subimage" 		""
-	}
+
 	
 	"LoadoutButton"
 	{
 		"label" 		"LOADOUT" 
 		"command" 		"engine open_charinfo_direct"
-		"subimage" 		""
-	}
-	
-	"LearnButton"
-	{
-		"label" 		"LEARN" 
-		"command" 		"#TF_Training_SelectMode"
 		"subimage" 		""
 	}
 	

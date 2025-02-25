@@ -126,7 +126,7 @@
 		"fieldName"		"ProgressLevelBar"	
 		"xpos"			"c-190"
 		"xpos_minmode"	"c-140"
-		"ypos"			"r88"
+		"ypos"			"r80"
 		"zpos"			"0"
 		"wide"			"380"
 		"wide_minmode"	"280"
@@ -146,7 +146,7 @@
 		"fieldName"		"BlueProgressEnd"
 		"xpos"			"c-152"
 		"xpos_minmode"	"c-112"
-		"ypos"			"r64"
+		"ypos"			"r56"
 		"visible"		"0"
 	}
 
@@ -158,7 +158,7 @@
 		"fieldName"		"RedProgressEnd"
 		"xpos"			"c152"
 		"xpos_minmode"	"c112"
-		"ypos"			"r64"
+		"ypos"			"r56"
 		"visible"		"0"
 	}	
 
