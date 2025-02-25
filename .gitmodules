@@ -1,0 +1,3 @@
+[submodule "p4ss-build"]
+	path = p4ss-build
+	url = git@github.com:prplnorangesoda/p4ss-build.git
