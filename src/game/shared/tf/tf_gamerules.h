@@ -74,6 +74,7 @@ extern ConVar	tf_arena_change_limit;
 extern ConVar	tf_ctf_bonus_time;
 extern ConVar	tf_mvm_respec_enabled;
 extern ConVar	tf_spawn_glows_duration;
+extern ConVar	tf_selfblast_resist_on_enemy_hit;
 
 #ifdef GAME_DLL
 extern ConVar mp_tournament_prevent_team_switch_on_readyup;

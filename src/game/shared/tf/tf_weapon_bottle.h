@@ -91,7 +91,6 @@ public:
 
 	virtual void		Precache( void ) OVERRIDE;
 	virtual int			GetWeaponID( void ) const OVERRIDE { return TF_WEAPON_STICKBOMB; }
-	virtual bool		IsCaber( void ) const { return true; }
 	virtual void		Smack( void ) OVERRIDE;
 	virtual void		WeaponReset( void ) OVERRIDE;
 	virtual void		WeaponRegenerate( void ) OVERRIDE;

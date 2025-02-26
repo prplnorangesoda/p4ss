@@ -7057,6 +7057,8 @@ static void PotentiallyDamageMitigatedEvent( const CTFPlayer* pMitigator, const 
 	}
 }
 
+ConVar tf_selfblast_resist_on_enemy_hit( "tf_selfblast_resist_on_enemy_hit", "0.0", FCVAR_REPLICATED, "Scale the self-inflicted blast damage resistance when explosives also hit an enemy.", true, 0.0, true, 1.0 );
+
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -7406,12 +7408,22 @@ float CTFGameRules::ApplyOnDamageAliveModifyRules( const CTakeDamageInfo &info, 
 		}
 
 		if ( pAttacker == pVictimBaseEntity && (info.GetDamageType() & DMG_BLAST) &&
-			 info.GetDamagedOtherPlayers() == 0 && (info.GetDamageCustom() != TF_DMG_CUSTOM_TAUNTATK_GRENADE) )
+			 (info.GetDamageCustom() != TF_DMG_CUSTOM_TAUNTATK_GRENADE) )
 		{
-			// If we attacked ourselves, hurt no other players, and it is a blast,
-			// check the attribute that reduces rocket jump damage.
-			CALL_ATTRIB_HOOK_FLOAT_ON_OTHER( info.GetAttacker(), flRealDamage, rocket_jump_dmg_reduction );
-			outParams.bSelfBlastDmg = true;
+			if ( info.GetDamagedOtherPlayers() == 0 )
+			{
+				// If we attacked ourselves, hurt no other players, and it is a blast,
+				// check the attribute that reduces rocket jump damage.
+				CALL_ATTRIB_HOOK_FLOAT_ON_OTHER( info.GetAttacker(), flRealDamage, rocket_jump_dmg_reduction );
+				outParams.bSelfBlastDmg = true;
+			}
+			else
+			{
+				float flTemp = 1.0f;
+				CALL_ATTRIB_HOOK_FLOAT_ON_OTHER( info.GetAttacker(), flTemp, rocket_jump_dmg_reduction );
+				flRealDamage = flRealDamage * ( flTemp + ( ( 1.0f - flTemp ) * ( 1.0f - tf_selfblast_resist_on_enemy_hit.GetFloat() ) ) );
+				outParams.bSelfBlastDmg = true;
+			}
 		}
 
 		if ( pAttacker == pVictimBaseEntity )
