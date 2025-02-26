@@ -767,7 +767,7 @@
 		"font"			"HudFontSmallishBold"
 		"command" 		"engine replay_confirmquit"
 		"labeltext"		"   Quit"
-		"OnlyInGame"	"1"
+		"OnlyAtMenu"	"1"
 
 		"border_default"	"MainMenuButtonDefault"
 		"border_armed"		"MainMenuButtonArmed"
