@@ -81,7 +81,7 @@
 		}
 		
 		
-		
+				//This button needs to be set invisible once we release.
 		    "ReloadMenuButton"
     {
         "ControlName"    "CExImageButton"
@@ -243,7 +243,7 @@
 		"tall"			"84"
 		"visible"		"1"
 		"enabled"		"1"
-		"image"			"../hud/pass_time_logo"
+		"image"			"../hud/pass_time_logo_eu"
 		"scaleImage"	"1"
 		"mouseinputenabled"	"0"
 	}	
@@ -1954,6 +1954,8 @@
 		}
 	}
 
+
+		//This button does not work.
 	"ReportPlayerButton"
 	{
 		"ControlName"	"EditablePanel"
@@ -1965,10 +1967,7 @@
 		"tall"			"25"
 		"visible"		"1"
 
-		"navLeft"		"ResumeGameButton"
-		"navRight"		"CallVoteButton"
-		"navDown"		"QuickplayChangeButton"
-		"navToRelay"	"SubButton"
+
 
 		"SubButton"
 		{
@@ -1980,8 +1979,8 @@
 			"tall"			"25"
 			"autoResize"	"0"
 			"pinCorner"		"3"
-			"visible"		"1"
-			"enabled"		"1"
+			"visible"		"0"
+			"enabled"		"0"
 			"tabPosition"	"0"
 			"textinsetx"	"100"
 			"use_proportional_insets" "1"
@@ -2027,17 +2026,12 @@
 	{
 		"ControlName"	"EditablePanel"
 		"fieldname"		"CallVoteButton"
-		"xpos"			"c-24"
+		"xpos"			"67"
 		"ypos"			"447"
 		"zpos"			"12"
 		"wide"			"25"
 		"tall"			"25"
 		"visible"		"1"
-
-		"navLeft"		"ReportPlayerButton"
-		"navDown"		"QuickplayChangeButton"
-		"navRight"		"MutePlayersButton"
-		"navToRelay"	"SubButton"
 
 		"SubButton"
 		{
@@ -2045,7 +2039,7 @@
 			"fieldName"		"SubButton"
 			"xpos"			"0"
 			"ypos"			"0"
-			"wide"			"p1"
+			"wide"			"25"
 			"tall"			"25"
 			"autoResize"	"0"
 			"pinCorner"		"3"
@@ -2059,26 +2053,19 @@
 			"dulltext"		"0"
 			"brighttext"	"0"
 			"default"		"1"
+			
 			"sound_depressed"	"UI/buttonclick.wav"
-			"sound_released"	"UI/buttonclickrelease.wav"
-			
-			"border_default"	"MainMenuSubButtonBorder"
-			"paintbackground"	"1"
-			
-			"defaultFgColor_override" "46 43 42 255"
-			"armedFgColor_override" "46 43 42 255"
-			"depressedFgColor_override" "46 43 42 255"
+			"sound_released"	"UI/buttonclickrelease.wav"		
 			
 			"image_drawcolor"	"235 226 202 255"
-			"image_armedcolor"	"235 226 202 255"
-			"proportionaltoparent"	"1"
+			
 			
 			"SubImage"
 			{
 				"ControlName"	"ImagePanel"
 				"fieldName"		"SubImage"
-				"xpos"			"cs-0.5"
-				"ypos"			"cs-0.5"
+				"xpos"			"5"
+				"ypos"			"5"
 				"zpos"			"1"
 				"wide"			"15"
 				"tall"			"15"
@@ -2094,25 +2081,20 @@
 	{
 		"ControlName"	"EditablePanel"
 		"fieldname"		"MutePlayersButton"
-		"xpos"			"c-1"
+		"xpos"			"93"
 		"ypos"			"447"
 		"zpos"			"12"
 		"wide"			"25"
 		"tall"			"25"
 		"visible"		"1"
-
-		"navLeft"		"CallVoteButton"
-		"navDown"		"QuickplayChangeButton"
-		"navRight"		"RequestCoachButton"
-		"navToRelay"	"SubButton"
-
+		
 		"SubButton"
 		{
 			"ControlName"	"CExImageButton"
 			"fieldName"		"SubButton"
 			"xpos"			"0"
 			"ypos"			"0"
-			"wide"			"p1"
+			"wide"			"25"
 			"tall"			"25"
 			"autoResize"	"0"
 			"pinCorner"		"3"
@@ -2126,26 +2108,19 @@
 			"dulltext"		"0"
 			"brighttext"	"0"
 			"default"		"1"
+			
 			"sound_depressed"	"UI/buttonclick.wav"
-			"sound_released"	"UI/buttonclickrelease.wav"
-			
-			"border_default"	"MainMenuSubButtonBorder"
-			"paintbackground"	"1"
-			
-			"defaultFgColor_override" "46 43 42 255"
-			"armedFgColor_override" "46 43 42 255"
-			"depressedFgColor_override" "46 43 42 255"
+			"sound_released"	"UI/buttonclickrelease.wav"		
 			
 			"image_drawcolor"	"235 226 202 255"
-			"image_armedcolor"	"235 226 202 255"
-			"proportionaltoparent"	"1"
+			
 			
 			"SubImage"
 			{
 				"ControlName"	"ImagePanel"
 				"fieldName"		"SubImage"
-				"xpos"			"cs-0.5"
-				"ypos"			"cs-0.5"
+				"xpos"			"5"
+				"ypos"			"5"
 				"zpos"			"1"
 				"wide"			"15"
 				"tall"			"15"
@@ -2357,8 +2332,8 @@
 			"xpos"			"5"
 			"ypos"			"5"
 			"zpos"			"1"
-			"wide"			"14"
-			"tall"			"14"
+			"wide"			"15"
+			"tall"			"15"
 			"visible"		"1"
 			"enabled"		"1"
 			"scaleImage"	"1"
@@ -2706,6 +2681,7 @@
 		}				
 	}
 	
+			//This button does not work
 	"ReportBugButton"
 	{
 		"ControlName"	"CExImageButton"

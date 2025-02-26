@@ -42,44 +42,4 @@
 		"subimage"		"glyph_alert"
 		"tooltip"		"#MMenu_ReportPlayer"
 	}
-
-	
-	"LoadoutButton"
-	{
-		"label" 		"LOADOUT" 
-		"command" 		"engine open_charinfo_direct"
-		"subimage" 		""
-	}
-	
-		"SettingsButton"
-	{
-		"label" 		"OPTIONS"
-		"command" 		"OpenOptionsDialog"
-		"subimage" 		""
-	}
-	
-	"SettingsAdvancedButton"
-	{
-		"label" 		"ADVANCED OPTIONS"
-		"command" 		"opentf2options"
-		"subimage" 		""
-	}
-	
-	
-			//only shows ingame
-	"DisconnectButton"
-	{
-		"label" 		"DISCONNECT"
-		"command" 		"engine disconnect"
-		"OnlyInGame"	"1"
-		"subimage" 		""
-	}
-	
-		"QuitButton"
-	{
-		"label" 		"QUIT"
-		"command" 		"engine replay_confirmquit"
-		"OnlyAtMenu" 	"1"
-		"subimage" 		""
-	}
 }
