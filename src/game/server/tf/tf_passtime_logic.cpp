@@ -951,7 +951,6 @@ void CTFPasstimeLogic::RespawnBall()
 	}
 	else if ( ( state == GR_STATE_RND_RUNNING ) || ( state == GR_STATE_STALEMATE ) )
 	{
-		// TODO just end the game if there's not enough time to respawn the ball
 		m_hBall->SetStateOutOfPlay();
 		MoveBallToSpawner();
 		CTeamRoundTimer *pTimer = TFGameRules()->GetActiveRoundTimer();
@@ -960,12 +959,14 @@ void CTFPasstimeLogic::RespawnBall()
 			m_pRespawnCountdown->Start( m_iBallSpawnCountdownSec );
 			SpawnBallAtRandomSpawnerThink();
 		}
-		else if ( state == GR_STATE_STALEMATE ) // ball resp time < round time left
+		//----------------------------------------
+		// ends game if not enough time to spawn ball
+		else if ( pTimer->GetTimeRemaining() < m_iBallSpawnCountdownSec )
 		{
-			m_pRespawnCountdown->Start( 0 );
-			SpawnBallAtRandomSpawner();
-			// endgame immdiatley.
+			pTimer->SetTimeRemaining(0);
+			EndRoundExpiredTimer();
 		}
+		//----------------------------------------
 	}
 	else // pre-round etc
 	{
