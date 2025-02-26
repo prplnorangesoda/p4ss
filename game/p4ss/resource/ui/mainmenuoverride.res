@@ -2,6 +2,13 @@
 //Some elements cannot be disabled with visible and enabled set to 0.
 //These elements are set in the sky, remove the last four 9999's to reenable them.
 
+
+	// The following buttons are not enabled due to TF2 SDK disabling them.
+		// WatchStreamButton, QuestLogButton (Contracker), RequestCoachButton, NewUserForumsButton, CommentaryButton, CoachPlayersButton.
+
+	// These following buttons are disabled as we didn't need them.
+		// MOTD_ShowButtonPanel, CharacterSetupButton, AchievementsButton, ReplayButton, ReportBugButton.
+
 "Resource/UI/MainMenuOverride.res"
 {
 	MainMenuOverride
@@ -2803,4 +2810,179 @@
 			"angles_z"		"0"
 		}
 	}
+	
+		//
+		// Beta buttons
+		//
+	
+	
+			"ArenaButton"
+	{
+		"ControlName"	"CExImageButton"
+		"fieldname"		"ArenaButton"
+		"xpos"			"c1"
+		"ypos"			"180"
+		"zpos"			"15"
+		"wide"			"60"
+		"tall"			"30"
+		"visible"		"1"
+		
+		"font"			"HudFontSmallishBold"
+		"command" 		"engine map pass_arena2_b14b "
+		"labeltext"		"Arena"
+		
+		"border_default"	"storeinnershadowborder"
+		
+		"paintbackground"	"0"
+		"paintborder"		"1"
+			
+		"FgColor" 					"white"
+		"armedFgColor_override" 	"partymember2"
+		
+		"sound_depressed"	"p4ss/jack/jack_lock.wav"
+		"sound_released"	"p4ss/jack/ball_impact.wav"	
+	}
+	
+			"Arena2Button"
+	{
+		"ControlName"	"CExImageButton"
+		"fieldname"		"Aren2Button"
+		"xpos"			"c1"
+		"ypos"			"210"
+		"zpos"			"15"
+		"wide"			"140"
+		"tall"			"30"
+		"visible"		"1"
+		
+		"font"			"HudFontSmallishBold"
+		"command" 		"engine mp_tournament 1; mp_restartgame_immediate 1"
+		"labeltext"		"restart round"
+		"OnlyInGame"	"1"
+		
+		"border_default"	"storeinnershadowborder"
+		
+		"paintbackground"	"0"
+		"paintborder"		"1"
+			
+		"FgColor" 					"white"
+		"armedFgColor_override" 	"partymember2"
+		
+		"sound_depressed"	"p4ss/jack/jack_lock.wav"
+		"sound_released"	"p4ss/jack/ball_impact.wav"	
+	}
+	
+		"Arena3Button"
+	{
+		"ControlName"	"CExImageButton"
+		"fieldname"		"Aren3Button"
+		"xpos"			"c60"
+		"ypos"			"180"
+		"zpos"			"15"
+		"wide"			"70"
+		"tall"			"30"
+		"visible"		"1"
+		
+		"font"			"HudFontSmallishBold"
+		"command" 		"engine sv_cheats 1"
+		"labeltext"		"cheats"
+		"OnlyInGame"	"1"
+		
+		"border_default"	"storeinnershadowborder"
+		
+		"paintbackground"	"0"
+		"paintborder"		"1"
+			
+		"FgColor" 					"white"
+		"armedFgColor_override" 	"partymember2"
+		
+		"sound_depressed"	"p4ss/jack/jack_lock.wav"
+		"sound_released"	"p4ss/jack/ball_impact.wav"	
+	}
+	
+			"Arena4Button"
+	{
+		"ControlName"	"CExImageButton"
+		"fieldname"		"Aren4Button"
+		"xpos"			"c-70"
+		"ypos"			"180"
+		"zpos"			"15"
+		"wide"			"70"
+		"tall"			"30"
+		"visible"		"1"
+		
+		"font"			"HudFontSmallishBold"
+		"command" 		"engine cl_hud_minmode 0"
+		"labeltext"		"bighud"
+		"OnlyInGame"	"1"
+		
+		"border_default"	"storeinnershadowborder"
+		
+		"paintbackground"	"0"
+		"paintborder"		"1"
+			
+		"FgColor" 					"white"
+		"armedFgColor_override" 	"partymember2"
+		
+		"sound_depressed"	"p4ss/jack/jack_lock.wav"
+		"sound_released"	"p4ss/jack/ball_impact.wav"	
+	}
+	
+		"Arena5Button"
+	{
+		"ControlName"	"CExImageButton"
+		"fieldname"		"Aren5Button"
+		"xpos"			"c-70"
+		"ypos"			"210"
+		"zpos"			"15"
+		"wide"			"80"
+		"tall"			"30"
+		"visible"		"1"
+		
+		"font"			"HudFontSmallishBold"
+		"command" 		"engine cl_hud_minmode 1"
+		"labeltext"		"smallhudhud"
+		"OnlyInGame"	"1"
+		
+		"border_default"	"storeinnershadowborder"
+		
+		"paintbackground"	"0"
+		"paintborder"		"1"
+			
+		"FgColor" 					"white"
+		"armedFgColor_override" 	"partymember2"
+		
+		"sound_depressed"	"p4ss/jack/jack_lock.wav"
+		"sound_released"	"p4ss/jack/ball_impact.wav"	
+	}
+	
+			"Arena5Button"
+	{
+		"ControlName"	"CExImageButton"
+		"fieldname"		"Aren5Button"
+		"xpos"			"c130"
+		"ypos"			"180"
+		"zpos"			"15"
+		"wide"			"80"
+		"tall"			"30"
+		"visible"		"1"
+		
+		"font"			"HudFontSmallishBold"
+		"command" 		"engine bot"
+		"labeltext"		"add bot"
+		"OnlyInGame"	"1"
+		
+		"border_default"	"storeinnershadowborder"
+		
+		"paintbackground"	"0"
+		"paintborder"		"1"
+			
+		"FgColor" 					"white"
+		"armedFgColor_override" 	"partymember2"
+		
+		"sound_depressed"	"p4ss/jack/jack_lock.wav"
+		"sound_released"	"p4ss/jack/ball_impact.wav"	
+	}
+	
+	
+	
 }
