@@ -269,12 +269,33 @@ void BallBlocked::Fire()
 	}
 }
 // -------------------------------------------------------------------
-BallArrowed::BallArrowed(IGameEvent* PEvent)
-{
+const char *const BallDirected::s_eventName = "pass_ball_directed";
+const char *const BallDirected::s_keyAttackerIndex = "attacker";
+const char *const BallDirected::s_keyInflictorIndex = "inflictor";
+const char *const BallDirected::s_keyInflictorName = "inflictor_name";
 
+BallDirected::BallDirected( IGameEvent *pEvent )
+	: attackerIndex( pEvent->GetInt( s_keyAttackerIndex ) ),
+	  inflictorIndex( pEvent->GetInt( s_keyInflictorIndex ) ),
+	  inflictorName( pEvent->GetString( s_keyInflictorName ) )
+{
+	Assert( IsType<BallDirected>( pEvent ) );
 }
 
-void BallArrowed::Fire()
+BallDirected::BallDirected( int attackerIndex, int inflictorIndex, const char *inflictorName )
+	: attackerIndex( attackerIndex ), inflictorIndex( inflictorIndex ), inflictorName( inflictorName )
 {
+}
 
+BallDirected::BallDirected() : attackerIndex( -1 ), inflictorIndex( -1 ), inflictorName(NULL) {}
+
+void BallDirected::Fire()
+{
+	if ( IGameEvent *pEvent = CreateEvent<BallDirected>() )
+	{
+		pEvent->SetInt( s_keyAttackerIndex, attackerIndex );
+		pEvent->SetInt( s_keyInflictorIndex, inflictorIndex );
+		pEvent->SetString( s_keyInflictorName, inflictorName );
+		gameeventmanager->FireEvent( pEvent );
+	}
 }

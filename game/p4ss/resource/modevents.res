@@ -1690,7 +1690,12 @@
 		"duration" "float"
 		"is_handoff" "bool"
 	}
-
+	"pass_ball_directed"
+	{
+		"attacker" "short"
+		"inflictor" "short"
+		"inflictor_name" "string"
+	}
 	"pass_ball_stolen"
 	{
 		"victim" "short"

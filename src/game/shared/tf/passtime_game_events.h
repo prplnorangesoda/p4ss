@@ -120,12 +120,23 @@ namespace PasstimeGameEvents
 		int blockerIndex;
 	};
 
-	struct BallArrowed
+	struct BallDirected
 	{
-		BallArrowed( IGameEvent *pEvent );
+		BallDirected( IGameEvent *pEvent );
+		BallDirected( int attackerIndex, int inflictorIndex, const char *inflictorName );
+		BallDirected();
+
 		void Fire();
+
+		static const char *const s_eventName;
+		static const char *const s_keyAttackerIndex;
+		static const char *const s_keyInflictorIndex;
+		static const char *const s_keyInflictorName;
+
 		int attackerIndex;
+		int inflictorIndex;
+		const char *inflictorName;
 	};
-}
+	}
 
 #endif // PASSTIME_GAME_EVENTS_H  
