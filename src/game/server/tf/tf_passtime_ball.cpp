@@ -1321,6 +1321,41 @@ int	CPasstimeBall::OnTakeDamage( const CTakeDamageInfo &info )
 		pPhysObj->ApplyForceOffset( info.GetDamageForce().Normalized() * tf_passtime_ball_takedamage_force.GetFloat(), GetAbsOrigin() );
 	}
 
+	if ( info.GetAttacker() || info.GetInflictor() )
+	{
+		CBaseEntity *inflictor = info.GetInflictor();
+		CBaseEntity *attacker = info.GetAttacker();
+
+		Vector inflictorOrigin = inflictor->GetAbsOrigin();
+		Vector ballOrigin = GetAbsOrigin();
+
+		trace_t result;
+		Ray_t ray;
+
+		ray.Init( inflictorOrigin, ballOrigin );
+		UTIL_TraceRay( ray, MASK_SOLID, inflictor,
+					   COLLISION_GROUP_WEAPON, &result );
+
+		if ( result.DidHit() )
+		{
+			float distance = inflictorOrigin.DistTo( result.endpos );
+
+			int iWeaponID;
+			const char *weaponname =
+			TFGameRules()->GetKillingWeaponName( info, NULL, &iWeaponID );
+
+			// P4SS: this may cause issues later for things like pipes but we will try it out and see
+			if ( distance < 10.0f )
+			{
+				PasstimeGameEvents::BallDirected(
+				attacker->entindex(),
+				inflictor->entindex(), 
+				weaponname )
+				.Fire();
+			}
+		}
+	}
+
 	return 0;
 }
 
