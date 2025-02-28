@@ -1029,6 +1029,7 @@ void CTFPasstimeLogic::SpawnBallAtSpawner( CPasstimeBallSpawn *pSpawner )
 	pSpawner->m_onSpawnBall.FireOutput( pSpawner, pSpawner );
 
 	TFGameRules()->BroadcastSound( 255, "Passtime.BallSpawn" );
+	// TODO: wrap in convar
 	if ( TFGameRules()->IsHolidayActive( kHoliday_Halloween ) )
 	{
 		TFGameRules()->BroadcastSound( 255, "Passtime.Merasmus.Laugh" );
@@ -1800,7 +1801,19 @@ void CTFPasstimeLogic::ThinkExpiredTimer()
 	if ( bBallUnassigned && !bCountdownRunning )
 	{
 		// start the countdown when the ball turns neutral
-		m_pRespawnCountdown->Start( tf_passtime_overtime_idle_sec.GetFloat() );
+		if ( tf_passtime_golden_goal.GetBool() )
+		{
+			// keeps respawn ball timer as normal
+			m_pRespawnCountdown->Start( m_iBallSpawnCountdownSec );
+		}
+		else
+		{
+			// overtime respawn ball timer
+			m_pRespawnCountdown->Start(
+			tf_passtime_overtime_idle_sec.GetFloat() );
+		}
+		
+		
 	}
 	else if ( !bBallUnassigned && bCountdownRunning ) 
 	{
@@ -1875,7 +1888,18 @@ void CTFPasstimeLogic::EndRoundExpiredTimer()
 
 	if ( bTeamsAreDrawn )
 	{
-		TFGameRules()->SetStalemate( STALEMATE_SERVER_TIMELIMIT, true );
+		if ( tf_passtime_golden_goal.GetBool() )
+		{	
+			//"tf_passtime_overtime_idle_sec" as argument would make it 5 seconds by default and
+			// customizeable while golden goal is enabled.
+			m_pRespawnCountdown->Start( m_iBallSpawnCountdownSec ); 
+			SpawnBallAtRandomSpawnerThink();
+			return;
+		}
+		else
+		{
+			TFGameRules()->SetStalemate( STALEMATE_SERVER_TIMELIMIT, true );
+		}
 	}
 	else
 	{

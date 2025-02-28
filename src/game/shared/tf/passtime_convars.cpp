@@ -79,3 +79,5 @@ PASSTIME_CONVAR( tf_passtime_pack_hp_per_sec, 2.0f, "How many HP per second pack
 // med splashing
 PASSTIME_CONVAR( tf_passtime_med_cansplash, 1, "Enables med splashing." );
 PASSTIME_CONVAR( tf_passtime_med_canpushball, 1, "Enables med pushing ball with crossbow." );
+
+PASSTIME_CONVAR( tf_passtime_golden_goal, 1, "Enables golden goal state when stalemate would happen." );
