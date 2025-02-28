@@ -6,6 +6,7 @@
 //=============================================================================//
 
 #include "cbase.h"
+#include "passtime_convars.h"
 
 #define FLAGS_DEFAULT (FCVAR_NOTIFY | FCVAR_REPLICATED)
 
