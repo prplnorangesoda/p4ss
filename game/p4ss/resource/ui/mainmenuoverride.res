@@ -765,7 +765,7 @@
 		"PaintBackgroundType"	"0"
 
 		"font"			"HudFontSmallishBold"
-		"command" 		"engine replay_confirmquit"
+		"command" 		"quit prompt"
 		"labeltext"		"   Quit"
 		"OnlyInGame"	"1"
 
