@@ -78,30 +78,23 @@ void CTFPlayerMove::SetupMove( CBasePlayer *player, CUserCmd *ucmd, IMoveHelper 
 			}
 		}
 
-		// targe Exploit fix. Clients sending higher view angle changes then allowed
-		// Clamp their YAW Movement
+		// Server-side charge turn capping using the unified cap function
 		if ( pTFPlayer->m_Shared.InCond( TF_COND_SHIELD_CHARGE ) )
 		{
-			// Get the view deltas and clamp them if they are too high, give a high tolerance (lag)
-			float flCap = pTFPlayer->m_Shared.CalculateChargeCap();
-			flCap *= 2.5f;
-			QAngle qAngle = pTFPlayer->m_qPreviousChargeEyeAngle;
-			float flDiff = abs( qAngle[YAW] ) - abs( ucmd->viewangles[YAW] );
-			if ( flDiff > flCap )
+			// Calculate yaw delta between current view and the previous charge view angle.
+			float flYawDelta = AngleDiff( ucmd->viewangles[YAW], pTFPlayer->m_qPreviousChargeEyeAngle[YAW] );
+			
+			// Clamp the yaw change using the unified function.
+			float flCappedYawDelta = pTFPlayer->m_Shared.CapChargeTurnRate( flYawDelta );
+			
+			if ( fabs( flYawDelta ) > fabs( flCappedYawDelta ) )
 			{
-				//float flReportedPitchDelta = qAngle[YAW] - ucmd->viewangles[YAW];
-				if ( ucmd->viewangles[YAW] > qAngle[YAW] )
-				{
-					ucmd->viewangles[YAW] = qAngle[YAW] + flCap;
-					pTFPlayer->SnapEyeAngles( ucmd->viewangles );
-				}
-				else // smaller values
-				{
-					ucmd->viewangles[YAW] = qAngle[YAW] - flCap;
-					pTFPlayer->SnapEyeAngles( ucmd->viewangles );
-				}
+				// Adjust the view angle based on the capped delta.
+				ucmd->viewangles[YAW] = pTFPlayer->m_qPreviousChargeEyeAngle[YAW] + flCappedYawDelta;
+				pTFPlayer->SnapEyeAngles( ucmd->viewangles );
 			}
 			
+			// Store the current view angle for the next tick.
 			pTFPlayer->m_qPreviousChargeEyeAngle = ucmd->viewangles;
 		}
 		else
