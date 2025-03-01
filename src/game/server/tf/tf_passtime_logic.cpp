@@ -783,7 +783,18 @@ void CTFPasstimeLogic::OnEnterGoal( CPasstimeBall *pBall, CFuncPasstimeGoal *pGo
 	CTFPlayer *pOwner = pBall->GetThrower();
 	if ( pOwner && (pBall->GetTeamNumber() == pGoal->GetTeamNumber()) )
 	{
-		Score( pBall, pGoal );
+		DevMsg( "%b \n", !pBall->GetLastHomingTarget()->IsAlive() );
+
+		// we scored a deathbomb logic here
+		if ( pBall->GetLastHomingTarget() && !pBall->GetLastHomingTarget()->IsAlive() )
+		{
+			DevMsg( "DEATH BOMB!!!!!!!!!!!!!!!!!!" );
+			Score( pBall, pGoal, true );
+		}
+		else
+		{
+			Score( pBall, pGoal, false );
+		}
 	}
 }
 
@@ -1312,17 +1323,19 @@ void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, CFuncPasstimeGoal *pGoal )
 {
 	Assert( pPlayer && pGoal );
 	pGoal->OnScore( pPlayer->GetTeamNumber() );
-	Score( pPlayer, pGoal->GetTeamNumber(), pGoal->Points(), pGoal->BWinOnScore() );
+	Score( pPlayer, pGoal->GetTeamNumber(), pGoal->Points(), pGoal->BWinOnScore(), false );
 }
 
 //-----------------------------------------------------------------------------
-void CTFPasstimeLogic::Score( CPasstimeBall *pBall, CFuncPasstimeGoal *pGoal )
+void CTFPasstimeLogic::Score( CPasstimeBall *pBall, CFuncPasstimeGoal *pGoal, bool _isDeathBomb )
 {
+	bool isDeathBomb = false;
+
 	Assert( pBall && pGoal );
 	CTFPlayer* pPlayer = pBall->GetThrower();
 	Assert( pPlayer );
 	pGoal->OnScore( pPlayer->GetTeamNumber() );
-	Score( pPlayer, pGoal->GetTeamNumber(), pGoal->Points(), pGoal->BWinOnScore() );
+	Score( pPlayer, pGoal->GetTeamNumber(), pGoal->Points(), pGoal->BWinOnScore(), isDeathBomb );
 }
 
 //-----------------------------------------------------------------------------
@@ -1340,7 +1353,7 @@ void CTFPasstimeLogic::AddCondToTeam( ETFCond eCond, int iTeam, float flTime )
 }
 
 //-----------------------------------------------------------------------------
-void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, int iTeam, int iPoints, bool bForceWin ) 
+void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, int iTeam, int iPoints, bool bForceWin, bool _isDeathBomb ) 
 {
 	StopAskForBallEffects();
 	m_pRespawnCountdown->Disable();
@@ -1394,6 +1407,7 @@ void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, int iTeam, int iPoints, bool b
 		{
 			CTF_GameStats.Event_PlayerAwardBonusPoints( pAssister, 0, 10 );
 			PasstimeGameEvents::Score( pPlayer->entindex(), pAssister->entindex(), iPoints ).Fire();
+
 		}
 		else
 		{
@@ -1687,7 +1701,6 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 			if ( pBall->PlayerInGoalieZone( pCatcher ) && pBall->GetTeamNumber() != pCatcher->GetTeamNumber()  )
 			{
 				isBlock = true;
-				DevMsg( "savedddddddddddddddd" );
 			}
 
 			// award bonus effects for interception

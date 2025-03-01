@@ -102,6 +102,7 @@ LINK_ENTITY_TO_CLASS( _ballplayertoucher, CBallPlayerToucher );
 IMPLEMENT_SERVERCLASS_ST( CPasstimeBall, DT_PasstimeBall )
 	SendPropInt(SENDINFO(m_iCollisionCount)),
 	SendPropEHandle(SENDINFO(m_hHomingTarget)),
+	SendPropEHandle( SENDINFO(m_hLastHomingTarget)),
 	SendPropEHandle(SENDINFO(m_hCarrier)),
 	SendPropEHandle(SENDINFO(m_hPrevCarrier)),
 END_SEND_TABLE()
@@ -375,6 +376,7 @@ void CPasstimeBall::Spawn()
 	}
 
 	// === My spawn
+	m_hLastHomingTarget = 0;
 	m_flLastTeamChangeTime = gpGlobals->curtime;
 	m_flBeginCarryTime = -1;
 	ResetTrail();
@@ -661,6 +663,7 @@ void CPasstimeBall::SetStateOutOfPlay()
 		m_hPrevCarrier = m_hCarrier;
 	}
 	m_hCarrier = 0;
+	m_hLastHomingTarget = 0;
 }
 
 //-----------------------------------------------------------------------------
@@ -1295,6 +1298,7 @@ void CPasstimeBall::OnCollision()
 {
 	m_flAirtimeDistance = 0;
 	m_flLastCollisionTime = gpGlobals->curtime;
+	m_hLastHomingTarget = 0;
 	++m_iCollisionCount;
 	if ( m_iCollisionCount == 1 ) 
 	{
@@ -1348,7 +1352,7 @@ int	CPasstimeBall::OnTakeDamage( const CTakeDamageInfo &info )
 
 		ray.Init( inflictorOrigin, ballOrigin );
 		UTIL_TraceRay( ray, MASK_SOLID, inflictor,
-					   COLLISION_GROUP_WEAPON, &result );
+COLLISION_GROUP_WEAPON, &result );
 
 		if ( result.DidHit() ) // ball direct
 		{
@@ -1499,6 +1503,8 @@ CPasstimeBall *CPasstimeBall::Create( Vector vecPosition, QAngle angles )
 void CPasstimeBall::SetHomingTarget( CTFPlayer *pPlayer ) 
 { 
 	m_hHomingTarget = pPlayer; 
+	m_hLastHomingTarget = pPlayer;
+
 	if ( m_hHomingTarget )
 	{
 		if ( !m_pBeepLoop )
@@ -1528,6 +1534,12 @@ CTFPlayer *CPasstimeBall::GetHomingTarget() const
 {
 	return m_hHomingTarget;
 }
+
+CTFPlayer *CPasstimeBall::GetLastHomingTarget() const
+{
+	return m_hLastHomingTarget;
+}
+
 
 //-----------------------------------------------------------------------------
 float CPasstimeBall::GetAirtimeSec() const 

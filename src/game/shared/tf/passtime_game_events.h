@@ -50,6 +50,8 @@ namespace PasstimeGameEvents
 		int scorerIndex;
 		int assisterIndex;
 		int numPoints;
+
+		bool isDeathBomb;
 	};
 
 	//-----------------------------------------------------------------------------

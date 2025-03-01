@@ -66,6 +66,7 @@ public:
 
 	void SetHomingTarget( CTFPlayer *pPlayer );
 	CTFPlayer *GetHomingTarget() const;
+	CTFPlayer *GetLastHomingTarget() const;
 	float GetAirtimeSec() const;
 	float GetAirtimeDistance() const;
 
@@ -131,6 +132,7 @@ private:
 
 	CNetworkVar( int, m_iCollisionCount );
 	CNetworkHandle( CTFPlayer, m_hHomingTarget );
+	CNetworkHandle( CTFPlayer, m_hLastHomingTarget );
 	CNetworkHandle( CTFPlayer, m_hCarrier );
 	CNetworkHandle( CTFPlayer, m_hPrevCarrier );
 };
