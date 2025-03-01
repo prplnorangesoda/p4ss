@@ -26,7 +26,6 @@ namespace PasstimeGameEvents
 	{
 		BallGet( IGameEvent *pEvent );
 		BallGet( int ownerIndex, int team );
-		BallGet( int ownerIndex, int team, bool isSave );
 		void Fire();
 		
 		static const char *const s_eventName;
@@ -34,7 +33,6 @@ namespace PasstimeGameEvents
 		static const char *const s_keyTeam;
 		int ownerIndex;
 		int team;
-		bool isSave;
 	};
 	
 	//-----------------------------------------------------------------------------
@@ -76,7 +74,7 @@ namespace PasstimeGameEvents
 		PassCaught( IGameEvent *pEvent );
 		PassCaught();
 		PassCaught( int passerIndex, int catcherIndex, float dist, float duration );
-		PassCaught( int passerIndex, int catcherIndex, float dist, float duration, bool isHandoff );
+		PassCaught( int passerIndex, int catcherIndex, float dist, float duration, bool isHandoff, bool isBlock );
 		void Fire();
 
 		static const char *const s_eventName;
@@ -85,11 +83,13 @@ namespace PasstimeGameEvents
 		static const char *const s_keyDist;
 		static const char *const s_keyDuration;
 		static const char *const s_keyIsHandoff;
+		static const char *const s_keyIsBlock;
 		int passerIndex;
 		int catcherIndex;
 		float dist;
 		float duration;
 		bool isHandoff;
+		bool isBlock;
 	};
 
 	//-----------------------------------------------------------------------------

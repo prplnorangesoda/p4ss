@@ -1689,6 +1689,7 @@
 		"dist"	"float"
 		"duration" "float"
 		"is_handoff" "bool"
+		"is_block" "bool"
 	}
 	"pass_ball_directed"
 	{

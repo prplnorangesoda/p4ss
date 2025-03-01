@@ -1373,20 +1373,20 @@ int	CPasstimeBall::OnTakeDamage( const CTakeDamageInfo &info )
 			// P4SS: this may cause issues later for things like pipes but we will try it out and see
 			if ( distance < 10.0f )
 			{
-				if ( didSplashGoal )
+				if ( didSplashGoal && attacker != GetThrower() && GetTeamNumber() != TEAM_UNASSIGNED )
 				{
 					PasstimeGameEvents::BallSplashed(
 					attacker->entindex(), weaponname, true )
 					.Fire();
 				}
-				else if ( GetThrower() )
+				else
 				{
 					PasstimeGameEvents::BallDirected(
 					attacker->entindex(), inflictor->entindex(), weaponname )
 					.Fire();				
 				}
 
-			} else if (didSplashGoal && GetThrower() ) { // ball splash
+			} else if ( didSplashGoal && attacker != GetThrower() && GetTeamNumber() != TEAM_UNASSIGNED ) { // ball splash
 					PasstimeGameEvents::BallSplashed(
 					attacker->entindex(), weaponname, false )
 					.Fire();
@@ -1396,6 +1396,28 @@ int	CPasstimeBall::OnTakeDamage( const CTakeDamageInfo &info )
 	}
 
 	return 0;
+}
+
+//----------------------------------------------------------------------------
+
+bool CPasstimeBall::PlayerInGoalieZone(CTFPlayer* pCatcher)
+{
+	bool inZone = false;
+
+	for ( CBaseEntity *pEntity : m_mapGoals )
+	{
+		if ( pEntity->GetTeamNumber() != pCatcher->GetTeamNumber() )
+		{
+			float distance = pEntity->GetAbsOrigin().DistTo( pCatcher->GetAbsOrigin() );
+
+			if ( distance <= 200.0f )
+			{
+				inZone = true;
+			}
+		}
+	}
+
+	return inZone;
 }
 
 //-----------------------------------------------------------------------------
