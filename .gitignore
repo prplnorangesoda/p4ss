@@ -541,8 +541,13 @@ game/platform
 p4ss-build/
 p4ss-build/*
 *.steambuild.*/
+
+# These libs are generated at compile time, don't keep them in tree
 src/lib/public/linux64/tier1.a
 src/lib/public/linux64/vgui_controls.a
+src/lib/public/linux64/mathlib.a
+src/lib/public/linux64/raytrace.a
+
 game/p4ss/bin/linux64/game_shader_generic_example.so
 
 !game/p4ss/cfg/settings.scr
