@@ -52,6 +52,9 @@ void CTFPlayerMove::StartCommand( CBasePlayer *player, CUserCmd *cmd )
 	BaseClass::StartCommand( player, cmd );
 }
 
+// Define a tolerance factor (e.g., 1.25 means a 25% buffer before clamping kicks in).
+ConVar tf_charge_turn_tolerance( "tf_charge_turn_tolerance", "1.25", FCVAR_REPLICATED | FCVAR_CHEAT, "Tolerance factor for charge turn clamping.", true, 1.0f, true, 2.0f );
+
 //-----------------------------------------------------------------------------
 // Purpose: This is called pre player movement and copies all the data necessary
 //          from the player for movement. (Server-side, the client-side version
@@ -78,7 +81,7 @@ void CTFPlayerMove::SetupMove( CBasePlayer *player, CUserCmd *ucmd, IMoveHelper 
 			}
 		}
 
-		// Server-side charge turn capping using the unified cap function
+		// Server-side charge turn capping
 		if ( pTFPlayer->m_Shared.InCond( TF_COND_SHIELD_CHARGE ) )
 		{
 			// Calculate yaw delta between current view and the previous charge view angle.
@@ -86,8 +89,9 @@ void CTFPlayerMove::SetupMove( CBasePlayer *player, CUserCmd *ucmd, IMoveHelper 
 			
 			// Clamp the yaw change using the unified function.
 			float flCappedYawDelta = pTFPlayer->m_Shared.CapChargeTurnRate( flYawDelta );
-			
-			if ( fabs( flYawDelta ) > fabs( flCappedYawDelta ) )
+
+			// Only clamp if the yaw difference exceeds the cap by more than the tolerance.
+			if ( fabs(flYawDelta) > tf_charge_turn_tolerance.GetFloat() * fabs(flCappedYawDelta) )
 			{
 				// Adjust the view angle based on the capped delta.
 				ucmd->viewangles[YAW] = pTFPlayer->m_qPreviousChargeEyeAngle[YAW] + flCappedYawDelta;
