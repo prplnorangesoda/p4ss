@@ -1489,6 +1489,7 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 		&& (pCatcher != pBall->GetPrevCarrier())) // and not passed to yourself...
 	{
 		bool isHandoff = false;
+		bool isBlock = false;
 		bool bAllowCheerSound = false;
 
 		int iDistanceBonus = ( int ) ( pBall->GetAirtimeSec() * tf_passtime_powerball_airtimebonus.GetFloat() );
@@ -1659,11 +1660,13 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 				// pass was intercepted
 				++CTF_GameStats.m_passtimeStats.summary.nTotalPassesIntercepted;
 				CTF_GameStats.m_passtimeStats.AddPassTravelDistSample( pBall->GetAirtimeDistance() );
+
 			}
 			else
 			{
 				// toss was intercepted
 				++CTF_GameStats.m_passtimeStats.summary.nTotalTossesIntercepted;
+
 			}
 			
 			// interception can happen at any range, extra points if intercepted within the goal area
@@ -1681,6 +1684,12 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 				}
 			}
 
+			if ( pBall->PlayerInGoalieZone( pCatcher ) && pBall->GetTeamNumber() != pCatcher->GetTeamNumber()  )
+			{
+				isBlock = true;
+				DevMsg( "savedddddddddddddddd" );
+			}
+
 			// award bonus effects for interception
 			pCatcher->m_Shared.AddCond( TF_COND_PASSTIME_INTERCEPTION, tf_passtime_speedboost_on_get_ball_time.GetFloat() );
 			pCatcher->m_Shared.AddCond( TF_COND_SPEED_BOOST, tf_passtime_speedboost_on_get_ball_time.GetFloat() );
@@ -1690,7 +1699,7 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 			CrowdReactionSound( pCatcher->GetTeamNumber() );
 		}
 		Msg("Reached end of OnPlayerTouchBall, firing event PassCaught with isHandoff (%s)\n", isHandoff ? "true" : "false");
-		PasstimeGameEvents::PassCaught( pThrower->entindex(), pCatcher->entindex(), flFeet, pBall->GetAirtimeSec(), isHandoff ).Fire();
+		PasstimeGameEvents::PassCaught( pThrower->entindex(), pCatcher->entindex(), flFeet, pBall->GetAirtimeSec(), isHandoff, isBlock ).Fire();
 	}
 	else 
 	{

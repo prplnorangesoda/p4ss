@@ -60,6 +60,8 @@ public:
 	void SetStateCarried( CTFPlayer *pCarrier );
 	bool BOutOfPlay() const;
 
+	bool PlayerInGoalieZone( CTFPlayer *player );
+
 	static CPasstimeBall *Create( Vector position, QAngle angles );
 
 	void SetHomingTarget( CTFPlayer *pPlayer );

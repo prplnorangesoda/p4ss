@@ -788,7 +788,11 @@ void CTFHudPasstimeEventText::EnqueuePass( C_TFPlayer *pThrower, C_TFPlayer *pCa
 {
 	Enqueue( pThrower, pCatcher, "#Msg_PasstimeEventPassTitle", "#Msg_PasstimeEventPassDetail", "#Msg_PasstimeEventPassBonus" );
 }
-
+//-----------------------------------------------------------------------------
+void CTFHudPasstimeEventText::EnqueueSave( C_TFPlayer *pThrower, C_TFPlayer *pCatcher )
+{
+	Enqueue( pThrower, pCatcher, "#Msg_PasstimeEventSaveTitle", "#Msg_PasstimeEventSaveDetail", "#Msg_PasstimeEventSaveBonus" );
+}
 //-----------------------------------------------------------------------------
 void CTFHudPasstimeEventText::EnqueueHandoff( C_TFPlayer *pThrower, C_TFPlayer *pCatcher )
 {
@@ -1541,6 +1545,7 @@ void CTFHudPasstimeBallStatus::FireGameEvent( IGameEvent *pEvent )
 		OnBallGet( passCaughtEvent.catcherIndex );
 		
 		bool isHandoff = passCaughtEvent.isHandoff;
+		bool isBlock = passCaughtEvent.isBlock;
 
 		Msg("P4SS CLIENT: isHandoff: %s\n", isHandoff ? "true" : "false");
 		auto *pCatcher = ToTFPlayer( UTIL_PlayerByIndex( passCaughtEvent.catcherIndex ) );
@@ -1560,7 +1565,14 @@ void CTFHudPasstimeBallStatus::FireGameEvent( IGameEvent *pEvent )
 			}
 			else
 			{
-				m_pEventText->EnqueueInterception( pThrower, pCatcher );
+				if ( isBlock )
+				{
+					m_pEventText->EnqueueSave( pThrower, pCatcher );
+				}
+				else
+				{
+					m_pEventText->EnqueueInterception( pThrower, pCatcher );
+				}
 			}
 		}
 	}

@@ -148,6 +148,8 @@ const char *const PassCaught::s_keyCatcherIndex = "catcher";
 const char *const PassCaught::s_keyDist = "dist";
 const char *const PassCaught::s_keyDuration = "duration";
 const char *const PassCaught::s_keyIsHandoff = "is_handoff";
+const char *const PassCaught::s_keyIsBlock = "is_block";
+
 
 PassCaught::PassCaught( IGameEvent *pEvent )
 	: passerIndex( pEvent->GetInt( s_keyPasserIndex ) )
@@ -155,6 +157,7 @@ PassCaught::PassCaught( IGameEvent *pEvent )
 	, dist( pEvent->GetFloat( s_keyDist ) )
 	, duration( pEvent->GetFloat( s_keyDuration ) ) 
 	, isHandoff( pEvent->GetBool( s_keyIsHandoff ) )
+	, isBlock( pEvent->GetBool( s_keyIsBlock ) )
 {
 	Assert( IsType<PassCaught>( pEvent ) );
 }
@@ -165,6 +168,7 @@ PassCaught::PassCaught()
 	, dist( 0 )
 	, duration( 0 )
 	, isHandoff( false )
+	, isBlock( false )
 {
 	Msg("P4SS Overload without isHandoff called.\n");
 }
@@ -175,16 +179,18 @@ PassCaught::PassCaught( int passerIndex_, int catcherIndex_, float dist_, float 
 	, dist( dist_ )
 	, duration( duration_ )
 	, isHandoff( false )
+	, isBlock(false)
 {
 	Msg("P4SS Overload without isHandoff called.\n");
 }
 
-PassCaught::PassCaught( int passerIndex_, int catcherIndex_, float dist_, float duration_, bool isHandoff_ )
+PassCaught::PassCaught( int passerIndex_, int catcherIndex_, float dist_, float duration_, bool isHandoff_, bool isBlock_ )
 	: passerIndex( passerIndex_ )
 	, catcherIndex( catcherIndex_ )
 	, dist( dist_ )
 	, duration( duration_ )
 	, isHandoff( isHandoff_ )
+	, isBlock( isBlock_ )
 {
 	Msg("P4SS Overload with isHandoff called. isHandoff_: %s\n", isHandoff_ ? "true" : "false");
 }
@@ -197,6 +203,7 @@ void PassCaught::Fire()
 		pEvent->SetFloat( s_keyDist, dist );
 		pEvent->SetFloat( s_keyDuration, duration );
 		pEvent->SetBool( s_keyIsHandoff, isHandoff );
+		pEvent->SetBool( s_keyIsBlock, isBlock );
 		gameeventmanager->FireEvent( pEvent );
 	}
 }
