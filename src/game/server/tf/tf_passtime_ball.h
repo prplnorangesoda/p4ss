@@ -114,6 +114,8 @@ private:
 	float m_flBeginCarryTime;
 	float m_flIdleRespawnTime;
 
+	CUtlVector<CBaseEntity*> m_mapGoals; 
+
 	struct LagRecord 
 	{
 		float flSimulationTime;

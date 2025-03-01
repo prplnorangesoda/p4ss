@@ -780,6 +780,7 @@ void CTFProjectile_Arrow::ArrowTouch( CBaseEntity *pOther )
 			}
 			else
 			{
+				// P4SS: fix me, this is not a good solution to making the ball neutral because splash/direct calculations do not work without the ball taking damage
 				((CPasstimeBall *) pOther)->ChangeTeam( 0 );
 			}
 		}

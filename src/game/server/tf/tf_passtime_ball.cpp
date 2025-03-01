@@ -387,6 +387,19 @@ void CPasstimeBall::Spawn()
 		SetNextThink( gpGlobals->curtime );
 		SetTransmitState( FL_EDICT_ALWAYS );
 		m_playerSeek.SetIsEnabled( true );
+
+
+		m_mapGoals.PurgeAndDeleteElements();
+
+		// all goal entities on map
+		// if for whatever reason a map has more than 2 goals we still want this to work
+
+		for (CBaseEntity* pEntity = gEntList.FirstEnt(); pEntity != nullptr; pEntity = gEntList.NextEnt(pEntity)) {
+			if (FStrEq(pEntity->GetClassname(), "func_passtime_goal")) {
+				m_mapGoals.AddToTail( pEntity );
+			}
+		}
+
 	}
 
 	m_flLastCollisionTime = gpGlobals->curtime;
@@ -1295,6 +1308,7 @@ void CPasstimeBall::OnCollision()
 }
 
 //-----------------------------------------------------------------------------
+
 int	CPasstimeBall::OnTakeDamage( const CTakeDamageInfo &info ) 
 {
 	if ( !tf_passtime_ball_takedamage.GetBool() )
@@ -1336,24 +1350,49 @@ int	CPasstimeBall::OnTakeDamage( const CTakeDamageInfo &info )
 		UTIL_TraceRay( ray, MASK_SOLID, inflictor,
 					   COLLISION_GROUP_WEAPON, &result );
 
-		if ( result.DidHit() )
+		if ( result.DidHit() ) // ball direct
 		{
 			float distance = inflictorOrigin.DistTo( result.endpos );
 
+			bool didSplashGoal = false;
 			int iWeaponID;
 			const char *weaponname =
 			TFGameRules()->GetKillingWeaponName( info, NULL, &iWeaponID );
 
+			for ( CBaseEntity *pEntity : m_mapGoals )
+			{
+				float splashDistance =
+				pEntity->GetAbsOrigin().DistTo( GetAbsOrigin() );
+
+				if ( splashDistance <= 120.0f )
+				{
+					didSplashGoal = true;
+				}
+			}
+
 			// P4SS: this may cause issues later for things like pipes but we will try it out and see
 			if ( distance < 10.0f )
 			{
-				PasstimeGameEvents::BallDirected(
-				attacker->entindex(),
-				inflictor->entindex(), 
-				weaponname )
-				.Fire();
-			}
+				if ( didSplashGoal )
+				{
+					PasstimeGameEvents::BallSplashed(
+					attacker->entindex(), weaponname, true )
+					.Fire();
+				}
+				else if ( GetThrower() )
+				{
+					PasstimeGameEvents::BallDirected(
+					attacker->entindex(), inflictor->entindex(), weaponname )
+					.Fire();				
+				}
+
+			} else if (didSplashGoal && GetThrower() ) { // ball splash
+					PasstimeGameEvents::BallSplashed(
+					attacker->entindex(), weaponname, false )
+					.Fire();
+			} 
 		}
+
 	}
 
 	return 0;

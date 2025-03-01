@@ -299,3 +299,39 @@ void BallDirected::Fire()
 		gameeventmanager->FireEvent( pEvent );
 	}
 }
+
+//-----------------------------------------------------------------------------
+
+const char *const BallSplashed::s_eventName = "pass_ball_splashed";
+const char *const BallSplashed::s_keyAttackerIndex = "attacker";
+const char *const BallSplashed::s_keyInflictorName = "inflictor_name";
+const char *const BallSplashed::s_keyIsDirect = "is_direct";
+
+BallSplashed::BallSplashed( IGameEvent *pEvent )
+	: attackerIndex( pEvent->GetInt( s_keyAttackerIndex ) ),
+	  inflictorName( pEvent->GetString( s_keyInflictorName ) ),
+	  isDirect( pEvent->GetBool( s_keyIsDirect ) )
+{
+	Assert( IsType<BallSplashed>( pEvent ) );
+}
+
+BallSplashed::BallSplashed( int attackerIndex, const char *inflictorName, bool isDirect )
+	: attackerIndex( attackerIndex ), inflictorName( inflictorName ), isDirect( isDirect )
+{
+}
+
+BallSplashed::BallSplashed()
+	: attackerIndex( -1 ), inflictorName( NULL ), isDirect( false )
+{
+}
+
+void BallSplashed::Fire()
+{
+	if ( IGameEvent *pEvent = CreateEvent<BallSplashed>() )
+	{
+		pEvent->SetInt( s_keyAttackerIndex, attackerIndex );
+		pEvent->SetBool( s_keyIsDirect, isDirect );
+		pEvent->SetString( s_keyInflictorName, inflictorName );
+		gameeventmanager->FireEvent( pEvent );
+	}
+}

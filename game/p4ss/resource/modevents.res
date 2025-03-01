@@ -1696,6 +1696,12 @@
 		"inflictor" "short"
 		"inflictor_name" "string"
 	}
+	"pass_ball_splashed"
+	{
+		"attacker" "short"
+		"inflictor_name" "string"
+		"is_direct" "bool"
+	}
 	"pass_ball_stolen"
 	{
 		"victim" "short"

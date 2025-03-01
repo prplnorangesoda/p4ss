@@ -26,6 +26,7 @@ namespace PasstimeGameEvents
 	{
 		BallGet( IGameEvent *pEvent );
 		BallGet( int ownerIndex, int team );
+		BallGet( int ownerIndex, int team, bool isSave );
 		void Fire();
 		
 		static const char *const s_eventName;
@@ -33,6 +34,7 @@ namespace PasstimeGameEvents
 		static const char *const s_keyTeam;
 		int ownerIndex;
 		int team;
+		bool isSave;
 	};
 	
 	//-----------------------------------------------------------------------------
@@ -119,7 +121,7 @@ namespace PasstimeGameEvents
 		int ownerIndex;
 		int blockerIndex;
 	};
-
+	//-----------------------------------------------------------------------------
 	struct BallDirected
 	{
 		BallDirected( IGameEvent *pEvent );
@@ -137,6 +139,23 @@ namespace PasstimeGameEvents
 		int inflictorIndex;
 		const char *inflictorName;
 	};
-	}
+	struct BallSplashed
+	{
+		BallSplashed( IGameEvent *pEvent );
+		BallSplashed( int attackerIndex, const char *inflictorName, bool isDirect );
+		BallSplashed();
+		
+		void Fire();
+
+		static const char *const s_eventName;
+		static const char *const s_keyAttackerIndex;
+		static const char *const s_keyIsDirect;
+		static const char *const s_keyInflictorName;
+
+		int attackerIndex;
+		bool isDirect;
+		const char *inflictorName;
+	};
+}
 
 #endif // PASSTIME_GAME_EVENTS_H  
