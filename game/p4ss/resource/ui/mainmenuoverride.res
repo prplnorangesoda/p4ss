@@ -765,7 +765,7 @@
 		"PaintBackgroundType"	"0"
 
 		"font"			"HudFontSmallishBold"
-		"command" 		"quit prompt"
+		"command" 		"engine quit prompt"
 		"labeltext"		"   Quit"
 		"OnlyInGame"	"1"
 
