@@ -783,7 +783,7 @@ void CTFPasstimeLogic::OnEnterGoal( CPasstimeBall *pBall, CFuncPasstimeGoal *pGo
 	CTFPlayer *pOwner = pBall->GetThrower();
 	if ( pOwner && (pBall->GetTeamNumber() == pGoal->GetTeamNumber()) )
 	{
-		DevMsg( "%b \n", !pBall->GetLastHomingTarget()->IsAlive() );
+		//DevMsg( "%b \n", !pBall->GetLastHomingTarget()->IsAlive() );
 
 		// we scored a deathbomb logic here
 		if ( pBall->GetLastHomingTarget() && !pBall->GetLastHomingTarget()->IsAlive() )
