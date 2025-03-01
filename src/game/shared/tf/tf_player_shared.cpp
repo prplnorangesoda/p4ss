@@ -101,10 +101,6 @@
 #include "tf_wearable_weapons.h"
 #include "tf_weapon_bonesaw.h"
 
-static ConVar tf_demoman_charge_frametime_scaling( "tf_demoman_charge_frametime_scaling", "1", FCVAR_REPLICATED | FCVAR_CHEAT, "When enabled, scale yaw limiting based on client performance (frametime)." );
-static const float YAW_CAP_SCALE_MIN = 0.2f;
-static const float YAW_CAP_SCALE_MAX = 2.f;
-
 ConVar tf_halloween_kart_boost_recharge( "tf_halloween_kart_boost_recharge", "5.0f", FCVAR_REPLICATED | FCVAR_CHEAT );
 ConVar tf_halloween_kart_boost_duration( "tf_halloween_kart_boost_duration", "1.5f", FCVAR_REPLICATED | FCVAR_CHEAT );
 
