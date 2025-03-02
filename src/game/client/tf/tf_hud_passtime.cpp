@@ -866,6 +866,11 @@ void CTFHudPasstimeEventText::EnqueuePanacea( C_TFPlayer *pThrower )
 	Enqueue( pThrower, pThrower, "#Msg_PasstimeEventPanaceaTitle", "#Msg_PasstimeEventPanaceaDetail", "#Msg_PasstimeEventDeathbombBonus");
 }
 
+void CTFHudPasstimeEventText::EnqueueWinstrat( C_TFPlayer *pThrower )
+{
+	Enqueue( pThrower, pThrower, "#Msg_PasstimeEventWinstratTitle", "#Msg_PasstimeEventWinstratDetail", "#Msg_PasstimeEventWinstratBonus");
+}
+
 void CTFHudPasstimeEventText::EnqueueDeathbomb( C_TFPlayer *pThrower, C_TFPlayer *pAssister )
 {
 	Enqueue( pAssister, pThrower, "#Msg_PasstimeEventDeathbombTitle", "#Msg_PasstimeEventDeathbombDetail", "#Msg_PasstimeEventPanaceaBonus");
@@ -1648,15 +1653,28 @@ void CTFHudPasstimeBallStatus::FireGameEvent( IGameEvent *pEvent )
 		auto *pScorer = ToTFPlayer( UTIL_PlayerByIndex( scoreEvent.scorerIndex ) );
 		auto *pAssister = ToTFPlayer( UTIL_PlayerByIndex( scoreEvent.assisterIndex ) );
 
+		if ( scoreEvent.isWinstrat )
+		{
+			DevMsg( "hud passtime says it awinstrat \n" );
+		}
+
+
 		if ( scoreEvent.isDeathBomb )
 		{
 			m_pEventText->EnqueueDeathbomb( pScorer, pAssister );
 		} 
 		else
 		{
-			if ( scoreEvent.isPanacea )
+			if ( scoreEvent.isPanacea) // matt p bless the winstrat
 			{
-				m_pEventText->EnqueuePanacea( pScorer );
+				if ( scoreEvent.isWinstrat )
+				{
+					m_pEventText->EnqueueWinstrat( pScorer );
+				}
+				else
+				{
+					m_pEventText->EnqueuePanacea( pScorer );
+				}
 			} 
 			else
 			{
