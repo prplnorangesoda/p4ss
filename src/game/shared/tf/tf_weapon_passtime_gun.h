@@ -116,7 +116,8 @@ protected:
 			: iButton( button ), eButtonState( BUTTONSTATE_UP )
 			, bLatchedUp( false )
 		{}
-		const int iButton;
+		// Forgive me
+		/*const*/ int iButton;
 		EButtonState eButtonState;
 		bool bLatchedUp;
 
