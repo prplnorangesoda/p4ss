@@ -1848,7 +1848,7 @@ void CTFPasstimeLogic::ThinkExpiredTimer()
 	if ( bBallUnassigned && !bCountdownRunning )
 	{
 		// start the countdown when the ball turns neutral
-		if ( tf_passtime_golden_goal.GetBool() )
+		if ( p4ss_golden_goal.GetBool() )
 		{
 			// keeps respawn ball timer as normal
 			m_pRespawnCountdown->Start( m_iBallSpawnCountdownSec );
@@ -1935,7 +1935,7 @@ void CTFPasstimeLogic::EndRoundExpiredTimer()
 
 	if ( bTeamsAreDrawn )
 	{
-		if ( tf_passtime_golden_goal.GetBool() )
+		if ( p4ss_golden_goal.GetBool() )
 		{	
 			//"tf_passtime_overtime_idle_sec" as argument would make it 5 seconds by default and
 			// customizeable while golden goal is enabled.
