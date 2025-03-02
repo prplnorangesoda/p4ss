@@ -855,6 +855,11 @@ void CPasstimeBall::DefaultThink()
 		return;
 	}
 
+	if ( GetThrower() )
+	{
+		DevMsg( "we have a throwererr \n" );
+	}
+
 	//
 	// Eject the ball if the carrier isn't allowed to carry it
 	//
@@ -1172,12 +1177,6 @@ void CPasstimeBall::TouchPlayer( CTFPlayer *pPlayer )
 
 		BlockReflect( pPlayer, pPlayer->GetAbsOrigin(), vecBallVel );
 		BlockDamage( pPlayer, vecBallVel );
-
-		if ( GetThrower() )
-		{
-			// ball was in flight
-			PasstimeGameEvents::BallBlocked( GetThrower()->entindex(), pPlayer->entindex() ).Fire();
-		}
 			
 		CPasstimeBallController::DisableOn( this );
 		m_iCollisionCount++;
@@ -1329,6 +1328,8 @@ void CPasstimeBall::OnCollision()
 
 int	CPasstimeBall::OnTakeDamage( const CTakeDamageInfo &info ) 
 {
+	CTFPlayer *ballThrower = GetThrower();
+
 	if ( !tf_passtime_ball_takedamage.GetBool() )
 	{
 		// this can happen if the cvar is disabled after the ball has spawned
@@ -1388,25 +1389,28 @@ COLLISION_GROUP_WEAPON, &result );
 				}
 			}
 
+			CTFPlayer *attackerPlayer = dynamic_cast<CTFPlayer *>(attacker);
+
 			// P4SS: this may cause issues later for things like pipes but we will try it out and see
 			if ( distance < 10.0f )
 			{
-				if ( didSplashGoal && attacker != GetThrower() && GetTeamNumber() != TEAM_UNASSIGNED )
+				if ( didSplashGoal && attackerPlayer && ballThrower && attackerPlayer->GetTeamNumber() != ballThrower->GetTeamNumber() )
 				{
 					PasstimeGameEvents::BallSplashed(
-					attacker->entindex(), weaponname, true )
+					attackerPlayer->entindex(), weaponname, true )
 					.Fire();
 				}
 				else
 				{
 					PasstimeGameEvents::BallDirected(
-					attacker->entindex(), inflictor->entindex(), weaponname )
+					attackerPlayer->entindex(), inflictor->entindex(), weaponname )
 					.Fire();				
 				}
 
-			} else if ( didSplashGoal && attacker != GetThrower() && GetTeamNumber() != TEAM_UNASSIGNED ) { // ball splash
+			} else if ( didSplashGoal && attackerPlayer && ballThrower && attackerPlayer->GetTeamNumber() != ballThrower->GetTeamNumber() ) { // ball splash
+
 					PasstimeGameEvents::BallSplashed(
-					attacker->entindex(), weaponname, false )
+					attackerPlayer->entindex(), weaponname, false )
 					.Fire();
 			} 
 		}
