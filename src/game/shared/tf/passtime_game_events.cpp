@@ -68,6 +68,7 @@ const char *const Score::s_keyScorerIndex = "scorer";
 const char *const Score::s_keyAssisterIndex = "assister";
 const char *const Score::s_keyNumPoints = "points";
 const char *const Score::s_keyIsDeathBomb = "is_deathbomb";
+const char *const Score::s_keyIsPanacea = "is_panacea";
 
 
 Score::Score( IGameEvent *pEvent )
@@ -75,23 +76,26 @@ Score::Score( IGameEvent *pEvent )
 	, assisterIndex( pEvent->GetInt( s_keyAssisterIndex ) )
 	, numPoints( pEvent->GetInt( s_keyNumPoints ) )
 	, isDeathBomb( pEvent->GetBool(s_keyIsDeathBomb) )
+	, isPanacea( pEvent->GetBool( s_keyIsPanacea ) )
 {
 	Assert( IsType<Score>( pEvent ) );
 }
 
-Score::Score( int scorerIndex_, int assisterIndex_, int numPoints_, bool isDeathBomb_ )
+Score::Score( int scorerIndex_, int assisterIndex_, int numPoints_, bool isDeathBomb_, bool isPanacea_ )
 	: scorerIndex( scorerIndex_ )
 	, assisterIndex( assisterIndex_ )
 	, numPoints( numPoints_ )
 	, isDeathBomb( isDeathBomb_)
+	, isPanacea( isPanacea_ )
 {
 }
 
-Score::Score( int scorerIndex_, int numPoints_ )
+Score::Score( int scorerIndex_, int numPoints_, bool isPanacea_ )
 	: scorerIndex( scorerIndex_ )
 	, assisterIndex( -1 )
 	, numPoints( numPoints_ )
 	, isDeathBomb( false )
+	, isPanacea( isPanacea_ )
 {
 }
 
@@ -103,6 +107,7 @@ void Score::Fire()
 		pEvent->SetInt( s_keyAssisterIndex, assisterIndex );
 		pEvent->SetInt( s_keyNumPoints, numPoints );
 		pEvent->SetBool( s_keyIsDeathBomb, isDeathBomb );
+		pEvent->SetBool( s_keyIsPanacea, isPanacea );
 		gameeventmanager->FireEvent( pEvent );
 	}
 }

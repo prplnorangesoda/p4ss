@@ -81,6 +81,7 @@ public:
 	void EnqueueSave( C_TFPlayer *pThrower, C_TFPlayer *pCatcher );
 	void EnqueueScore( C_TFPlayer *pThrower, C_TFPlayer *pAssister );
 	void EnqueueDeathbomb( C_TFPlayer *pThrower, C_TFPlayer *pAssister );
+	void EnqueuePanacea( C_TFPlayer *pThrower );
 	void EnqueueGeneric( const char *pTitle, const char *pDetail, const char *pBonus );
 
 private:

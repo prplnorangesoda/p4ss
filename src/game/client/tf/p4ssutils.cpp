@@ -52,6 +52,9 @@ namespace P4ss
 			case 0x15: // Deathbomb
 				textImage->AddColorChange( Color( 151, 224, 67, 255 ), iWChars );
 				break;
+			case 0x17: // Panacea
+				textImage->AddColorChange( Color(77, 247, 4, 255), iWChars );
+				break;
 			case 0x14: // Steals
 				textImage->AddColorChange( Color( 255, 128, 0, 255 ), iWChars );
 				break;

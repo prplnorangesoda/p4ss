@@ -1036,6 +1036,7 @@ void CTFPasstimeLogic::SpawnBallAtSpawner( CPasstimeBallSpawn *pSpawner )
 	m_hBall->SetStateFree();
 	m_hBall->MoveToSpawner( pSpawner->GetAbsOrigin() );
 	m_hBall->ChangeTeam( pSpawner->GetTeamNumber() );
+	m_hBall->SetPanacea( true );
 	m_onBallFree.FireOutput( m_hBall, this );
 	pSpawner->m_onSpawnBall.FireOutput( pSpawner, pSpawner );
 
@@ -1372,10 +1373,6 @@ void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, CPasstimeBall *pBall, int iTea
 	//
 	++CTF_GameStats.m_passtimeStats.summary.nTotalScores;
 
-	// 
-	// Award player points
-	//
-
 	//
 	// Award player assist points
 	//
@@ -1410,12 +1407,20 @@ void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, CPasstimeBall *pBall, int iTea
 				CTF_GameStats.Event_PlayerCapturedPoint( pBall->GetLastHomingTarget() );
 
 				PasstimeGameEvents::Score( pBall->GetLastHomingTarget()->entindex(), pPlayer->entindex(),
-				iPoints, true )
+				iPoints, true, false ) // dont care that panacea exists BECAUSE WE JUST HIT THE DEATHBOMB.
 				.Fire();
 			}
 		}
 		else
 		{
+			bool isPanacea = false;
+
+			if ( pBall && pBall->GetPanacea() )
+			{
+				isPanacea = true;
+				DevMsg( "we set it as a pancea\n" );
+			}
+
 			CTF_GameStats.Event_PlayerAwardBonusPoints( pPlayer, 0, 25 );
 
 			++CTF_GameStats.m_passtimeStats.classes[ pPlayer->GetPlayerClass()->GetClassIndex() ].nTotalScores;
@@ -1424,11 +1429,11 @@ void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, CPasstimeBall *pBall, int iTea
 			if ( pAssister )
 			{
 				CTF_GameStats.Event_PlayerAwardBonusPoints( pAssister, 0, 10 );
-				PasstimeGameEvents::Score( pPlayer->entindex(), pAssister->entindex(), iPoints, false ).Fire();
+				PasstimeGameEvents::Score( pPlayer->entindex(), pAssister->entindex(), iPoints, false, isPanacea ).Fire();
 			}
 			else
 			{
-				PasstimeGameEvents::Score( pPlayer->entindex(), iPoints )
+				PasstimeGameEvents::Score( pPlayer->entindex(), iPoints, isPanacea )
 				.Fire();
 			}
 

@@ -1675,6 +1675,7 @@
 		"assister" "short"
 		"points" "byte"
 		"is_deathbomb" "bool"
+		"is_panacea" "bool"
 	}
 
 	"pass_free"

@@ -126,6 +126,7 @@ CPasstimeBall::CPasstimeBall()
 	m_flIdleRespawnTime = 0;
 	m_bTrailActive = false;
 	m_pCloseToTarget = 0;
+	m_bPanacea = true;
 }
 
 //-----------------------------------------------------------------------------
@@ -382,7 +383,7 @@ void CPasstimeBall::Spawn()
 	m_flBeginCarryTime = -1;
 	ResetTrail();
 	ChangeTeam( TEAM_UNASSIGNED );
-	
+
 	if ( TFGameRules()->IsPasstimeMode() )
 	{
 		// TODO the ball used to be functional in non-wasabi maps, but I haven't maintained it
@@ -408,6 +409,8 @@ void CPasstimeBall::Spawn()
 	m_flLastCollisionTime = gpGlobals->curtime;
 	m_flAirtimeDistance = 0;
 	m_eState = STATE_OUT_OF_PLAY;
+
+	SetPanacea(true);
 }
 
 //-----------------------------------------------------------------------------
@@ -859,6 +862,13 @@ void CPasstimeBall::DefaultThink()
 	if ( pCarrier )
 	{
 		HudNotification_t ejectReason;
+
+		// if player is on the ground, kill matt p
+		if ( pCarrier->GetFlags() & FL_ONGROUND )
+		{
+			SetPanacea( false );
+		}
+		
 		if ( !g_pPasstimeLogic->BCanPlayerPickUpBall( pCarrier, &ejectReason ) )
 		{
 			if ( ejectReason && TFGameRules() ) 
@@ -1305,6 +1315,7 @@ void CPasstimeBall::OnCollision()
 	if ( m_iCollisionCount == 1 ) 
 	{
 		SetThrower( 0 );
+		m_bPanacea = false;
 		if ( m_bTouchedSinceSpawn )
 		{
 			SetIdleRespawnTime();
@@ -1425,6 +1436,14 @@ bool CPasstimeBall::PlayerInGoalieZone(CTFPlayer* pCatcher)
 	}
 
 	return inZone;
+}
+
+//----------------------------------------------------------------------------
+
+bool CPasstimeBall::GetPanacea() const { return m_bPanacea; }
+
+void CPasstimeBall::SetPanacea(bool isPanacea) {
+	m_bPanacea = isPanacea;
 }
 
 //-----------------------------------------------------------------------------

@@ -813,9 +813,15 @@ void CTFHudPasstimeEventText::EnqueueScore( C_TFPlayer *pThrower, C_TFPlayer *pA
 		Enqueue( pAssister, pThrower, "#Msg_PasstimeEventScoreTitle", "#Msg_PasstimeEventScoreDetail_NoAssist", "#Msg_PasstimeEventScoreBonus" );
 }
 
+void CTFHudPasstimeEventText::EnqueuePanacea( C_TFPlayer *pThrower )
+{
+	// we shouldn't have an assister if its a first grab
+	Enqueue( pThrower, pThrower, "#Msg_PasstimeEventPanaceaTitle", "#Msg_PasstimeEventPanaceaDetail", "#Msg_PasstimeEventDeathbombBonus");
+}
+
 void CTFHudPasstimeEventText::EnqueueDeathbomb( C_TFPlayer *pThrower, C_TFPlayer *pAssister )
 {
-	Enqueue( pAssister, pThrower, "#Msg_PasstimeEventDeathbombTitle", "#Msg_PasstimeEventDeathbombDetail", "#Msg_PasstimeEventDeathbombBonus");
+	Enqueue( pAssister, pThrower, "#Msg_PasstimeEventDeathbombTitle", "#Msg_PasstimeEventDeathbombDetail", "#Msg_PasstimeEventPanaceaBonus");
 }
 
 
@@ -1595,7 +1601,14 @@ void CTFHudPasstimeBallStatus::FireGameEvent( IGameEvent *pEvent )
 		} 
 		else
 		{
-			m_pEventText->EnqueueScore( pScorer, pAssister );
+			if ( scoreEvent.isPanacea )
+			{
+				m_pEventText->EnqueuePanacea( pScorer );
+			} 
+			else
+			{
+				m_pEventText->EnqueueScore( pScorer, pAssister );
+			}
 		}
 
 	}
