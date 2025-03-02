@@ -27,6 +27,8 @@
 #endif
 #include "tier0/memdbgon.h"
 
+static ConVar tf_passtime_mode_lock_eye_to_eye( "tf_passtime_mode_lock_eye_to_eye", "1" );
+
 //-----------------------------------------------------------------------------
 IMPLEMENT_NETWORKCLASS_ALIASED( PasstimeGun, DT_PasstimeGun )
 
@@ -456,8 +458,25 @@ void CPasstimeGun::ItemPostFrame()
 				if ( !BValidPassTarget( pOwner, pPlayer ) )
 					continue;
 
+				Vector vTargetPos;
+				if ( tf_passtime_mode_lock_eye_to_eye.GetBool() )
+				{
+					VMatrix mWorldToView( SetupMatrixIdentity() );
+					Vector vecEyePos;
+					{
+						Vector vecEyeDir;
+						pPlayer->EyePositionAndVectors( &vTargetPos, &vecEyeDir, 0, 0 );
+						const QAngle &angEye = pPlayer->EyeAngles();
+						const VMatrix mTemp( SetupMatrixOrgAngles( vTargetPos, angEye ) );
+						MatrixInverseTR( mTemp, mWorldToView );
+					}
+				}
+				else
+				{
+					vTargetPos = pPlayer->WorldSpaceCenter();
+				}
+
 				// Check world distance
-				const auto &vTargetPos = pPlayer->WorldSpaceCenter();
 				auto flThisTargetDist = vTargetPos.DistToSqr(vecEyePos);
 				if ( flThisTargetDist > flMaxPassDistSqr ) 
 					continue;
