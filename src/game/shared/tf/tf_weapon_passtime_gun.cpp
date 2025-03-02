@@ -484,8 +484,26 @@ void CPasstimeGun::ItemPostFrame()
 					flThisTargetDist /= 50.0f;
 
 				// check for line of sight
+				Vector vTargetPosForLineOfSight;
+				if ( p4ss_lock_eye_to_eye_los.GetBool() )
+				{
+					VMatrix mWorldToView( SetupMatrixIdentity() );
+					Vector vecEyePos;
+					{
+						Vector vecEyeDir;
+						pPlayer->EyePositionAndVectors( &vTargetPosForLineOfSight, &vecEyeDir, 0, 0 );
+						const QAngle &angEye = pPlayer->EyeAngles();
+						const VMatrix mTemp( SetupMatrixOrgAngles( vTargetPosForLineOfSight, angEye ) );
+						MatrixInverseTR( mTemp, mWorldToView );
+					}
+				}
+				else
+				{
+					vTargetPosForLineOfSight = vTargetPos;
+				}
+
 				trace_t tr;
-				UTIL_TraceLine( vecEyePos,	vTargetPos, MASK_PLAYERSOLID, pOwner, COLLISION_GROUP_PROJECTILE, &tr );
+				UTIL_TraceLine( vecEyePos,	vTargetPosForLineOfSight, MASK_PLAYERSOLID, pOwner, COLLISION_GROUP_PROJECTILE, &tr );
 				if ( tr.m_pEnt != pPlayer )
 					continue; // obstructed
 

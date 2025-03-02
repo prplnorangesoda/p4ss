@@ -65,9 +65,9 @@ public:
 	static void AddCondToTeam( ETFCond eCond, int iTeam, float flTime );
 
 private:
+	bool ParseSetSection( const char *pStr, SetSectionParams &s ) const;
 	void PostSpawn();
 	void InputSetSection( inputdata_t &input );
-	bool ParseSetSection( const char *pStr, SetSectionParams &s ) const;
 	void InputSpawnBall( inputdata_t &input );
 	void InputTimeUp( inputdata_t &input );
 	void InputSpeedBoostUsed( inputdata_t &input );
@@ -76,8 +76,8 @@ private:
 	void StopAskForBallEffects();
 	void OnBallGet();
 	void Score( CTFPlayer *pPlayer, CFuncPasstimeGoal *pGoal );
-	void Score( CPasstimeBall *pBall, CFuncPasstimeGoal *pGoal );
-	void Score( CTFPlayer *pPlayer, int iTeam, int iPoints, bool iForceWin );
+	void Score( CPasstimeBall *pBall, CFuncPasstimeGoal *pGoal, bool isDeathBomb );
+	void Score( CTFPlayer *pPlayer, CPasstimeBall *pBall, int iTeam, int iPoints, bool iForceWin, bool isDeathBomb );
 	void SpawnBallAtRandomSpawnerThink();
 	void SpawnBallAtRandomSpawner();
 	void SpawnBallAtSpawner( CPasstimeBallSpawn *pSpawner );

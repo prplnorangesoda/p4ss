@@ -527,6 +527,9 @@ CTFHudPasstimeEventText::CTFHudPasstimeEventText()
 	m_pTitleLabel = 0;
 	m_pDetailLabel = 0;
 	m_pBonusLabel = 0;
+	m_pTitleLabelShadow = 0;
+	m_pDetailLabelShadow = 0;
+	m_pBonusLabelShadow = 0;
 	m_state = State::Idle;
 }
 
@@ -574,10 +577,22 @@ void CTFHudPasstimeEventText::SetAlpha( int ia )
 		m_pTitleLabel->SetVisible( ia != 0 );
 	}
 
+	if ( m_pTitleLabelShadow )
+	{
+		m_pTitleLabelShadow->SetAlpha( ia );
+		m_pTitleLabelShadow->SetVisible( ia != 0 );
+	}
+
 	if ( m_pDetailLabel )
 	{
 		m_pDetailLabel->SetAlpha( ia );
 		m_pDetailLabel->SetVisible( ia != 0 );
+	}
+
+	if ( m_pDetailLabelShadow )
+	{
+		m_pDetailLabelShadow->SetAlpha( ia );
+		m_pDetailLabelShadow->SetVisible( ia != 0 );
 	}
 
 	if ( m_pBonusLabel )
@@ -585,14 +600,22 @@ void CTFHudPasstimeEventText::SetAlpha( int ia )
 		m_pBonusLabel->SetAlpha( ia );
 		m_pBonusLabel->SetVisible( ia != 0 );
 	}
+
+	if ( m_pBonusLabelShadow )
+	{
+		m_pBonusLabelShadow->SetAlpha( ia );
+		m_pBonusLabelShadow->SetVisible( ia != 0 );
+	}
 }
 
 //-----------------------------------------------------------------------------
 void CTFHudPasstimeEventText::Tick()
 {
 	if ( !m_bValid ) 
+	{
+		// DevMsg( "CTFHudPasstimeEventText::Tick() called without valid controls\n" );
 		return;
-
+	}
 	switch( m_state )
 	{
 	case State::Idle:
@@ -600,19 +623,29 @@ void CTFHudPasstimeEventText::Tick()
 		{
 			SetAlpha( 1 );
 			auto msg = m_queue.RemoveAtHead();
-			if ( m_pTitleLabel )
+			DevMsg( "m_pTitleLabel: %s", m_pTitleLabel ? "true" : "false" );
+			DevMsg( "m_pTitleLabelShadow: %s", m_pTitleLabelShadow ? "true" : "false" );
+			DevMsg( "m_pDetailLabel: %s", m_pDetailLabel ? "true" : "false" );
+			DevMsg( "m_pDetailLabelShadow: %s", m_pDetailLabelShadow ? "true" : "false" );
+			DevMsg( "m_pBonusLabel: %s", m_pBonusLabel ? "true" : "false" );
+			DevMsg( "m_pBonusLabelShadow: %s", m_pBonusLabelShadow ? "true" : "false" );
+			if ( m_pTitleLabel && m_pTitleLabelShadow )
 			{
 				SetLabelText( m_pTitleLabel, msg.title );
-				P4ss::ColorTextP4ss( m_pTitleLabel, msg.title, msg.team);
+				P4ss::ColorTextP4ss( m_pTitleLabel->GetTextImage(), msg.title, msg.team);
+				SetLabelText( m_pTitleLabelShadow, msg.title );
 			}
-			if ( m_pDetailLabel )
+			if ( m_pDetailLabel && m_pDetailLabelShadow)
 			{
 				SetLabelText( m_pDetailLabel, msg.detail );
-				P4ss::ColorTextP4ss( m_pDetailLabel, msg.detail, msg.team );
+				P4ss::ColorTextP4ss( m_pDetailLabel->GetTextImage(), msg.detail, msg.team );
+				SetLabelText( m_pDetailLabelShadow, msg.detail );
 			}
-			if ( m_pBonusLabel )
+			if ( m_pBonusLabel && m_pBonusLabelShadow )
 			{
 				SetLabelText( m_pBonusLabel, msg.bonus );
+				P4ss::ColorTextP4ss( m_pBonusLabel->GetTextImage(), msg.bonus, msg.team );
+				SetLabelText( m_pBonusLabelShadow, msg.bonus );
 			}
 			EnterState( State::In, HudPasstimeEventText::flInSec );
 		}
@@ -683,9 +716,23 @@ void CTFHudPasstimeEventText::SetControls( vgui::Label *pTitleLabel, vgui::Label
 	m_pTitleLabel = pTitleLabel;
 	m_pDetailLabel = pDetailLabel;
 	m_pBonusLabel = pBonusLabel;
+	DevMsg( "m_pTitleLabel: %s ,", m_pTitleLabel ? "true" : "false" );
+	DevMsg( "m_pDetailLabel: %s ,", m_pDetailLabel ? "true" : "false" );
+	DevMsg( "m_pBonusLabel: %s \n", m_pBonusLabel ? "true" : "false" );
 	m_bValid = pTitleLabel && pDetailLabel && pBonusLabel;
 }
 
+void CTFHudPasstimeEventText::SetControlShadows( vgui::Label *pTitleLabelShadow, vgui::Label *pDetailLabelShadow, vgui::Label *pBonusLabelShadow )
+{
+	
+	m_pTitleLabelShadow = pTitleLabelShadow;
+	m_pDetailLabelShadow = pDetailLabelShadow;
+	m_pBonusLabelShadow = pBonusLabelShadow;
+	DevMsg( "m_pTitleLabelShadow: %s ,", m_pTitleLabelShadow ? "true" : "false" );
+	DevMsg( "m_pDetailLabelShadow: %s ,", m_pDetailLabelShadow ? "true" : "false" );
+	DevMsg( "m_pBonusLabelShadow: %s \n", m_pBonusLabelShadow ? "true" : "false" );
+	m_bValid = pTitleLabelShadow && pDetailLabelShadow && pBonusLabelShadow;
+}
 //-----------------------------------------------------------------------------
 void CTFHudPasstimeEventText::SetPlayerName( C_TFPlayer *pPlayer, const char *pKey )
 {
@@ -734,7 +781,7 @@ void CTFHudPasstimeEventText::Enqueue( C_TFPlayer *pSource, C_TFPlayer *pSubject
 {
 	if ( !m_bValid || !pSubject )
 		return;
-	Msg( "pSubject playername: %s\n", pSubject->GetPlayerName());
+	DevMsg( "pSubject playername: %s\n", pSubject->GetPlayerName());
 	SetTeam( pSubject );
 	SetPlayerName( pSubject, HudPasstimeEventText::pKeySubject );
 	SetPlayerName( pSource, HudPasstimeEventText::pKeySource );
@@ -747,7 +794,7 @@ void CTFHudPasstimeEventText::Enqueue( C_TFPlayer *pSource, C_TFPlayer *pSubject
 	
 	if ( pSource != nullptr )
 	{
-		Msg( "pSource playername: %s\n", pSource->GetPlayerName());
+		DevMsg( "pSource playername: %s\n", pSource->GetPlayerName());
 		team = GetGlobalTFTeam( pSource->GetTeamNumber() );
 	}
 	else if ( pSubject != nullptr )
@@ -788,7 +835,11 @@ void CTFHudPasstimeEventText::EnqueuePass( C_TFPlayer *pThrower, C_TFPlayer *pCa
 {
 	Enqueue( pThrower, pCatcher, "#Msg_PasstimeEventPassTitle", "#Msg_PasstimeEventPassDetail", "#Msg_PasstimeEventPassBonus" );
 }
-
+//-----------------------------------------------------------------------------
+void CTFHudPasstimeEventText::EnqueueSave( C_TFPlayer *pThrower, C_TFPlayer *pCatcher )
+{
+	Enqueue( pThrower, pCatcher, "#Msg_PasstimeEventSaveTitle", "#Msg_PasstimeEventSaveDetail", "#Msg_PasstimeEventSaveBonus" );
+}
 //-----------------------------------------------------------------------------
 void CTFHudPasstimeEventText::EnqueueHandoff( C_TFPlayer *pThrower, C_TFPlayer *pCatcher )
 {
@@ -808,6 +859,18 @@ void CTFHudPasstimeEventText::EnqueueScore( C_TFPlayer *pThrower, C_TFPlayer *pA
 	else
 		Enqueue( pAssister, pThrower, "#Msg_PasstimeEventScoreTitle", "#Msg_PasstimeEventScoreDetail_NoAssist", "#Msg_PasstimeEventScoreBonus" );
 }
+
+void CTFHudPasstimeEventText::EnqueuePanacea( C_TFPlayer *pThrower )
+{
+	// we shouldn't have an assister if its a first grab
+	Enqueue( pThrower, pThrower, "#Msg_PasstimeEventPanaceaTitle", "#Msg_PasstimeEventPanaceaDetail", "#Msg_PasstimeEventDeathbombBonus");
+}
+
+void CTFHudPasstimeEventText::EnqueueDeathbomb( C_TFPlayer *pThrower, C_TFPlayer *pAssister )
+{
+	Enqueue( pAssister, pThrower, "#Msg_PasstimeEventDeathbombTitle", "#Msg_PasstimeEventDeathbombDetail", "#Msg_PasstimeEventPanaceaBonus");
+}
+
 
 //-----------------------------------------------------------------------------
 // CTFHudPasstimeBallStatus
@@ -869,6 +932,10 @@ void CTFHudPasstimeBallStatus::ApplySchemeSettings( IScheme *pScheme )
 		FindControl<Label>( "EventDetailLabel" ), 
 		FindControl<Label>( "EventBonusLabel" ) );
 
+	m_pEventText->SetControlShadows( FindControl<Label>( "EventTitleLabelShadow" ), 
+		FindControl<Label>( "EventDetailLabelShadow" ), 
+		FindControl<Label>( "EventBonusLabelShadow" ) );
+
 	m_bInitialized = m_pProgressBall
 		&& m_pProgressBallCarrierName
 		&& m_pProgressLevelBar
@@ -880,6 +947,7 @@ void CTFHudPasstimeBallStatus::ApplySchemeSettings( IScheme *pScheme )
 
 	if ( !m_bInitialized )
 	{
+		DevMsg( "CTFHudPasstimeBallStatus::ApplySchemeSettings: missing required controls\n" );
 		// just bail if the res file is missing required controls
 		// this prevents a lot of stupid null checks in the future
 		return;
@@ -931,6 +999,7 @@ void CTFHudPasstimeBallStatus::ApplySchemeSettings( IScheme *pScheme )
 	ListenForGameEvent( PasstimeGameEvents::BallFree::s_eventName );
 	ListenForGameEvent( PasstimeGameEvents::BallGet::s_eventName );
 	ListenForGameEvent( PasstimeGameEvents::BallStolen::s_eventName );
+	ListenForGameEvent( PasstimeGameEvents::BallSplashed::s_eventName );
 	ListenForGameEvent( PasstimeGameEvents::PassCaught::s_eventName );
 	ListenForGameEvent( PasstimeGameEvents::Score::s_eventName );
 	Reset(); // this ensures players will try to guess game state for the hud if they join a game in progress
@@ -1541,6 +1610,7 @@ void CTFHudPasstimeBallStatus::FireGameEvent( IGameEvent *pEvent )
 		OnBallGet( passCaughtEvent.catcherIndex );
 		
 		bool isHandoff = passCaughtEvent.isHandoff;
+		bool isBlock = passCaughtEvent.isBlock;
 
 		Msg("P4SS CLIENT: isHandoff: %s\n", isHandoff ? "true" : "false");
 		auto *pCatcher = ToTFPlayer( UTIL_PlayerByIndex( passCaughtEvent.catcherIndex ) );
@@ -1560,7 +1630,14 @@ void CTFHudPasstimeBallStatus::FireGameEvent( IGameEvent *pEvent )
 			}
 			else
 			{
-				m_pEventText->EnqueueInterception( pThrower, pCatcher );
+				if ( isBlock )
+				{
+					m_pEventText->EnqueueSave( pThrower, pCatcher );
+				}
+				else
+				{
+					m_pEventText->EnqueueInterception( pThrower, pCatcher );
+				}
 			}
 		}
 	}
@@ -1570,7 +1647,23 @@ void CTFHudPasstimeBallStatus::FireGameEvent( IGameEvent *pEvent )
 		PasstimeGameEvents::Score scoreEvent( pEvent );
 		auto *pScorer = ToTFPlayer( UTIL_PlayerByIndex( scoreEvent.scorerIndex ) );
 		auto *pAssister = ToTFPlayer( UTIL_PlayerByIndex( scoreEvent.assisterIndex ) );
-		m_pEventText->EnqueueScore( pScorer, pAssister );
+
+		if ( scoreEvent.isDeathBomb )
+		{
+			m_pEventText->EnqueueDeathbomb( pScorer, pAssister );
+		} 
+		else
+		{
+			if ( scoreEvent.isPanacea )
+			{
+				m_pEventText->EnqueuePanacea( pScorer );
+			} 
+			else
+			{
+				m_pEventText->EnqueueScore( pScorer, pAssister );
+			}
+		}
+
 	}
 }
 

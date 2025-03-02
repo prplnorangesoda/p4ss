@@ -554,6 +554,8 @@ public:
 	void InputRollRareSpell( inputdata_t &inputdata );
 	void InputRoundSpawn( inputdata_t &inputdata );
 
+	void ClampChargeViewAngles(CUserCmd *ucmd);
+
 	bool InAirDueToExplosion( void ) { return (!(GetFlags() & FL_ONGROUND) && (GetWaterLevel() == WL_NotInWater) && ( (m_iBlastJumpState != 0) ) || m_Shared.InCond( TF_COND_ROCKETPACK ) ); }
 	bool InAirDueToKnockback( void ) { return (!(GetFlags() & FL_ONGROUND) && (GetWaterLevel() == WL_NotInWater) && ( (m_iBlastJumpState != 0) || m_Shared.InCond( TF_COND_KNOCKED_INTO_AIR ) || m_Shared.InCond( TF_COND_GRAPPLINGHOOK ) || m_Shared.InCond( TF_COND_GRAPPLINGHOOK_SAFEFALL ) ) ); }
 

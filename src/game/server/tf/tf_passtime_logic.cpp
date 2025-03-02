@@ -783,8 +783,19 @@ void CTFPasstimeLogic::OnEnterGoal( CPasstimeBall *pBall, CFuncPasstimeGoal *pGo
 	CTFPlayer *pOwner = pBall->GetThrower();
 	if ( pOwner && (pBall->GetTeamNumber() == pGoal->GetTeamNumber()) )
 	{
-		Score( pBall, pGoal );
+		// we scored a deathbomb logic here
+		if ( pBall->GetLastHomingTarget() != nullptr && !pBall->GetLastHomingTarget()->IsAlive() )
+		{
+			Score( pBall, pGoal, true );
+		}
+		else
+		{
+			Score( pBall, pGoal, false );
+		}
 	}
+
+	// kill the last target
+	pBall->SetLastHomingTarget(0);
 }
 
 
@@ -1025,10 +1036,12 @@ void CTFPasstimeLogic::SpawnBallAtSpawner( CPasstimeBallSpawn *pSpawner )
 	m_hBall->SetStateFree();
 	m_hBall->MoveToSpawner( pSpawner->GetAbsOrigin() );
 	m_hBall->ChangeTeam( pSpawner->GetTeamNumber() );
+	m_hBall->SetPanacea( true );
 	m_onBallFree.FireOutput( m_hBall, this );
 	pSpawner->m_onSpawnBall.FireOutput( pSpawner, pSpawner );
 
 	TFGameRules()->BroadcastSound( 255, "Passtime.BallSpawn" );
+	// TODO: wrap in convar
 	if ( TFGameRules()->IsHolidayActive( kHoliday_Halloween ) )
 	{
 		TFGameRules()->BroadcastSound( 255, "Passtime.Merasmus.Laugh" );
@@ -1311,17 +1324,17 @@ void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, CFuncPasstimeGoal *pGoal )
 {
 	Assert( pPlayer && pGoal );
 	pGoal->OnScore( pPlayer->GetTeamNumber() );
-	Score( pPlayer, pGoal->GetTeamNumber(), pGoal->Points(), pGoal->BWinOnScore() );
+	Score( pPlayer, nullptr, pGoal->GetTeamNumber(), pGoal->Points(), pGoal->BWinOnScore(), false );
 }
 
 //-----------------------------------------------------------------------------
-void CTFPasstimeLogic::Score( CPasstimeBall *pBall, CFuncPasstimeGoal *pGoal )
+void CTFPasstimeLogic::Score( CPasstimeBall *pBall, CFuncPasstimeGoal *pGoal, bool _isDeathBomb )
 {
 	Assert( pBall && pGoal );
 	CTFPlayer* pPlayer = pBall->GetThrower();
 	Assert( pPlayer );
 	pGoal->OnScore( pPlayer->GetTeamNumber() );
-	Score( pPlayer, pGoal->GetTeamNumber(), pGoal->Points(), pGoal->BWinOnScore() );
+	Score( pPlayer, pBall, pGoal->GetTeamNumber(), pGoal->Points(), pGoal->BWinOnScore(), _isDeathBomb );
 }
 
 //-----------------------------------------------------------------------------
@@ -1339,7 +1352,7 @@ void CTFPasstimeLogic::AddCondToTeam( ETFCond eCond, int iTeam, float flTime )
 }
 
 //-----------------------------------------------------------------------------
-void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, int iTeam, int iPoints, bool bForceWin ) 
+void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, CPasstimeBall *pBall, int iTeam, int iPoints, bool bForceWin, bool _isDeathBomb ) 
 {
 	StopAskForBallEffects();
 	m_pRespawnCountdown->Disable();
@@ -1359,13 +1372,6 @@ void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, int iTeam, int iPoints, bool b
 	// Update stats
 	//
 	++CTF_GameStats.m_passtimeStats.summary.nTotalScores;
-	++CTF_GameStats.m_passtimeStats.classes[ pPlayer->GetPlayerClass()->GetClassIndex() ].nTotalScores;
-	CTF_GameStats.Event_PlayerCapturedPoint( pPlayer );
-
-	// 
-	// Award player points
-	//
-	CTF_GameStats.Event_PlayerAwardBonusPoints( pPlayer, 0, 25 );
 
 	//
 	// Award player assist points
@@ -1389,14 +1395,48 @@ void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, int iTeam, int iPoints, bool b
 			}
 		}
 
-		if ( pAssister )
+		if ( _isDeathBomb )
 		{
-			CTF_GameStats.Event_PlayerAwardBonusPoints( pAssister, 0, 10 );
-			PasstimeGameEvents::Score( pPlayer->entindex(), pAssister->entindex(), iPoints ).Fire();
+			if ( pBall && pBall->GetLastHomingTarget() ) // dear god save me
+			{
+				CTF_GameStats.Event_PlayerAwardBonusPoints( pPlayer, 0, 10 );
+
+				CTF_GameStats.Event_PlayerAwardBonusPoints( pBall->GetLastHomingTarget(), 0, 25 );
+
+				++CTF_GameStats.m_passtimeStats.classes[ pBall->GetLastHomingTarget()->GetPlayerClass()->GetClassIndex() ].nTotalScores;
+				CTF_GameStats.Event_PlayerCapturedPoint( pBall->GetLastHomingTarget() );
+
+				PasstimeGameEvents::Score( pBall->GetLastHomingTarget()->entindex(), pPlayer->entindex(),
+				iPoints, true, false ) // dont care that panacea exists BECAUSE WE JUST HIT THE DEATHBOMB.
+				.Fire();
+			}
 		}
 		else
 		{
-			PasstimeGameEvents::Score( pPlayer->entindex(), iPoints ).Fire();
+			bool isPanacea = false;
+
+			if ( pBall && pBall->GetPanacea() )
+			{
+				isPanacea = true;
+				DevMsg( "we set it as a pancea\n" );
+			}
+
+			CTF_GameStats.Event_PlayerAwardBonusPoints( pPlayer, 0, 25 );
+
+			++CTF_GameStats.m_passtimeStats.classes[ pPlayer->GetPlayerClass()->GetClassIndex() ].nTotalScores;
+			CTF_GameStats.Event_PlayerCapturedPoint( pPlayer );
+
+			if ( pAssister )
+			{
+				CTF_GameStats.Event_PlayerAwardBonusPoints( pAssister, 0, 10 );
+				PasstimeGameEvents::Score( pPlayer->entindex(), pAssister->entindex(), iPoints, false, isPanacea ).Fire();
+			}
+			else
+			{
+				PasstimeGameEvents::Score( pPlayer->entindex(), iPoints, isPanacea )
+				.Fire();
+			}
+
 		}
 	}
 
@@ -1488,6 +1528,7 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 		&& (pCatcher != pBall->GetPrevCarrier())) // and not passed to yourself...
 	{
 		bool isHandoff = false;
+		bool isBlock = false;
 		bool bAllowCheerSound = false;
 
 		int iDistanceBonus = ( int ) ( pBall->GetAirtimeSec() * tf_passtime_powerball_airtimebonus.GetFloat() );
@@ -1658,11 +1699,13 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 				// pass was intercepted
 				++CTF_GameStats.m_passtimeStats.summary.nTotalPassesIntercepted;
 				CTF_GameStats.m_passtimeStats.AddPassTravelDistSample( pBall->GetAirtimeDistance() );
+
 			}
 			else
 			{
 				// toss was intercepted
 				++CTF_GameStats.m_passtimeStats.summary.nTotalTossesIntercepted;
+
 			}
 			
 			// interception can happen at any range, extra points if intercepted within the goal area
@@ -1680,6 +1723,11 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 				}
 			}
 
+			if ( pBall->PlayerInGoalieZone( pCatcher ) && pBall->GetTeamNumber() != pCatcher->GetTeamNumber()  )
+			{
+				isBlock = true;
+			}
+
 			// award bonus effects for interception
 			pCatcher->m_Shared.AddCond( TF_COND_PASSTIME_INTERCEPTION, tf_passtime_speedboost_on_get_ball_time.GetFloat() );
 			pCatcher->m_Shared.AddCond( TF_COND_SPEED_BOOST, tf_passtime_speedboost_on_get_ball_time.GetFloat() );
@@ -1689,7 +1737,7 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 			CrowdReactionSound( pCatcher->GetTeamNumber() );
 		}
 		Msg("Reached end of OnPlayerTouchBall, firing event PassCaught with isHandoff (%s)\n", isHandoff ? "true" : "false");
-		PasstimeGameEvents::PassCaught( pThrower->entindex(), pCatcher->entindex(), flFeet, pBall->GetAirtimeSec(), isHandoff ).Fire();
+		PasstimeGameEvents::PassCaught( pThrower->entindex(), pCatcher->entindex(), flFeet, pBall->GetAirtimeSec(), isHandoff, isBlock ).Fire();
 	}
 	else 
 	{
@@ -1800,7 +1848,19 @@ void CTFPasstimeLogic::ThinkExpiredTimer()
 	if ( bBallUnassigned && !bCountdownRunning )
 	{
 		// start the countdown when the ball turns neutral
-		m_pRespawnCountdown->Start( tf_passtime_overtime_idle_sec.GetFloat() );
+		if ( p4ss_golden_goal.GetBool() )
+		{
+			// keeps respawn ball timer as normal
+			m_pRespawnCountdown->Start( m_iBallSpawnCountdownSec );
+		}
+		else
+		{
+			// overtime respawn ball timer
+			m_pRespawnCountdown->Start(
+			tf_passtime_overtime_idle_sec.GetFloat() );
+		}
+		
+		
 	}
 	else if ( !bBallUnassigned && bCountdownRunning ) 
 	{
@@ -1875,7 +1935,18 @@ void CTFPasstimeLogic::EndRoundExpiredTimer()
 
 	if ( bTeamsAreDrawn )
 	{
-		TFGameRules()->SetStalemate( STALEMATE_SERVER_TIMELIMIT, true );
+		if ( p4ss_golden_goal.GetBool() )
+		{	
+			//"tf_passtime_overtime_idle_sec" as argument would make it 5 seconds by default and
+			// customizeable while golden goal is enabled.
+			m_pRespawnCountdown->Start( m_iBallSpawnCountdownSec ); 
+			SpawnBallAtRandomSpawnerThink();
+			return;
+		}
+		else
+		{
+			TFGameRules()->SetStalemate( STALEMATE_SERVER_TIMELIMIT, true );
+		}
 	}
 	else
 	{

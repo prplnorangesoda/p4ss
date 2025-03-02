@@ -28,7 +28,7 @@
 #define CLIENTNAME_TIMED_OUT "%s timed out"
 
 // This is the default, see shareddefs.h for mod-specific value, which can override this
-#define DEFAULT_TICK_INTERVAL	(0.015)				// 15 msec is the default
+#define DEFAULT_TICK_INTERVAL	(0.0078125)				// 15 msec is the default
 #define MINIMUM_TICK_INTERVAL   (0.001)
 #define MAXIMUM_TICK_INTERVAL	(0.1)
 
@@ -163,7 +163,7 @@
 #define	FL_INWATER				(1<<10)	// In water
 
 // NOTE if you move things up, make sure to change this value
-#define PLAYER_FLAG_BITS		11
+#define PLAYER_FLAG_BITS		32
 
 #define	FL_FLY					(1<<11)	// Changes the SV_Movestep() behavior to not need to be on ground
 #define	FL_SWIM					(1<<12)	// Changes the SV_Movestep() behavior to not need to be on ground (but stay in water)

@@ -361,9 +361,9 @@
 		"Controlname"		"CExLabel"
 		"fieldname"			"PlayText"
 		"labelText"			"Play"
-		"font"				"ScoreboardMedium"
+		"font"				"HudFontSmallishBold"
 		"textAlignment"			"west"
-		"xpos"					"60"
+		"xpos"					"55"
 		"ypos"					"157"
 		"wide"					"150"
 		"tall"					"25"
@@ -382,13 +382,14 @@
 		"ypos"			"183"
 		"zpos"			"15"
 		"wide"			"150"
-		"tall"			"35"
+		"tall"			"30"
 		"visible"		"1"
-		
-		"font"			"HudFontSmallishBold"
+
+		"font"			"HudFontSmallBold"
 		"command" 		"OpenServerBrowser"
-		"labeltext"		"   Servers"
-		
+		"labeltext"		"Servers"
+		"OnlyInGame"	"1"
+
 		"border_default"	"MainMenuButtonDefault"
 		"border_armed"		"MainMenuButtonArmed"
 		
@@ -402,21 +403,26 @@
 		
 		"sound_depressed"	"UI/buttonclick.wav"
 		"sound_released"	"UI/buttonclickrelease.wav"
-		
+
+		"image_drawcolor"	"117 107 94 255"
+		"image_armedcolor"	"200 80 60 255"
+		"textinsetx"	"55"
+			
 				"SubImage"
 				{
 					"ControlName"	"ImagePanel"
 					"fieldName"		"SubImage"
-					"xpos"			"5"
-					"ypos"			"10"
+					"xpos"			"7.5"
+					"ypos"			"8"
 					"zpos"			"1"
 					"wide"			"14"
 					"tall"			"14"
 					"visible"		"1"
 					"enabled"		"1"
 					"scaleImage"	"1"
-					"image"			"glyph_tutorial"
+					"image"			"glyph_multiplayer"
 			}
+	
 	}
 	
 	"LearnButton"
@@ -427,14 +433,14 @@
 		"ypos"			"218"
 		"zpos"			"15"
 		"wide"			"150"
-		"tall"			"35"
+		"tall"			"30"
 		"visible"		"1"
 
+		"font"			"HudFontSmallBold"
+		"command" 		"engine echo learn"
+		"labeltext"		"Learn"
+		"OnlyInGame"	"1"
 
-		"font"			"HudFontSmallishBold"
-		"command" 		"Placeholder"
-		"labeltext"		"   Learn"
-		
 		"border_default"	"MainMenuButtonDefault"
 		"border_armed"		"MainMenuButtonArmed"
 		
@@ -448,13 +454,17 @@
 		
 		"sound_depressed"	"UI/buttonclick.wav"
 		"sound_released"	"UI/buttonclickrelease.wav"
-		
+
+		"image_drawcolor"	"117 107 94 255"
+		"image_armedcolor"	"200 80 60 255"
+		"textinsetx"	"55"
+			
 				"SubImage"
 				{
 					"ControlName"	"ImagePanel"
 					"fieldName"		"SubImage"
-					"xpos"			"5"
-					"ypos"			"10"
+					"xpos"			"7.5"
+					"ypos"			"8"
 					"zpos"			"1"
 					"wide"			"14"
 					"tall"			"14"
@@ -463,6 +473,7 @@
 					"scaleImage"	"1"
 					"image"			"glyph_tutorial"
 			}
+	
 	}
 	
 	
@@ -474,12 +485,12 @@
 		"ypos"			"253"
 		"zpos"			"15"
 		"wide"			"150"
-		"tall"			"35"
+		"tall"			"30"
 		"visible"		"1"
 
-		"font"			"HudFontSmallishBold"
+		"font"			"HudFontSmallBold"
 		"command" 		"OpenCreateMultiplayerGameDialog"
-		"labeltext"		"   Host a server"
+		"labeltext"		"Host a server"
 		
 		"border_default"	"MainMenuButtonDefault"
 		"border_armed"		"MainMenuButtonArmed"
@@ -494,20 +505,24 @@
 		
 		"sound_depressed"	"UI/buttonclick.wav"
 		"sound_released"	"UI/buttonclickrelease.wav"
+
+		"image_drawcolor"	"117 107 94 255"
+		"image_armedcolor"	"200 80 60 255"
+		"textinsetx"	"55"
 			
-			"SubImage"
-			{
-				"ControlName"	"ImagePanel"
-				"fieldName"		"SubImage"
-				"xpos"			"5"
-				"ypos"			"10"
-				"zpos"			"1"
-				"wide"			"14"
-				"tall"			"14"
-				"visible"		"1"
-				"enabled"		"1"
-				"image"			"glyph_create"
-				"scaleImage"	"1"
+				"SubImage"
+				{
+					"ControlName"	"ImagePanel"
+					"fieldName"		"SubImage"
+					"xpos"			"7.5"
+					"ypos"			"8"
+					"zpos"			"1"
+					"wide"			"14"
+					"tall"			"14"
+					"visible"		"1"
+					"enabled"		"1"
+					"scaleImage"	"1"
+					"image"			"glyph_server"
 			}
 	}
 	
@@ -530,9 +545,9 @@
 		"Controlname"		"CExLabel"
 		"fieldname"			"PlayText"
 		"labelText"			"Customize"
-		"font"				"ScoreboardMedium"
+		"font"				"HudFontSmallishBold"
 		"textAlignment"			"west"
-		"xpos"					"60"
+		"xpos"					"55"
 		"ypos"					"307"
 		"wide"					"160"
 		"tall"					"25"
@@ -550,13 +565,12 @@
 		"ypos"			"333"
 		"zpos"			"15"
 		"wide"			"150"
-		"tall"			"35"
+		"tall"			"30"
 		"visible"		"1"
-		"PaintBackgroundType"	"0"
-		
-		"font"			"HudFontSmallishBold"
+
+		"font"			"HudFontSmallBold"
 		"command" 		"engine open_charinfo_direct"
-		"labeltext"		"   Loadout"
+		"labeltext"		"Loadout"
 		
 		"border_default"	"MainMenuButtonDefault"
 		"border_armed"		"MainMenuButtonArmed"
@@ -571,20 +585,24 @@
 		
 		"sound_depressed"	"UI/buttonclick.wav"
 		"sound_released"	"UI/buttonclickrelease.wav"
-		
-		"SubImage"
-		{
-			"ControlName"	"ImagePanel"
-			"fieldName"		"SubImage"
-			"xpos"			"5"
-			"ypos"			"10"
-			"zpos"			"1"
-			"wide"			"14"
-			"tall"			"14"
-			"visible"		"1"
-			"enabled"		"1"
-			"scaleImage"	"1"
-			"image"			"glyph_items"
+
+		"image_drawcolor"	"117 107 94 255"
+		"image_armedcolor"	"200 80 60 255"
+		"textinsetx"	"55"
+			
+				"SubImage"
+				{
+					"ControlName"	"ImagePanel"
+					"fieldName"		"SubImage"
+					"xpos"			"7.5"
+					"ypos"			"8"
+					"zpos"			"1"
+					"wide"			"14"
+					"tall"			"14"
+					"visible"		"1"
+					"enabled"		"1"
+					"scaleImage"	"1"
+					"image"			"glyph_items"
 			}
 	}
 	
@@ -597,13 +615,12 @@
 		"ypos"			"368"
 		"zpos"			"15"
 		"wide"			"150"
-		"tall"			"35"
+		"tall"			"30"
 		"visible"		"1"
-		"PaintBackgroundType"	"2"
-		
-		"font"			"HudFontSmallishBold"
+
+		"font"			"HudFontSmallBold"
 		"command" 		"OpenOptionsDialog"
-		"labeltext"		"   Options"
+		"labeltext"		"Options"
 		
 		"border_default"	"MainMenuButtonDefault"
 		"border_armed"		"MainMenuButtonArmed"
@@ -618,13 +635,17 @@
 		
 		"sound_depressed"	"UI/buttonclick.wav"
 		"sound_released"	"UI/buttonclickrelease.wav"
+
+		"image_drawcolor"	"117 107 94 255"
+		"image_armedcolor"	"200 80 60 255"
+		"textinsetx"	"55"
 			
-			"SubImage"
-			{
+				"SubImage"
+				{
 					"ControlName"	"ImagePanel"
 					"fieldName"		"SubImage"
-					"xpos"			"5"
-					"ypos"			"10"
+					"xpos"			"7.5"
+					"ypos"			"8"
 					"zpos"			"1"
 					"wide"			"14"
 					"tall"			"14"
@@ -644,14 +665,13 @@
 		"ypos"			"403"
 		"zpos"			"15"
 		"wide"			"150"
-		"tall"			"35"
+		"tall"			"30"
 		"visible"		"1"
-		"PaintBackgroundType"	"2"
-		
-		"font"			"HudFontSmallishBold"
-		"command" 		"opentf2options"
-		"labeltext"		"   Adv. Options"
 
+		"font"			"HudFontSmallBold"
+		"command" 		"opentf2options"
+		"labeltext"		"Adv. Options"
+		
 		"border_default"	"MainMenuButtonDefault"
 		"border_armed"		"MainMenuButtonArmed"
 		
@@ -665,13 +685,17 @@
 		
 		"sound_depressed"	"UI/buttonclick.wav"
 		"sound_released"	"UI/buttonclickrelease.wav"
+
+		"image_drawcolor"	"117 107 94 255"
+		"image_armedcolor"	"200 80 60 255"
+		"textinsetx"	"55"
 			
-		"SubImage"
-			{
+				"SubImage"
+				{
 					"ControlName"	"ImagePanel"
 					"fieldName"		"SubImage"
-					"xpos"			"5"
-					"ypos"			"10"
+					"xpos"			"7.5"
+					"ypos"			"8"
 					"zpos"			"1"
 					"wide"			"14"
 					"tall"			"14"
@@ -679,8 +703,7 @@
 					"enabled"		"1"
 					"scaleImage"	"1"
 					"image"			"glyph_options"
-					"scaleImage"	"1"
-			}		
+			}
 		}
 	}
 	
@@ -695,7 +718,7 @@
 		"ypos"			"395"
 		"zpos"			"0"
 		"wide"			"170"
-		"tall"			"50"
+		"tall"			"45"
 		"visible"		"1"
 		"PaintBackgroundType"	"0"
 		"border"		"MainMenuBGBorder"
@@ -710,14 +733,13 @@
 		"ypos"			"403"
 		"zpos"			"15"
 		"wide"			"150"
-		"tall"			"35"
+		"tall"			"30"
 		"visible"		"1"
 		"PaintBackgroundType"	"0"
 
-
-		"font"			"HudFontSmallishBold"
+		"font"			"HudFontSmallBold"
 		"command" 		"engine disconnect"
-		"labeltext"		"   Disconnect"
+		"labeltext"		"Disconnect"
 		"OnlyInGame"	"1"
 
 		"border_default"	"MainMenuButtonDefault"
@@ -733,22 +755,26 @@
 		
 		"sound_depressed"	"UI/buttonclick.wav"
 		"sound_released"	"UI/buttonclickrelease.wav"
+
+		"image_drawcolor"	"117 107 94 255"
+		"image_armedcolor"	"200 80 60 255"
+		"textinsetx"	"55"
 			
 				"SubImage"
 				{
 					"ControlName"	"ImagePanel"
 					"fieldName"		"SubImage"
-					"xpos"			"5"
-					"ypos"			"10"
+					"xpos"			"7.5"
+					"ypos"			"8"
 					"zpos"			"1"
 					"wide"			"14"
 					"tall"			"14"
 					"visible"		"1"
 					"enabled"		"1"
 					"scaleImage"	"1"
-					"image"			"glyph_options"
-					"scaleImage"	"1"
+					"image"			"glyph_close_x"
 			}
+	
 	}
 	
 
@@ -760,13 +786,13 @@
 		"ypos"			"403"
 		"zpos"			"15"
 		"wide"			"150"
-		"tall"			"35"
+		"tall"			"30"
 		"visible"		"0"
 		"PaintBackgroundType"	"0"
-
-		"font"			"HudFontSmallishBold"
-		"command" 		"engine replay_confirmquit"
-		"labeltext"		"   Quit"
+    
+		"font"			"HudFontSmallBold"
+		"command" 		"engine quit prompt"
+		"labeltext"		"Quit"
 		"OnlyAtMenu"	"1"
 
 		"border_default"	"MainMenuButtonDefault"
@@ -782,21 +808,24 @@
 		
 		"sound_depressed"	"UI/buttonclick.wav"
 		"sound_released"	"UI/buttonclickrelease.wav"
+
+		"image_drawcolor"	"117 107 94 255"
+		"image_armedcolor"	"200 80 60 255"
+		"textinsetx"	"55"
 			
 				"SubImage"
 				{
 					"ControlName"	"ImagePanel"
 					"fieldName"		"SubImage"
-					"xpos"			"5"
-					"ypos"			"10"
+					"xpos"			"7.5"
+					"ypos"			"8"
 					"zpos"			"1"
 					"wide"			"14"
 					"tall"			"14"
 					"visible"		"1"
 					"enabled"		"1"
 					"scaleImage"	"1"
-					"image"			"glyph_options"
-					"scaleImage"	"1"
+					"image"			"glyph_quit"
 			}
 	}
 	
@@ -819,9 +848,9 @@
 		"Controlname"		"CExLabel"
 		"fieldname"			"Community"
 		"labelText"			"Community"
-		"font"				"ScoreboardMedium"
+		"font"				"HudFontSmallishBold"
 		"textAlignment"			"west"
-		"xpos"					"680"
+		"xpos"					"675"
 		"ypos"					"294"
 		"wide"					"150"
 		"tall"					"25"
@@ -839,13 +868,13 @@
 		"ypos"			"320"
 		"zpos"			"15"
 		"wide"			"150"
-		"tall"			"35"
+		"tall"			"30"
 		"visible"		"1"
 		"PaintBackgroundType"	"2"
 
-		"font"			"HudFontSmallishBold"
+		"font"			"HudFontSmallBold"
 		"command" 		"open_discord"
-		"labeltext"		"   Discord"
+		"labeltext"		"Discord"
 		"OnlyInGame"	"1"
 
 		"border_default"	"MainMenuButtonDefault"
@@ -861,20 +890,24 @@
 		
 		"sound_depressed"	"UI/buttonclick.wav"
 		"sound_released"	"UI/buttonclickrelease.wav"
+
+		"image_drawcolor"	"117 107 94 255"
+		"image_armedcolor"	"200 80 60 255"
+		"textinsetx"	"55"
 			
 				"SubImage"
 				{
 					"ControlName"	"ImagePanel"
 					"fieldName"		"SubImage"
-					"xpos"			"5"
-					"ypos"			"10"
+					"xpos"			"7.5"
+					"ypos"			"8"
 					"zpos"			"1"
 					"wide"			"14"
 					"tall"			"14"
 					"visible"		"1"
 					"enabled"		"1"
 					"scaleImage"	"1"
-					"image"			"glyph_options"
+					"image"			"glyph_server"
 			}
 	}
 	
@@ -886,13 +919,13 @@
 		"ypos"			"355"
 		"zpos"			"15"
 		"wide"			"150"
-		"tall"			"35"
+		"tall"			"30"
 		"visible"		"1"
 		"PaintBackgroundType"	"2"
 
-		"font"			"HudFontSmallishBold"
+		"font"			"HudFontSmallBold"
 		"command" 		"open_website"
-		"labeltext"		"   Website"
+		"labeltext"		"Website"
 		"OnlyInGame"	"1"
 
 		"border_default"	"MainMenuButtonDefault"
@@ -908,20 +941,23 @@
 		
 		"sound_depressed"	"UI/buttonclick.wav"
 		"sound_released"	"UI/buttonclickrelease.wav"
-			
+
+		"image_drawcolor"	"117 107 94 255"
+		"image_armedcolor"	"200 80 60 255"
+		"textinsetx"	"55"
 				"SubImage"
 				{
 					"ControlName"	"ImagePanel"
 					"fieldName"		"SubImage"
-					"xpos"			"5"
-					"ypos"			"10"
+					"xpos"			"7.5"
+					"ypos"			"8"
 					"zpos"			"1"
 					"wide"			"14"
 					"tall"			"14"
 					"visible"		"1"
 					"enabled"		"1"
 					"scaleImage"	"1"
-					"image"			"glyph_options"
+					"image"			"glyph_server"
 			}
 	}
 

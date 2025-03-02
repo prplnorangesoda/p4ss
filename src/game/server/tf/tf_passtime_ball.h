@@ -60,10 +60,19 @@ public:
 	void SetStateCarried( CTFPlayer *pCarrier );
 	bool BOutOfPlay() const;
 
+	bool PlayerInGoalieZone( CTFPlayer *player );
+	bool GetPanacea() const;
+
 	static CPasstimeBall *Create( Vector position, QAngle angles );
 
 	void SetHomingTarget( CTFPlayer *pPlayer );
+	void SetLastHomingTarget( CTFPlayer *pPlayer );
+
+	void SetPanacea( bool isPanacea );
+
 	CTFPlayer *GetHomingTarget() const;
+	CTFPlayer *GetLastHomingTarget() const;
+
 	float GetAirtimeSec() const;
 	float GetAirtimeDistance() const;
 
@@ -101,6 +110,7 @@ private:
 	CSpriteTrail *m_pTrail;
 	bool m_bTrailActive;
 	bool m_bLeftOwner;
+	bool m_bPanacea; // where did the rules channel go
 	CSoundPatch	*m_pHumLoop;
 	CSoundPatch	*m_pBeepLoop;
 	CSoundPatch *m_pCloseToTarget;
@@ -113,6 +123,8 @@ private:
 	float m_flLastTeamChangeTime; // for stats
 	float m_flBeginCarryTime;
 	float m_flIdleRespawnTime;
+
+	CUtlVector<CBaseEntity*> m_mapGoals; 
 
 	struct LagRecord 
 	{
@@ -127,6 +139,7 @@ private:
 
 	CNetworkVar( int, m_iCollisionCount );
 	CNetworkHandle( CTFPlayer, m_hHomingTarget );
+	CNetworkHandle( CTFPlayer, m_hLastHomingTarget );
 	CNetworkHandle( CTFPlayer, m_hCarrier );
 	CNetworkHandle( CTFPlayer, m_hPrevCarrier );
 };

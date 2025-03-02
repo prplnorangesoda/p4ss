@@ -6,13 +6,14 @@
 //=============================================================================//
 
 #include "cbase.h"
+#include "passtime_convars.h"
 
 #define FLAGS_DEFAULT (FCVAR_NOTIFY | FCVAR_REPLICATED)
 
 #define PASSTIME_CONVAR(NAME, STR, DESC) ConVar NAME(#NAME, #STR, FLAGS_DEFAULT, DESC)
 
 PASSTIME_CONVAR( tf_passtime_scores_per_round, 5, "Number of scores it takes to win a round. Similar to tf_flag_caps_per_round." );
-PASSTIME_CONVAR( tf_passtime_ball_damping_scale, 0.0f, "Number reflect visual crosshairplacement in relation to throw arc. 0.01f in default tf2" );
+PASSTIME_CONVAR( tf_passtime_ball_damping_scale, 0.0f, "Physics ball damping param. 0.01f in default tf2" );
 PASSTIME_CONVAR( tf_passtime_ball_drag_coefficient, 0.01f, "" );
 PASSTIME_CONVAR( tf_passtime_ball_inertia_scale, 1.0f, "" );
 PASSTIME_CONVAR( tf_passtime_ball_mass, 1.0f, "" );
@@ -38,7 +39,7 @@ PASSTIME_CONVAR( tf_passtime_teammate_steal_time, 45, "How many seconds a player
 PASSTIME_CONVAR( tf_passtime_throwarc_scout, 0.1f, "" );
 PASSTIME_CONVAR( tf_passtime_throwarc_soldier, 0.1f, "" );
 PASSTIME_CONVAR( tf_passtime_throwarc_pyro, 0.1f, "" );
-PASSTIME_CONVAR( tf_passtime_throwarc_demoman, 0.1f, "In default tf2 this is 0.15f" );
+PASSTIME_CONVAR( tf_passtime_throwarc_demoman, 0.1f, "In default TF2 this is 0.15f" );
 PASSTIME_CONVAR( tf_passtime_throwarc_heavy, 0.175f, "" );
 PASSTIME_CONVAR( tf_passtime_throwarc_engineer, 0.2f, "" );
 PASSTIME_CONVAR( tf_passtime_throwarc_medic, 0.0f, "" );
@@ -77,5 +78,8 @@ PASSTIME_CONVAR( tf_passtime_pack_speed, 1, "When set to 1, all players near the
 PASSTIME_CONVAR( tf_passtime_pack_hp_per_sec, 2.0f, "How many HP per second pack members are healed." );
 
 // med splashing
-PASSTIME_CONVAR( tf_passtime_med_cansplash, 1, "Enables med splashing." );
-PASSTIME_CONVAR( tf_passtime_med_canpushball, 1, "Enables med pushing ball with crossbow." );
+PASSTIME_CONVAR( p4ss_med_cansplash, 1, "Enables med splashing." );
+PASSTIME_CONVAR( p4ss_med_canpushball, 1, "Enables med pushing ball with crossbow." );
+
+PASSTIME_CONVAR( p4ss_golden_goal, 1, "Enables golden goal state when stalemate would happen." );
+PASSTIME_CONVAR( p4ss_lock_eye_to_eye_los, 1, "Check LOS eye-to-eye when trying to lock-on." );
