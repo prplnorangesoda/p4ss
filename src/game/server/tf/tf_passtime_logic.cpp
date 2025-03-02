@@ -1438,11 +1438,6 @@ void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, CPasstimeBall *pBall, int iTea
 				if (pBall->GetWinstrat())
 				{
 					isWinstrat = true;
-					DevMsg( "its a winstrat \n" );
-				}
-				else
-				{
-					DevMsg( "its NOT a winstrat \n" );
 				}
 			}
 

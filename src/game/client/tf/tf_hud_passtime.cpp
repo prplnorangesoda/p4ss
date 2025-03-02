@@ -1653,12 +1653,6 @@ void CTFHudPasstimeBallStatus::FireGameEvent( IGameEvent *pEvent )
 		auto *pScorer = ToTFPlayer( UTIL_PlayerByIndex( scoreEvent.scorerIndex ) );
 		auto *pAssister = ToTFPlayer( UTIL_PlayerByIndex( scoreEvent.assisterIndex ) );
 
-		if ( scoreEvent.isWinstrat )
-		{
-			DevMsg( "hud passtime says it awinstrat \n" );
-		}
-
-
 		if ( scoreEvent.isDeathBomb )
 		{
 			m_pEventText->EnqueueDeathbomb( pScorer, pAssister );
