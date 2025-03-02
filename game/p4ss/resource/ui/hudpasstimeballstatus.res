@@ -69,6 +69,30 @@
 		"pin_to_sibling_corner"	"6"
 	}
 
+	"EventTitleLabelShadow"
+	{
+		"ControlName"	"CExLabel"
+		"fieldName"		"EventTitleLabelShadow"
+		"dropshadow"	"1"
+		"font"			"HudFontMediumSmallBold"
+		"xpos"			"1"
+		"ypos"			"91"
+		"zpos"			"2"
+		"wide"			"f"
+		"tall"			"15"
+		"visible"		"1"
+		"enabled"		"1"
+		"textAlignment"	"center"
+		"labelText"		"A TEAM STOLE THE BALL"
+		"fgcolor" "TanDark"
+		"border"				""
+		"textinsetx"		"30"
+		"auto_wide_tocontents"	"1"
+		"pin_to_sibling"		"EventTitleAnchor"
+		"pin_corner_to_sibling"	"4"
+		"pin_to_sibling_corner"	"6"
+	}
+
 	"EventDetailLabel"
 	{
 		"ControlName"	"CExLabel"
@@ -93,12 +117,60 @@
 		"pin_corner_to_sibling"	"4"
 		"pin_to_sibling_corner"	"6"
 	}
+
+	"EventDetailLabelShadow"
+	{
+		"ControlName"	"CExLabel"
+		"fieldName"		"EventDetailLabelShadow"
+		"font"			"HudFontSmallestBold"
+		"xpos"			"1"
+		"ypos"			"1"
+		"zpos"			"2"
+		"wide"			"f"
+		"tall"			"20"
+		"visible"		"1"
+		"enabled"		"1"
+		"textAlignment"	"center"
+		"labelText"		"A TEAM STOLE THE BALL"
+		"fgcolor" "TanDark"
+		"border"				""
+		"textinsetx"		"30"
+		"auto_wide_tocontents"	"1"
+		
+		"pin_to_sibling"		"EventTitleLabel"
+		"pin_corner_to_sibling"	"4"
+		"pin_to_sibling_corner"	"6"
+	}
 	
 
 	"EventBonusLabel"
 	{
 		"ControlName"	"CExLabel"
 		"fieldName"		"EventBonusLabel"
+		"font"			"HudFontSmallBold"
+		"dropshadow"	"1"
+		"xpos"			"0"
+		"ypos"			"9999" //Disabled the critboost notification
+		"zpos"			"3"
+		"wide"			"f"
+		"tall"			"20"
+		"visible"		"1" 
+		"enabled"		"1"
+		"textAlignment"	"center"
+		"labelText"		""
+		"fgcolor_override"	"255 235 35 200"
+		"border"				""
+		"textinsetx"		"30"
+		"auto_wide_tocontents"	"1"
+		
+		"pin_to_sibling"		"EventTitleLabel"
+		"pin_corner_to_sibling"	"6"
+		"pin_to_sibling_corner"	"4"
+	}
+	"EventBonusLabelShadow"
+	{
+		"ControlName"	"CExLabel"
+		"fieldName"		"EventBonusLabelShadow"
 		"font"			"HudFontSmallBold"
 		"dropshadow"	"1"
 		"xpos"			"0"

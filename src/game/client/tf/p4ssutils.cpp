@@ -71,7 +71,7 @@ namespace P4ss
 				textImage->AddColorChange( Color( 59, 196, 59, 255 ), iWChars );
 				break;
 			case 0x01:
-				textImage->AddColorChange( Color( 255, 255, 255, 255), iWChars );
+				textImage->AddColorChange( Color( 224, 217, 197, 255), iWChars );
 				break;
 			default:
 				break;
