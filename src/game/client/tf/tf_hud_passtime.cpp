@@ -603,12 +603,12 @@ void CTFHudPasstimeEventText::Tick()
 			if ( m_pTitleLabel )
 			{
 				SetLabelText( m_pTitleLabel, msg.title );
-				P4ss::ColorTextP4ss( m_pTitleLabel, msg.title, msg.team);
+				P4ss::ColorTextP4ss( m_pTitleLabel->GetTextImage(), msg.title, msg.team);
 			}
 			if ( m_pDetailLabel )
 			{
 				SetLabelText( m_pDetailLabel, msg.detail );
-				P4ss::ColorTextP4ss( m_pDetailLabel, msg.detail, msg.team );
+				P4ss::ColorTextP4ss( m_pDetailLabel->GetTextImage(), msg.detail, msg.team );
 			}
 			if ( m_pBonusLabel )
 			{

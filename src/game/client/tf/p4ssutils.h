@@ -20,7 +20,7 @@
 #define P4SS_RED Color(240, 89, 89, 255);
 namespace P4ss 
 {
-	void ColorTextP4ss(vgui::Label * label, const wchar_t * text, const int team = TF_TEAM_RED);
+	void ColorTextP4ss(vgui::TextImage * label, const wchar_t * text, const int team = TF_TEAM_RED);
 
 }
 
