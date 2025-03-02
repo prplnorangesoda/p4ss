@@ -1,6 +1,7 @@
-//========= Copyright Valve Corporation, All rights reserved. ============//
+//========= Contributed by 4v4 PASS Time developers. ==========================//
 //
-// Purpose:
+// Purpose: Trigger brush for map developers to specify that a first grab goal
+// (usually a Panacea) should be considered a "win strat."
 //
 // $NoKeywords: $
 //=============================================================================//
