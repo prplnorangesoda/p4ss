@@ -82,3 +82,4 @@ PASSTIME_CONVAR( p4ss_med_cansplash, 1, "Enables med splashing." );
 PASSTIME_CONVAR( p4ss_med_canpushball, 1, "Enables med pushing ball with crossbow." );
 
 PASSTIME_CONVAR( p4ss_golden_goal, 1, "Enables golden goal state when stalemate would happen." );
+PASSTIME_CONVAR( p4ss_lock_eye_to_eye_los, 1, "Check LOS eye-to-eye when trying to lock-on." );
