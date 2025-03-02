@@ -813,6 +813,12 @@ void CTFHudPasstimeEventText::EnqueueScore( C_TFPlayer *pThrower, C_TFPlayer *pA
 		Enqueue( pAssister, pThrower, "#Msg_PasstimeEventScoreTitle", "#Msg_PasstimeEventScoreDetail_NoAssist", "#Msg_PasstimeEventScoreBonus" );
 }
 
+void CTFHudPasstimeEventText::EnqueueDeathbomb( C_TFPlayer *pThrower, C_TFPlayer *pAssister )
+{
+	Enqueue( pAssister, pThrower, "#Msg_PasstimeEventDeathbombTitle", "#Msg_PasstimeEventDeathbombDetail", "#Msg_PasstimeEventDeathbombBonus");
+}
+
+
 //-----------------------------------------------------------------------------
 // CTFHudPasstimeBallStatus
 //-----------------------------------------------------------------------------
@@ -1582,7 +1588,16 @@ void CTFHudPasstimeBallStatus::FireGameEvent( IGameEvent *pEvent )
 		PasstimeGameEvents::Score scoreEvent( pEvent );
 		auto *pScorer = ToTFPlayer( UTIL_PlayerByIndex( scoreEvent.scorerIndex ) );
 		auto *pAssister = ToTFPlayer( UTIL_PlayerByIndex( scoreEvent.assisterIndex ) );
-		m_pEventText->EnqueueScore( pScorer, pAssister );
+
+		if ( scoreEvent.isDeathBomb )
+		{
+			m_pEventText->EnqueueDeathbomb( pScorer, pAssister );
+		} 
+		else
+		{
+			m_pEventText->EnqueueScore( pScorer, pAssister );
+		}
+
 	}
 }
 

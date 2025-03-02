@@ -77,7 +77,7 @@ private:
 	void OnBallGet();
 	void Score( CTFPlayer *pPlayer, CFuncPasstimeGoal *pGoal );
 	void Score( CPasstimeBall *pBall, CFuncPasstimeGoal *pGoal, bool isDeathBomb );
-	void Score( CTFPlayer *pPlayer, int iTeam, int iPoints, bool iForceWin, bool isDeathBomb );
+	void Score( CTFPlayer *pPlayer, CPasstimeBall *pBall, int iTeam, int iPoints, bool iForceWin, bool isDeathBomb );
 	void SpawnBallAtRandomSpawnerThink();
 	void SpawnBallAtRandomSpawner();
 	void SpawnBallAtSpawner( CPasstimeBallSpawn *pSpawner );

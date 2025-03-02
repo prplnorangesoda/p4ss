@@ -65,6 +65,8 @@ public:
 	static CPasstimeBall *Create( Vector position, QAngle angles );
 
 	void SetHomingTarget( CTFPlayer *pPlayer );
+	void SetLastHomingTarget( CTFPlayer *pPlayer );
+
 	CTFPlayer *GetHomingTarget() const;
 	CTFPlayer *GetLastHomingTarget() const;
 	float GetAirtimeSec() const;

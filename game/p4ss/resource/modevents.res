@@ -1674,6 +1674,7 @@
 		"scorer" "short"
 		"assister" "short"
 		"points" "byte"
+		"is_deathbomb" "bool"
 	}
 
 	"pass_free"

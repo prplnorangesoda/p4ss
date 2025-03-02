@@ -377,7 +377,7 @@ void CPasstimeBall::Spawn()
 	}
 
 	// === My spawn
-	m_hLastHomingTarget = 0;
+	SetLastHomingTarget( 0 );
 	m_flLastTeamChangeTime = gpGlobals->curtime;
 	m_flBeginCarryTime = -1;
 	ResetTrail();
@@ -597,6 +597,8 @@ void CPasstimeBall::SetStateFree()
 		m_hPrevCarrier = m_hCarrier;
 	}
 	m_hCarrier = 0;
+	SetLastHomingTarget( 0 );
+
 }
 
 //-----------------------------------------------------------------------------
@@ -664,7 +666,7 @@ void CPasstimeBall::SetStateOutOfPlay()
 		m_hPrevCarrier = m_hCarrier;
 	}
 	m_hCarrier = 0;
-	m_hLastHomingTarget = 0;
+	//m_hLastHomingTarget = 0;
 }
 
 //-----------------------------------------------------------------------------
@@ -892,7 +894,7 @@ void CPasstimeBall::DefaultThink()
 
 		pPhysObj->Wake(); // NEVER SLEEP
 
-		//m_playerSeek.SetIsEnabled( !m_bTouchedSinceSpawn );
+		//m_playerSeek.SetIsEnabled( !m_bTouchedSinceSpawn );`
 		CPasstimeBallController::ApplyTo( this );
 	}
 }
@@ -1299,7 +1301,6 @@ void CPasstimeBall::OnCollision()
 {
 	m_flAirtimeDistance = 0;
 	m_flLastCollisionTime = gpGlobals->curtime;
-	m_hLastHomingTarget = 0;
 	++m_iCollisionCount;
 	if ( m_iCollisionCount == 1 ) 
 	{
@@ -1310,6 +1311,7 @@ void CPasstimeBall::OnCollision()
 		}
 	}
 	m_hBlocker.Term();
+	SetLastHomingTarget(0);
 }
 
 //-----------------------------------------------------------------------------
@@ -1502,9 +1504,8 @@ CPasstimeBall *CPasstimeBall::Create( Vector vecPosition, QAngle angles )
 
 //-----------------------------------------------------------------------------
 void CPasstimeBall::SetHomingTarget( CTFPlayer *pPlayer ) 
-{ 
+{
 	m_hHomingTarget = pPlayer; 
-	m_hLastHomingTarget = pPlayer;
 
 	if ( m_hHomingTarget )
 	{
@@ -1527,7 +1528,10 @@ void CPasstimeBall::SetHomingTarget( CTFPlayer *pPlayer )
 	}
 }
 
-
+void CPasstimeBall::SetLastHomingTarget(CTFPlayer* pPlayer)
+{
+	m_hLastHomingTarget = pPlayer;
+}
 
 
 //-----------------------------------------------------------------------------
@@ -1540,7 +1544,6 @@ CTFPlayer *CPasstimeBall::GetLastHomingTarget() const
 {
 	return m_hLastHomingTarget;
 }
-
 
 //-----------------------------------------------------------------------------
 float CPasstimeBall::GetAirtimeSec() const 

@@ -783,12 +783,9 @@ void CTFPasstimeLogic::OnEnterGoal( CPasstimeBall *pBall, CFuncPasstimeGoal *pGo
 	CTFPlayer *pOwner = pBall->GetThrower();
 	if ( pOwner && (pBall->GetTeamNumber() == pGoal->GetTeamNumber()) )
 	{
-		//DevMsg( "%b \n", !pBall->GetLastHomingTarget()->IsAlive() );
-
 		// we scored a deathbomb logic here
-		if ( pBall->GetLastHomingTarget() && !pBall->GetLastHomingTarget()->IsAlive() )
+		if ( pBall->GetLastHomingTarget() != nullptr && !pBall->GetLastHomingTarget()->IsAlive() )
 		{
-			DevMsg( "DEATH BOMB!!!!!!!!!!!!!!!!!!" );
 			Score( pBall, pGoal, true );
 		}
 		else
@@ -796,6 +793,9 @@ void CTFPasstimeLogic::OnEnterGoal( CPasstimeBall *pBall, CFuncPasstimeGoal *pGo
 			Score( pBall, pGoal, false );
 		}
 	}
+
+	// kill the last target
+	pBall->SetLastHomingTarget(0);
 }
 
 
@@ -1323,19 +1323,17 @@ void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, CFuncPasstimeGoal *pGoal )
 {
 	Assert( pPlayer && pGoal );
 	pGoal->OnScore( pPlayer->GetTeamNumber() );
-	Score( pPlayer, pGoal->GetTeamNumber(), pGoal->Points(), pGoal->BWinOnScore(), false );
+	Score( pPlayer, nullptr, pGoal->GetTeamNumber(), pGoal->Points(), pGoal->BWinOnScore(), false );
 }
 
 //-----------------------------------------------------------------------------
 void CTFPasstimeLogic::Score( CPasstimeBall *pBall, CFuncPasstimeGoal *pGoal, bool _isDeathBomb )
 {
-	bool isDeathBomb = false;
-
 	Assert( pBall && pGoal );
 	CTFPlayer* pPlayer = pBall->GetThrower();
 	Assert( pPlayer );
 	pGoal->OnScore( pPlayer->GetTeamNumber() );
-	Score( pPlayer, pGoal->GetTeamNumber(), pGoal->Points(), pGoal->BWinOnScore(), isDeathBomb );
+	Score( pPlayer, pBall, pGoal->GetTeamNumber(), pGoal->Points(), pGoal->BWinOnScore(), _isDeathBomb );
 }
 
 //-----------------------------------------------------------------------------
@@ -1353,7 +1351,7 @@ void CTFPasstimeLogic::AddCondToTeam( ETFCond eCond, int iTeam, float flTime )
 }
 
 //-----------------------------------------------------------------------------
-void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, int iTeam, int iPoints, bool bForceWin, bool _isDeathBomb ) 
+void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, CPasstimeBall *pBall, int iTeam, int iPoints, bool bForceWin, bool _isDeathBomb ) 
 {
 	StopAskForBallEffects();
 	m_pRespawnCountdown->Disable();
@@ -1373,13 +1371,10 @@ void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, int iTeam, int iPoints, bool b
 	// Update stats
 	//
 	++CTF_GameStats.m_passtimeStats.summary.nTotalScores;
-	++CTF_GameStats.m_passtimeStats.classes[ pPlayer->GetPlayerClass()->GetClassIndex() ].nTotalScores;
-	CTF_GameStats.Event_PlayerCapturedPoint( pPlayer );
 
 	// 
 	// Award player points
 	//
-	CTF_GameStats.Event_PlayerAwardBonusPoints( pPlayer, 0, 25 );
 
 	//
 	// Award player assist points
@@ -1403,15 +1398,40 @@ void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, int iTeam, int iPoints, bool b
 			}
 		}
 
-		if ( pAssister )
+		if ( _isDeathBomb )
 		{
-			CTF_GameStats.Event_PlayerAwardBonusPoints( pAssister, 0, 10 );
-			PasstimeGameEvents::Score( pPlayer->entindex(), pAssister->entindex(), iPoints ).Fire();
+			if ( pBall && pBall->GetLastHomingTarget() ) // dear god save me
+			{
+				CTF_GameStats.Event_PlayerAwardBonusPoints( pPlayer, 0, 10 );
 
+				CTF_GameStats.Event_PlayerAwardBonusPoints( pBall->GetLastHomingTarget(), 0, 25 );
+
+				++CTF_GameStats.m_passtimeStats.classes[ pBall->GetLastHomingTarget()->GetPlayerClass()->GetClassIndex() ].nTotalScores;
+				CTF_GameStats.Event_PlayerCapturedPoint( pBall->GetLastHomingTarget() );
+
+				PasstimeGameEvents::Score( pBall->GetLastHomingTarget()->entindex(), pPlayer->entindex(),
+				iPoints, true )
+				.Fire();
+			}
 		}
 		else
 		{
-			PasstimeGameEvents::Score( pPlayer->entindex(), iPoints ).Fire();
+			CTF_GameStats.Event_PlayerAwardBonusPoints( pPlayer, 0, 25 );
+
+			++CTF_GameStats.m_passtimeStats.classes[ pPlayer->GetPlayerClass()->GetClassIndex() ].nTotalScores;
+			CTF_GameStats.Event_PlayerCapturedPoint( pPlayer );
+
+			if ( pAssister )
+			{
+				CTF_GameStats.Event_PlayerAwardBonusPoints( pAssister, 0, 10 );
+				PasstimeGameEvents::Score( pPlayer->entindex(), pAssister->entindex(), iPoints, false ).Fire();
+			}
+			else
+			{
+				PasstimeGameEvents::Score( pPlayer->entindex(), iPoints )
+				.Fire();
+			}
+
 		}
 	}
 
