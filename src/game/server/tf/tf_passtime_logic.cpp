@@ -11,6 +11,7 @@
 #include "entity_passtime_ball_spawn.h"
 #include "func_passtime_goal.h"
 #include "func_passtime_no_ball_zone.h"
+#include "func_passtime_winstrat_zone.h"
 #include "tf_passtime_ball.h"
 #include "passtime_ballcontroller.h"
 #include "passtime_convars.h"
@@ -932,6 +933,16 @@ bool CTFPasstimeLogic::BCanPlayerPickUpBall( CTFPlayer *pPlayer, HudNotification
 	return true;
 }
 
+bool CTFPasstimeLogic::BPlayerInWinstratZone( CTFPlayer *pPlayer ) const
+{
+	if ( EntityIsInWinstratZone(pPlayer) )
+	{
+		return true;
+	}
+
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 int CTFPasstimeLogic::UpdateTransmitState()
 {
@@ -1037,6 +1048,7 @@ void CTFPasstimeLogic::SpawnBallAtSpawner( CPasstimeBallSpawn *pSpawner )
 	m_hBall->MoveToSpawner( pSpawner->GetAbsOrigin() );
 	m_hBall->ChangeTeam( pSpawner->GetTeamNumber() );
 	m_hBall->SetPanacea( true );
+	m_hBall->SetWinstrat( false );
 	m_onBallFree.FireOutput( m_hBall, this );
 	pSpawner->m_onSpawnBall.FireOutput( pSpawner, pSpawner );
 
@@ -1407,19 +1419,28 @@ void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, CPasstimeBall *pBall, int iTea
 				CTF_GameStats.Event_PlayerCapturedPoint( pBall->GetLastHomingTarget() );
 
 				PasstimeGameEvents::Score( pBall->GetLastHomingTarget()->entindex(), pPlayer->entindex(),
-				iPoints, true, false ) // dont care that panacea exists BECAUSE WE JUST HIT THE DEATHBOMB.
+				iPoints, true, false, false ) // dont care that panacea exists BECAUSE WE JUST HIT THE DEATHBOMB.
 				.Fire();
 			}
 		}
 		else
 		{
 			bool isPanacea = false;
+			bool isWinstrat = false;
 
-			if ( pBall && pBall->GetPanacea() )
+			if ( pBall )
 			{
-				isPanacea = true;
-				DevMsg( "we set it as a pancea\n" );
+				if (pBall->GetPanacea())
+				{
+					isPanacea = true;
+				}
+
+				if (pBall->GetWinstrat())
+				{
+					isWinstrat = true;
+				}
 			}
+
 
 			CTF_GameStats.Event_PlayerAwardBonusPoints( pPlayer, 0, 25 );
 
@@ -1429,11 +1450,11 @@ void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, CPasstimeBall *pBall, int iTea
 			if ( pAssister )
 			{
 				CTF_GameStats.Event_PlayerAwardBonusPoints( pAssister, 0, 10 );
-				PasstimeGameEvents::Score( pPlayer->entindex(), pAssister->entindex(), iPoints, false, isPanacea ).Fire();
+				PasstimeGameEvents::Score( pPlayer->entindex(), pAssister->entindex(), iPoints, false, isPanacea, isWinstrat ).Fire();
 			}
 			else
 			{
-				PasstimeGameEvents::Score( pPlayer->entindex(), iPoints, isPanacea )
+				PasstimeGameEvents::Score( pPlayer->entindex(), iPoints, isPanacea, isWinstrat )
 				.Fire();
 			}
 

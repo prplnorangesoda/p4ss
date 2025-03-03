@@ -39,8 +39,8 @@ namespace PasstimeGameEvents
 	struct Score
 	{
 		Score( IGameEvent *pEvent );
-		Score( int scorerIndex, int assisterIndex, int numPoints, bool isDeathBomb, bool isPanacea );
-		Score( int scorerIndex_, int numPoints_, bool isPanacea_ );
+		Score( int scorerIndex, int assisterIndex, int numPoints, bool isDeathBomb, bool isPanacea, bool isWinstrat );
+		Score( int scorerIndex_, int numPoints_, bool isPanacea_, bool isWinstrat_ );
 		void Fire();
 		
 		static const char *const s_eventName;
@@ -49,12 +49,15 @@ namespace PasstimeGameEvents
 		static const char *const s_keyNumPoints;
 		static const char *const s_keyIsDeathBomb;
 		static const char *const s_keyIsPanacea;
+		static const char *const s_keyIsWinstrat;
+
 		int scorerIndex;
 		int assisterIndex;
 		int numPoints;
 
 		bool isDeathBomb;
 		bool isPanacea;
+		bool isWinstrat;
 	};
 
 	//-----------------------------------------------------------------------------
