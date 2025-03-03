@@ -1735,6 +1735,15 @@ void CTFPasstimeLogic::OnPlayerTouchBall( CTFPlayer *pCatcher, CPasstimeBall *pB
 				isBlock = true;
 			}
 
+			if ( isBlock )
+			{
+				CTF_GameStats.Event_PlayerP4ssSave( pCatcher );
+			}
+			else
+			{
+				CTF_GameStats.Event_PlayerP4ssIntercept( pCatcher );
+			}
+
 			// award bonus effects for interception
 			pCatcher->m_Shared.AddCond( TF_COND_PASSTIME_INTERCEPTION, tf_passtime_speedboost_on_get_ball_time.GetFloat() );
 			pCatcher->m_Shared.AddCond( TF_COND_SPEED_BOOST, tf_passtime_speedboost_on_get_ball_time.GetFloat() );
