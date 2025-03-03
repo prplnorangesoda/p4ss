@@ -1406,8 +1406,11 @@ void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, CPasstimeBall *pBall, int iTea
 				++CTF_GameStats.m_passtimeStats.classes[ pBall->GetLastHomingTarget()->GetPlayerClass()->GetClassIndex() ].nTotalScores;
 				CTF_GameStats.Event_PlayerCapturedPoint( pBall->GetLastHomingTarget() );
 
-				PasstimeGameEvents::Score( pBall->GetLastHomingTarget()->entindex(), pPlayer->entindex(),
-				iPoints, true, false ) // dont care that panacea exists BECAUSE WE JUST HIT THE DEATHBOMB.
+				auto pScorer = pBall->GetLastHomingTarget();
+				auto pAssister = pPlayer;
+				CTF_GameStats.Event_PlayerP4ssGoal( pScorer );
+				CTF_GameStats.Event_PlayerP4ssAssist( pAssister );
+				PasstimeGameEvents::Score( pScorer->entindex(), pAssister->entindex(), iPoints, true, false ) // dont care that panacea exists BECAUSE WE JUST HIT THE DEATHBOMB.
 				.Fire();
 			}
 		}
@@ -1430,12 +1433,14 @@ void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, CPasstimeBall *pBall, int iTea
 			{
 				CTF_GameStats.Event_PlayerAwardBonusPoints( pAssister, 0, 10 );
 				PasstimeGameEvents::Score( pPlayer->entindex(), pAssister->entindex(), iPoints, false, isPanacea ).Fire();
+				CTF_GameStats.Event_PlayerP4ssAssist( pAssister );
 			}
 			else
 			{
 				PasstimeGameEvents::Score( pPlayer->entindex(), iPoints, isPanacea )
 				.Fire();
 			}
+			CTF_GameStats.Event_PlayerP4ssGoal( pPlayer );
 
 		}
 	}
@@ -1451,8 +1456,10 @@ void CTFPasstimeLogic::Score( CTFPlayer *pPlayer, CPasstimeBall *pBall, int iTea
 	//
 	// Award bonus conditions
 	//
-	AddCondToTeam( TF_COND_CRITBOOSTED_CTF_CAPTURE, pPlayer->GetTeamNumber(), tf_passtime_score_crit_sec.GetFloat() );
-
+	if ( tf_passtime_score_crit_sec.GetBool())
+	{
+		AddCondToTeam( TF_COND_CRITBOOSTED_CTF_CAPTURE, pPlayer->GetTeamNumber(), tf_passtime_score_crit_sec.GetFloat() );
+	}
 	//
 	// Feedback
 	//
