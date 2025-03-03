@@ -43,7 +43,10 @@ END_NETWORK_TABLE()
 
 //-----------------------------------------------------------------------------
 BEGIN_PREDICTION_DATA( CPasstimeGun )
-END_PREDICTION_DATA() // this has to be here because the client's precache code uses it to get the classname of this entity...
+#ifdef CLIENT_DLL
+	DEFINE_PRED_FIELD( m_eThrowState, FIELD_INTEGER, FTYPEDESC_INSENDTABLE ),
+#endif
+END_PREDICTION_DATA()
 
 //-----------------------------------------------------------------------------
 LINK_ENTITY_TO_CLASS( tf_weapon_passtime_gun, CPasstimeGun );
@@ -481,8 +484,26 @@ void CPasstimeGun::ItemPostFrame()
 					flThisTargetDist /= 50.0f;
 
 				// check for line of sight
+				Vector vTargetPosForLineOfSight;
+				if ( p4ss_lock_eye_to_eye_los.GetBool() )
+				{
+					VMatrix mWorldToView( SetupMatrixIdentity() );
+					Vector vecEyePos;
+					{
+						Vector vecEyeDir;
+						pPlayer->EyePositionAndVectors( &vTargetPosForLineOfSight, &vecEyeDir, 0, 0 );
+						const QAngle &angEye = pPlayer->EyeAngles();
+						const VMatrix mTemp( SetupMatrixOrgAngles( vTargetPosForLineOfSight, angEye ) );
+						MatrixInverseTR( mTemp, mWorldToView );
+					}
+				}
+				else
+				{
+					vTargetPosForLineOfSight = vTargetPos;
+				}
+
 				trace_t tr;
-				UTIL_TraceLine( vecEyePos,	vTargetPos, MASK_PLAYERSOLID, pOwner, COLLISION_GROUP_PROJECTILE, &tr );
+				UTIL_TraceLine( vecEyePos,	vTargetPosForLineOfSight, MASK_PLAYERSOLID, pOwner, COLLISION_GROUP_PROJECTILE, &tr );
 				if ( tr.m_pEnt != pPlayer )
 					continue; // obstructed
 

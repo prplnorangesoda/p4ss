@@ -101,10 +101,6 @@
 #include "tf_wearable_weapons.h"
 #include "tf_weapon_bonesaw.h"
 
-static ConVar tf_demoman_charge_frametime_scaling( "tf_demoman_charge_frametime_scaling", "1", FCVAR_REPLICATED | FCVAR_CHEAT, "When enabled, scale yaw limiting based on client performance (frametime)." );
-static const float YAW_CAP_SCALE_MIN = 0.2f;
-static const float YAW_CAP_SCALE_MAX = 2.f;
-
 ConVar tf_halloween_kart_boost_recharge( "tf_halloween_kart_boost_recharge", "5.0f", FCVAR_REPLICATED | FCVAR_CHEAT );
 ConVar tf_halloween_kart_boost_duration( "tf_halloween_kart_boost_duration", "1.5f", FCVAR_REPLICATED | FCVAR_CHEAT );
 
@@ -5666,14 +5662,17 @@ void CTFPlayerShared::OnAddPasstimeInterception( void )
 		m_pOuter->m_pPhaseStandingEffect = m_pOuter->ParticleProp()->Create( "warp_version", PATTACH_ABSORIGIN_FOLLOW );
 	}
 
-	if ( m_pOuter->IsLocalPlayer() )
-	{
-		IMaterial *pMaterial = materials->FindMaterial( TF_SCREEN_OVERLAY_MATERIAL_PHASE, TEXTURE_GROUP_CLIENT_EFFECTS, false );
-		if ( !IsErrorMaterial( pMaterial ) )
-		{
-			view->SetScreenOverlayMaterial( pMaterial );
-		}
-	}
+		
+	// P4SS disable obnoxious warp effect
+
+	//if ( m_pOuter->IsLocalPlayer() )
+	//{
+	//	IMaterial *pMaterial = materials->FindMaterial( TF_SCREEN_OVERLAY_MATERIAL_PHASE, TEXTURE_GROUP_CLIENT_EFFECTS, false );
+	//	if ( !IsErrorMaterial( pMaterial ) )
+	//	{
+	//		view->SetScreenOverlayMaterial( pMaterial );
+	//	}
+	//}
 #else
 	if ( !m_bPhaseFXOn )
 	{
@@ -6032,24 +6031,34 @@ void CTFPlayerShared::EndCharge()
 #endif
 }
 
+// New convar to control charge turn rate. Default is same as vanilla TF2.
+ConVar tf_charge_turn_rate("tf_charge_turn_rate", "0.45", FCVAR_REPLICATED | FCVAR_CHEAT, "Base turn rate cap for demoman charge in degrees per tick");
+
 //-----------------------------------------------------------------------------
-// Purpose: 
+// Purpose: Unified function to cap turning rate for charge regardless of input method
+// Input:   Raw yaw change in degrees
+// Output:  Capped yaw change in degrees
 //-----------------------------------------------------------------------------
-float CTFPlayerShared::CalculateChargeCap( void ) const
+float CTFPlayerShared::CapChargeTurnRate(float flYawDelta) const
 {
-	float flCap = 0.45f;
+	if (!InCond(TF_COND_SHIELD_CHARGE))
+		return flYawDelta;
 
-	CALL_ATTRIB_HOOK_FLOAT_ON_OTHER( m_pOuter, flCap, charge_turn_control );
+	// Base turn rate cap in degrees per tick
+	float flBaseCap = tf_charge_turn_rate.GetFloat();
 
-	// Scale yaw cap based on frametime to prevent differences in turn effectiveness due to variable framerate (between clients mainly)
-	if ( tf_demoman_charge_frametime_scaling.GetBool() )
-	{
-		// There's probably something better to use here as a baseline, instead of TICK_INTERVAL
-		float flMod = RemapValClamped( gpGlobals->frametime, ( TICK_INTERVAL * YAW_CAP_SCALE_MIN ), ( TICK_INTERVAL * YAW_CAP_SCALE_MAX ), 0.25f, 2.f );
-		flCap *= flMod;
-	}
+	// Apply charge_turn_control attribute
+	CALL_ATTRIB_HOOK_FLOAT_ON_OTHER(m_pOuter, flBaseCap, charge_turn_control);
 
-	return flCap;
+	float flMaxYawDelta = flBaseCap * gpGlobals->frametime / TICK_INTERVAL;
+	
+	// Apply the cap
+	if (flYawDelta > flMaxYawDelta)
+		return flMaxYawDelta;
+	else if (flYawDelta < -flMaxYawDelta)
+		return -flMaxYawDelta;
+	
+	return flYawDelta;
 }
 
 bool CTFPlayerShared::HasDemoShieldEquipped() const

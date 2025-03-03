@@ -776,15 +776,15 @@ ConVar mp_tournament_prevent_team_switch_on_readyup( "mp_tournament_prevent_team
 ConVar mp_windifference( "mp_windifference", "0", FCVAR_REPLICATED | FCVAR_NOTIFY, "Score difference between teams before server changes maps", true, 0, false, 0 );
 ConVar mp_windifference_min( "mp_windifference_min", "0", FCVAR_REPLICATED | FCVAR_NOTIFY, "Minimum score needed for mp_windifference to be applied", true, 0, false, 0 );
 
-ConVar tf_tournament_classlimit_scout( "tf_tournament_classlimit_scout", "-1", FCVAR_REPLICATED, "Tournament mode per-team class limit for Scouts.\n" );
-ConVar tf_tournament_classlimit_sniper( "tf_tournament_classlimit_sniper", "-1", FCVAR_REPLICATED, "Tournament mode per-team class limit for Snipers.\n" );
-ConVar tf_tournament_classlimit_soldier( "tf_tournament_classlimit_soldier", "-1", FCVAR_REPLICATED, "Tournament mode per-team class limit for Soldiers.\n" );
-ConVar tf_tournament_classlimit_demoman( "tf_tournament_classlimit_demoman", "-1", FCVAR_REPLICATED, "Tournament mode per-team class limit for Demomenz.\n" );
-ConVar tf_tournament_classlimit_medic( "tf_tournament_classlimit_medic", "-1", FCVAR_REPLICATED, "Tournament mode per-team class limit for Medics.\n" );
-ConVar tf_tournament_classlimit_heavy( "tf_tournament_classlimit_heavy", "-1", FCVAR_REPLICATED, "Tournament mode per-team class limit for Heavies.\n" );
-ConVar tf_tournament_classlimit_pyro( "tf_tournament_classlimit_pyro", "-1", FCVAR_REPLICATED, "Tournament mode per-team class limit for Pyros.\n" );
-ConVar tf_tournament_classlimit_spy( "tf_tournament_classlimit_spy", "-1", FCVAR_REPLICATED, "Tournament mode per-team class limit for Spies.\n" );
-ConVar tf_tournament_classlimit_engineer( "tf_tournament_classlimit_engineer", "-1", FCVAR_REPLICATED, "Tournament mode per-team class limit for Engineers.\n" );
+ConVar tf_tournament_classlimit_scout( "tf_tournament_classlimit_scout", "0", FCVAR_REPLICATED, "Tournament mode per-team class limit for Scouts.\n" );
+ConVar tf_tournament_classlimit_sniper( "tf_tournament_classlimit_sniper", "0", FCVAR_REPLICATED, "Tournament mode per-team class limit for Snipers.\n" );
+ConVar tf_tournament_classlimit_soldier( "tf_tournament_classlimit_soldier", "3", FCVAR_REPLICATED, "Tournament mode per-team class limit for Soldiers.\n" );
+ConVar tf_tournament_classlimit_demoman( "tf_tournament_classlimit_demoman", "1", FCVAR_REPLICATED, "Tournament mode per-team class limit for Demomenz.\n" );
+ConVar tf_tournament_classlimit_medic( "tf_tournament_classlimit_medic", "1", FCVAR_REPLICATED, "Tournament mode per-team class limit for Medics.\n" );
+ConVar tf_tournament_classlimit_heavy( "tf_tournament_classlimit_heavy", "0", FCVAR_REPLICATED, "Tournament mode per-team class limit for Heavies.\n" );
+ConVar tf_tournament_classlimit_pyro( "tf_tournament_classlimit_pyro", "0", FCVAR_REPLICATED, "Tournament mode per-team class limit for Pyros.\n" );
+ConVar tf_tournament_classlimit_spy( "tf_tournament_classlimit_spy", "0", FCVAR_REPLICATED, "Tournament mode per-team class limit for Spies.\n" );
+ConVar tf_tournament_classlimit_engineer( "tf_tournament_classlimit_engineer", "0", FCVAR_REPLICATED, "Tournament mode per-team class limit for Engineers.\n" );
 ConVar tf_tournament_classchange_allowed( "tf_tournament_classchange_allowed", "1", FCVAR_REPLICATED, "Allow players to change class while the game is active?.\n" );
 ConVar tf_tournament_classchange_ready_allowed( "tf_tournament_classchange_ready_allowed", "1", FCVAR_REPLICATED, "Allow players to change class after they are READY?.\n" );
 
@@ -7058,6 +7058,8 @@ static void PotentiallyDamageMitigatedEvent( const CTFPlayer* pMitigator, const 
 	}
 }
 
+ConVar tf_selfblast_resist_on_enemy_hit( "tf_selfblast_resist_on_enemy_hit", "0.0", FCVAR_REPLICATED, "Scale the self-inflicted blast damage resistance when explosives also hit an enemy.", true, 0.0, true, 1.0 );
+
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -7407,12 +7409,22 @@ float CTFGameRules::ApplyOnDamageAliveModifyRules( const CTakeDamageInfo &info, 
 		}
 
 		if ( pAttacker == pVictimBaseEntity && (info.GetDamageType() & DMG_BLAST) &&
-			 info.GetDamagedOtherPlayers() == 0 && (info.GetDamageCustom() != TF_DMG_CUSTOM_TAUNTATK_GRENADE) )
+			 (info.GetDamageCustom() != TF_DMG_CUSTOM_TAUNTATK_GRENADE) )
 		{
-			// If we attacked ourselves, hurt no other players, and it is a blast,
-			// check the attribute that reduces rocket jump damage.
-			CALL_ATTRIB_HOOK_FLOAT_ON_OTHER( info.GetAttacker(), flRealDamage, rocket_jump_dmg_reduction );
-			outParams.bSelfBlastDmg = true;
+			if ( info.GetDamagedOtherPlayers() == 0 )
+			{
+				// If we attacked ourselves, hurt no other players, and it is a blast,
+				// check the attribute that reduces rocket jump damage.
+				CALL_ATTRIB_HOOK_FLOAT_ON_OTHER( info.GetAttacker(), flRealDamage, rocket_jump_dmg_reduction );
+				outParams.bSelfBlastDmg = true;
+			}
+			else
+			{
+				float flTemp = 1.0f;
+				CALL_ATTRIB_HOOK_FLOAT_ON_OTHER( info.GetAttacker(), flTemp, rocket_jump_dmg_reduction );
+				flRealDamage = flRealDamage * ( flTemp + ( ( 1.0f - flTemp ) * ( 1.0f - tf_selfblast_resist_on_enemy_hit.GetFloat() ) ) );
+				outParams.bSelfBlastDmg = true;
+			}
 		}
 
 		if ( pAttacker == pVictimBaseEntity )

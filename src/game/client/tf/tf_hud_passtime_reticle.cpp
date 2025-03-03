@@ -407,14 +407,49 @@ C_PasstimeBounceReticle::C_PasstimeBounceReticle()
 	AddSprite( CreateReticleSprite( "passtime/hud/passtime_ball_reticle_piece_1", 80, 200 ) ); // the O
 }
 
+ConVar tf_passtime_crosshair_r( "tf_passtime_crosshair_r", "255", FCVAR_ARCHIVE );
+ConVar tf_passtime_crosshair_g( "tf_passtime_crosshair_g", "255", FCVAR_ARCHIVE );
+ConVar tf_passtime_crosshair_b( "tf_passtime_crosshair_b", "0", FCVAR_ARCHIVE );
+ConVar tf_passtime_crosshair_a( "tf_passtime_crosshair_a", "200", FCVAR_ARCHIVE );
+
+ConVar tf_passtime_crosshair_teamcolored( "tf_passtime_crosshair_teamcolored", "1", FCVAR_ARCHIVE );
+
+
 void C_PasstimeBounceReticle::Show( const Vector &vec, const Vector &normal )
 {
+	auto *pLocalPlayer = C_TFPlayer::GetLocalTFPlayer();
+	auto nTeamNumber = pLocalPlayer->GetTeamNumber();
+
 	SetOrigin( 0, vec );
 	SetOrigin( 1, vec );//+ (normal * 16) );
 	SetNormal( 0, normal );
 	SetNormal( 1, -MainViewForward() );
-	SetRgba( 0, 255, 255, 0, 200 );
-	SetRgba( 1, 255, 255, 0, 200 );
+
+	if ( tf_passtime_crosshair_teamcolored.GetBool() )
+	{
+		if ( nTeamNumber == TF_TEAM_RED )
+		{
+			SetRgba( 0, 192, 28, 0, tf_passtime_crosshair_a.GetInt() );
+			SetRgba( 1, 192, 28, 0, tf_passtime_crosshair_a.GetInt() );
+		}
+		else if ( nTeamNumber == TF_TEAM_BLUE )
+		{
+			SetRgba( 0, 33, 140, 255, tf_passtime_crosshair_a.GetInt() );
+			SetRgba( 1, 33, 140, 255, tf_passtime_crosshair_a.GetInt() );
+		}
+		else
+		{
+			// fallback
+			SetRgba( 0, 255, 255, 0, tf_passtime_crosshair_a.GetInt() );
+			SetRgba( 1, 255, 255, 0, tf_passtime_crosshair_a.GetInt() );
+		}
+	}
+	else
+	{
+		SetRgba( 0, tf_passtime_crosshair_r.GetInt(), tf_passtime_crosshair_g.GetInt(), tf_passtime_crosshair_b.GetInt(), tf_passtime_crosshair_a.GetInt() );
+		SetRgba( 1, tf_passtime_crosshair_r.GetInt(), tf_passtime_crosshair_g.GetInt(), tf_passtime_crosshair_b.GetInt(), tf_passtime_crosshair_a.GetInt() );
+	}
+
 }
 
 void C_PasstimeBounceReticle::Hide()

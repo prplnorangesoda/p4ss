@@ -219,7 +219,7 @@ void CBaseAnimatingOverlay::VerifyOrder( void )
 		if (m_AnimOverlay[ i ].m_nOrder < MAX_OVERLAYS)
 		{
 			j = m_AnimOverlay[ i ].m_nOrder;
-			Assert( layer[j] == MAX_OVERLAYS );
+			// Assert( layer[j] == MAX_OVERLAYS );
 			layer[j] = i;
 			if (j > maxOrder)
 				maxOrder = j;

@@ -1,4 +1,4 @@
-$Macro OUTBINNAME "mod_tf"
+$Macro OUTBINNAME "p4ss"
 
 $Conditional "MOD_LAUNCHER" "1"
 
@@ -8,7 +8,7 @@ $Configuration
 {
 	$Compiler
 	{
-		$PreprocessorDefinitions	"$BASE;MOD_APPID=243750" // Replace with your appid if you ship on Steam.
+		$PreprocessorDefinitions	"$BASE;MOD_APPID=3554290" // Replace with your appid if you ship on Steam.
 	}
 }
 
@@ -17,6 +17,6 @@ $Project "Launcher Main (Mod TF)"
     $Folder "Resource Files" [$WINDOWS]
     {
         $File   "launcher_main_mod_tf.rc"
-        $File   "res\mod_tf.ico"
+        $File   "res\p4ss.ico"
     }
 }

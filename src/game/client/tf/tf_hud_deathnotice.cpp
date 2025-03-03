@@ -658,6 +658,8 @@ void CTFHudDeathNotice::Init()
 
 	// PASSTIME if this is called at level load or something we should check mode before this block
 	ListenForGameEvent( PasstimeGameEvents::BallGet::s_eventName );
+	ListenForGameEvent( PasstimeGameEvents::BallSplashed::s_eventName );
+	ListenForGameEvent( PasstimeGameEvents::BallDirected::s_eventName );
 	ListenForGameEvent( PasstimeGameEvents::BallStolen::s_eventName );
 	ListenForGameEvent( PasstimeGameEvents::Score::s_eventName );
 	ListenForGameEvent( PasstimeGameEvents::PassCaught::s_eventName );
@@ -1361,8 +1363,57 @@ void CTFHudDeathNotice::OnGameEvent( IGameEvent *event, int iDeathNoticeMsg )
 
 		Q_snprintf( msg.szIcon, sizeof(msg.szIcon), "d_%s", killedwith );
 	}
+	else if ( FStrEq( PasstimeGameEvents::BallSplashed::s_eventName, pszEventName ) )
+	{
+		PasstimeGameEvents::BallSplashed ev( event );
+		DeathNoticeItem &msg = m_DeathNotices[iDeathNoticeMsg];
+
+		const char *szPlayerName = g_PR->GetPlayerName( ev.attackerIndex );
+		Q_strncpy( msg.Killer.szName, szPlayerName,
+				   ARRAYSIZE( msg.Killer.szName ) );
+		msg.Killer.iTeam = g_PR->GetTeam( ev.attackerIndex );
+
+		if ( ev.isDirect )
+		{
+			Q_wcsncpy( msg.wzInfoText, g_pVGuiLocalize->Find( "#Msg_PasstimeSplashDirected" ), sizeof( msg.wzInfoText ) );
+		}
+		else
+		{
+			Q_wcsncpy( msg.wzInfoText, g_pVGuiLocalize->Find( "#Msg_PasstimeSplash" ), sizeof( msg.wzInfoText ) );
+		}
+
+		if ( GetLocalPlayerIndex() == ev.attackerIndex )
+			msg.bLocalPlayerInvolved = true;
+
+		Q_snprintf( msg.szIcon, sizeof( msg.szIcon ), "d_%s", ev.inflictorName );
+	}
+	// P4SS: add killfeed notifications here
+	else if ( FStrEq( PasstimeGameEvents::BallDirected::s_eventName, pszEventName ) )
+	{
+		PasstimeGameEvents::BallDirected ev( event );
+		DeathNoticeItem &msg = m_DeathNotices[iDeathNoticeMsg];
+
+		const char *szPlayerName = g_PR->GetPlayerName( ev.attackerIndex );
+		Q_strncpy( msg.Killer.szName, szPlayerName,
+				   ARRAYSIZE( msg.Killer.szName ) );
+		msg.Killer.iTeam = g_PR->GetTeam( ev.attackerIndex );
+
+		Q_wcsncpy( msg.wzInfoText,
+				   g_pVGuiLocalize->Find( "#Msg_PasstimeDirect" ),
+				   sizeof( msg.wzInfoText ) );
+
+		//const char *szInflictorEnt =
+		//CBaseEntity::Instance( ev.inflictorIndex )->GetClassname();
+
+		if ( GetLocalPlayerIndex() == ev.attackerIndex )
+			msg.bLocalPlayerInvolved = true;
+
+		Q_snprintf( msg.szIcon, sizeof( msg.szIcon ), "d_%s", ev.inflictorName );
+	}
 	else if ( FStrEq( PasstimeGameEvents::BallGet::s_eventName, pszEventName ) ) // passtime ball get
 	{
+		// P4SS: add killfeed notifications here
+
 		PasstimeGameEvents::BallGet ev( event );
 		DeathNoticeItem &msg = m_DeathNotices[ iDeathNoticeMsg ];
 

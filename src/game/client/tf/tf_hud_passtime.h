@@ -7,6 +7,7 @@
 
 #ifndef TF_HUD_PASSTIME_H
 #define TF_HUD_PASSTIME_H
+#include "c_tf_player.h"
 #ifdef _WIN32
 #pragma once
 #endif
@@ -73,10 +74,16 @@ public:
 	void Tick();
 	void Clear();
 	void SetControls( vgui::Label *pTitleLabel, vgui::Label *pDetailLabel, vgui::Label *pBonusLabel );
+	void SetControlShadows( vgui::Label *pTitleLabel, vgui::Label *pDetailLabel, vgui::Label *pBonusLabel );
 	void EnqueueSteal( C_TFPlayer *pAttacker, C_TFPlayer *pVictim );
 	void EnqueuePass( C_TFPlayer *pThrower, C_TFPlayer *pCatcher );
+	void EnqueueHandoff( C_TFPlayer *pThrower, C_TFPlayer *pCatcher );
 	void EnqueueInterception( C_TFPlayer *pThrower, C_TFPlayer *pCatcher );
+	void EnqueueSave( C_TFPlayer *pThrower, C_TFPlayer *pCatcher );
 	void EnqueueScore( C_TFPlayer *pThrower, C_TFPlayer *pAssister );
+	void EnqueueDeathbomb( C_TFPlayer *pThrower, C_TFPlayer *pAssister );
+	void EnqueuePanacea( C_TFPlayer *pThrower );
+	void EnqueueWinstrat( C_TFPlayer *pThrower );
 	void EnqueueGeneric( const char *pTitle, const char *pDetail, const char *pBonus );
 
 private:
@@ -85,11 +92,12 @@ private:
 
 	struct QueueElement 
 	{
-		static const size_t STRLEN_MAX = 128;
+		static const unsigned long STRLEN_MAX = 128;
 		QueueElement();
 		wchar_t title[STRLEN_MAX];
 		wchar_t detail[STRLEN_MAX];
 		wchar_t bonus[STRLEN_MAX];
+		int team = TF_TEAM_RED;
 	};
 
 	void SetPlayerName( C_TFPlayer *pPlayer, const char *pKey );
@@ -108,6 +116,10 @@ private:
 	vgui::Label *m_pTitleLabel;
 	vgui::Label *m_pDetailLabel;
 	vgui::Label *m_pBonusLabel;
+
+	vgui::Label *m_pTitleLabelShadow;
+	vgui::Label *m_pDetailLabelShadow;
+	vgui::Label *m_pBonusLabelShadow;
 	State m_state;
 	typedef CUtlQueue<QueueElement> Queue;
 	Queue m_queue;

@@ -1125,6 +1125,7 @@ CTFPlayer::CTFPlayer()
 	m_bAlreadyUsedExtendFreezeThisDeath = false;
 }
 
+
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -7155,6 +7156,39 @@ void CTFPlayer::CheckInstantLoadoutRespawn( void )
 		}
 	}
 }
+
+void CTFPlayer::Resupply( void )
+{
+	// Must be alive
+	if ( !IsAlive() )
+		return;
+
+	// In a respawn room of your own team
+	if ( !PointInRespawnRoom( this, WorldSpaceCenter(), true ) )
+		return;
+	
+	// Not in stalemate (beyond the change class period)
+	if ( TFGameRules()->InStalemate() && !TFGameRules()->CanChangeClassInStalemate() )
+		return;
+
+	// Not in Arena mode
+	if ( TFGameRules()->IsInArenaMode() == true )
+		return;
+
+	// Not if we're on the losing team
+	if ( TFGameRules()->State_Get() == GR_STATE_TEAM_WIN && TFGameRules()->GetWinningTeam() != GetTeamNumber() ) 
+		return;
+
+	ForceRegenerateAndRespawn();
+}
+
+void CC_Resupply( void )
+{
+	CTFPlayer *pPlayer = ToTFPlayer( UTIL_GetCommandClient() );
+
+	pPlayer->Resupply();
+}
+static ConCommand resupply( "resupply", CC_Resupply, "Resupply and respawn if inside a spawnroom" );
 
 class CGC_RespawnPostLoadoutChange : public GCSDK::CGCClientJob
 {
@@ -14785,11 +14819,7 @@ void CTFPlayer::CheatImpulseCommands( int iImpulse )
 						continue;
 
 					pWeapon->GiveDefaultAmmo();
-
-					if ( pWeapon->IsEnergyWeapon() )
-					{
-						pWeapon->WeaponRegenerate();
-					}
+					pWeapon->WeaponRegenerate();
 				}
 
 				m_Shared.m_flRageMeter = 100.f;

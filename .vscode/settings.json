@@ -1,0 +1,11 @@
+{
+  "clangd.arguments": [
+    "--compile-commands-dir=src"
+  ],
+  "editor.formatOnSave": false,
+  "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+  "cmake.ignoreCMakeListsMissing": true,
+  "[vdf]": {
+    "editor.defaultFormatter": "pfwobcke.vscode-vdf"
+  }
+}

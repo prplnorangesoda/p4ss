@@ -39,17 +39,25 @@ namespace PasstimeGameEvents
 	struct Score
 	{
 		Score( IGameEvent *pEvent );
-		Score( int scorerIndex, int assisterIndex, int numPoints );
-		Score( int scorerIndex_, int numPoints_ );
+		Score( int scorerIndex, int assisterIndex, int numPoints, bool isDeathBomb, bool isPanacea, bool isWinstrat );
+		Score( int scorerIndex_, int numPoints_, bool isPanacea_, bool isWinstrat_ );
 		void Fire();
 		
 		static const char *const s_eventName;
 		static const char *const s_keyScorerIndex;
 		static const char *const s_keyAssisterIndex;
 		static const char *const s_keyNumPoints;
+		static const char *const s_keyIsDeathBomb;
+		static const char *const s_keyIsPanacea;
+		static const char *const s_keyIsWinstrat;
+
 		int scorerIndex;
 		int assisterIndex;
 		int numPoints;
+
+		bool isDeathBomb;
+		bool isPanacea;
+		bool isWinstrat;
 	};
 
 	//-----------------------------------------------------------------------------
@@ -74,6 +82,7 @@ namespace PasstimeGameEvents
 		PassCaught( IGameEvent *pEvent );
 		PassCaught();
 		PassCaught( int passerIndex, int catcherIndex, float dist, float duration );
+		PassCaught( int passerIndex, int catcherIndex, float dist, float duration, bool isHandoff, bool isBlock );
 		void Fire();
 
 		static const char *const s_eventName;
@@ -81,10 +90,14 @@ namespace PasstimeGameEvents
 		static const char *const s_keyCatcherIndex;
 		static const char *const s_keyDist;
 		static const char *const s_keyDuration;
+		static const char *const s_keyIsHandoff;
+		static const char *const s_keyIsBlock;
 		int passerIndex;
 		int catcherIndex;
 		float dist;
 		float duration;
+		bool isHandoff;
+		bool isBlock;
 	};
 
 	//-----------------------------------------------------------------------------
@@ -115,6 +128,41 @@ namespace PasstimeGameEvents
 		static const char *const s_keyBlockerIndex;
 		int ownerIndex;
 		int blockerIndex;
+	};
+	//-----------------------------------------------------------------------------
+	struct BallDirected
+	{
+		BallDirected( IGameEvent *pEvent );
+		BallDirected( int attackerIndex, int inflictorIndex, const char *inflictorName );
+		BallDirected();
+
+		void Fire();
+
+		static const char *const s_eventName;
+		static const char *const s_keyAttackerIndex;
+		static const char *const s_keyInflictorIndex;
+		static const char *const s_keyInflictorName;
+
+		int attackerIndex;
+		int inflictorIndex;
+		const char *inflictorName;
+	};
+	struct BallSplashed
+	{
+		BallSplashed( IGameEvent *pEvent );
+		BallSplashed( int attackerIndex, const char *inflictorName, bool isDirect );
+		BallSplashed();
+		
+		void Fire();
+
+		static const char *const s_eventName;
+		static const char *const s_keyAttackerIndex;
+		static const char *const s_keyIsDirect;
+		static const char *const s_keyInflictorName;
+
+		int attackerIndex;
+		bool isDirect;
+		const char *inflictorName;
 	};
 }
 

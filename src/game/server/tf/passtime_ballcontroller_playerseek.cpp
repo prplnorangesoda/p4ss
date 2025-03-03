@@ -36,7 +36,7 @@ bool CPasstimeBallControllerPlayerSeek::Apply( CPasstimeBall *ball )
 //-----------------------------------------------------------------------------
 CTFPlayer *CPasstimeBallControllerPlayerSeek::FindTarget( CTFPlayer *pIgnorePlayer, const Vector& ballOrigin ) const
 {
-	CTFPlayer *pTarget = 0;
+	CTFPlayer *pTarget = 0;	
 	float closestPlayerDist = tf_passtime_ball_seek_range.GetFloat();
 	closestPlayerDist *= closestPlayerDist; // avoid some sqrts
 
@@ -82,6 +82,17 @@ bool CPasstimeBallControllerPlayerSeek::Seek( CPasstimeBall *ball, CTFPlayer *pT
 {
 	if ( !pTarget )
 		return false;
+
+	// P4SS: detect if ball is close to player during a pass and make a
+	// different sound
+	if ( pTarget )
+	{
+		ball->CreateMagnetSound();
+	}
+	else
+	{
+		ball->KillMagnetSound();
+	}
 
 	// taken from ballcontroller_homing
 	IPhysicsObject *pPhys = ball->VPhysicsGetObject();
