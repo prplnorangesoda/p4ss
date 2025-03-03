@@ -78,7 +78,8 @@ extern ConVar
 	p4ss_med_canpushball,
 	tf_passtime_pack_hp_per_sec,
 
-	p4ss_golden_goal;
+	p4ss_golden_goal,
+	p4ss_lock_eye_to_eye_los;
 
 enum class EPasstimeExperiment_Telepass { 
 	None,

@@ -1676,6 +1676,7 @@
 		"points" "byte"
 		"is_deathbomb" "bool"
 		"is_panacea" "bool"
+		"is_winstrat" "bool"
 	}
 
 	"pass_free"

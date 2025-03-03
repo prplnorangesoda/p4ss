@@ -62,6 +62,7 @@ public:
 
 	bool PlayerInGoalieZone( CTFPlayer *player );
 	bool GetPanacea() const;
+	bool GetWinstrat() const;
 
 	static CPasstimeBall *Create( Vector position, QAngle angles );
 
@@ -69,6 +70,7 @@ public:
 	void SetLastHomingTarget( CTFPlayer *pPlayer );
 
 	void SetPanacea( bool isPanacea );
+	void SetWinstrat( bool isWinstrat );
 
 	CTFPlayer *GetHomingTarget() const;
 	CTFPlayer *GetLastHomingTarget() const;
@@ -111,6 +113,7 @@ private:
 	bool m_bTrailActive;
 	bool m_bLeftOwner;
 	bool m_bPanacea; // where did the rules channel go
+	bool m_bWinstrat;
 	CSoundPatch	*m_pHumLoop;
 	CSoundPatch	*m_pBeepLoop;
 	CSoundPatch *m_pCloseToTarget;
