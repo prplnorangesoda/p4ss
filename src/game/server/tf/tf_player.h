@@ -119,6 +119,7 @@ public:
 	virtual void		ResetScores( void );
 	virtual void		UpdateOnRemove( void );
 	void				CheckInstantLoadoutRespawn( void );
+	void				Resupply( void );
 
 	virtual void		ResetPerRoundStats( void );
 
