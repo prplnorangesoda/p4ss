@@ -789,11 +789,11 @@
 		"tall"			"30"
 		"visible"		"0"
 		"PaintBackgroundType"	"0"
-
+    
 		"font"			"HudFontSmallBold"
 		"command" 		"engine quit prompt"
 		"labeltext"		"Quit"
-		"OnlyInGame"	"1"
+		"OnlyAtMenu"	"1"
 
 		"border_default"	"MainMenuButtonDefault"
 		"border_armed"		"MainMenuButtonArmed"
