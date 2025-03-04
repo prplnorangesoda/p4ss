@@ -46,6 +46,8 @@ public:
 	bool BCanPlayerPickUpBall( CTFPlayer *pPlayer, HudNotification_t *pReason = 0 ) const;
 	CPasstimeBall *GetBall() const;
 
+	bool BPlayerInWinstratZone( CTFPlayer *pPlayer ) const;
+
 	void OnBallCarrierDamaged( CTFPlayer *pPlayer, CTFPlayer *pAttacker, const CTakeDamageInfo& info );
 	void OnBallCarrierMeleeHit( CTFPlayer *pPlayer, CTFPlayer *pAttacker );
 	void OnPlayerTouchBall( CTFPlayer *pPlayer, CPasstimeBall *pBall );

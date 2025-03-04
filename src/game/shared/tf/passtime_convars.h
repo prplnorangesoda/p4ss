@@ -74,11 +74,12 @@ extern ConVar
 	tf_passtime_powerball_decay_delay,
 	tf_passtime_pack_range,
 	tf_passtime_pack_speed,
-	tf_passtime_med_cansplash,
-	tf_passtime_med_canpushball,
+	p4ss_med_cansplash,
+	p4ss_med_canpushball,
 	tf_passtime_pack_hp_per_sec,
 
-	tf_passtime_golden_goal;
+	p4ss_golden_goal,
+	p4ss_lock_eye_to_eye_los;
 
 enum class EPasstimeExperiment_Telepass { 
 	None,

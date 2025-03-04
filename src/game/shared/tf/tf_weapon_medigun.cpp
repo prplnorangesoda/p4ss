@@ -1514,11 +1514,6 @@ void CWeaponMedigun::SubtractChargeAndUpdateDeployState( float flSubtractAmount,
 //-----------------------------------------------------------------------------
 void CWeaponMedigun::ItemPostFrame( void )
 {
-	// If we're paused, we surely do not want to do any of this.
-	// Fix for a bug that allowed mediguns to charge whilst paused.
-	if ( engine->IsPaused() )
-		return;
-
 	CTFPlayer *pOwner = ToTFPlayer( GetOwnerEntity() );
 	if ( !pOwner )
 		return;

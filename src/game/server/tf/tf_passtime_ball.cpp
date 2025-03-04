@@ -411,6 +411,7 @@ void CPasstimeBall::Spawn()
 	m_eState = STATE_OUT_OF_PLAY;
 
 	SetPanacea(true);
+	SetWinstrat(false);
 }
 
 //-----------------------------------------------------------------------------
@@ -855,11 +856,6 @@ void CPasstimeBall::DefaultThink()
 		return;
 	}
 
-	if ( GetThrower() )
-	{
-		DevMsg( "we have a throwererr \n" );
-	}
-
 	//
 	// Eject the ball if the carrier isn't allowed to carry it
 	//
@@ -874,6 +870,11 @@ void CPasstimeBall::DefaultThink()
 			SetPanacea( false );
 		}
 		
+		if ( g_pPasstimeLogic->BPlayerInWinstratZone( pCarrier ) )
+		{
+			SetWinstrat( true );
+		}
+
 		if ( !g_pPasstimeLogic->BCanPlayerPickUpBall( pCarrier, &ejectReason ) )
 		{
 			if ( ejectReason && TFGameRules() ) 
@@ -1156,7 +1157,6 @@ void CPasstimeBall::TouchPlayer( CTFPlayer *pPlayer )
 		}
 	}
 
-
 	if ( bCanPickUp )
 	{
 		m_bTouchedSinceSpawn = true;
@@ -1177,6 +1177,12 @@ void CPasstimeBall::TouchPlayer( CTFPlayer *pPlayer )
 
 		BlockReflect( pPlayer, pPlayer->GetAbsOrigin(), vecBallVel );
 		BlockDamage( pPlayer, vecBallVel );
+
+		if ( GetThrower() )
+		{
+			// ball was in flight
+			PasstimeGameEvents::BallBlocked( GetThrower()->entindex(), pPlayer->entindex() ).Fire();
+		}
 			
 		CPasstimeBallController::DisableOn( this );
 		m_iCollisionCount++;
@@ -1449,6 +1455,13 @@ bool CPasstimeBall::GetPanacea() const { return m_bPanacea; }
 void CPasstimeBall::SetPanacea(bool isPanacea) {
 	m_bPanacea = isPanacea;
 }
+
+//----------------------------------------------------------------------------
+
+bool CPasstimeBall::GetWinstrat() const { return m_bWinstrat; }
+
+void CPasstimeBall::SetWinstrat( bool isWinstrat ) { m_bWinstrat = isWinstrat; }
+
 
 //-----------------------------------------------------------------------------
 void CPasstimeBall::Deflected(CBaseEntity *pDeflectedBy, Vector& vecDir )
